@@ -2,12 +2,11 @@ package maybe_all_here.userservice.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor
 public class ChangeEmailRequest {
 
     @Email(message = "이메일 형식을 지켜 작성해주세요.")
