@@ -1,7 +1,7 @@
 package maybe_all_here.mileageservice.service.util;
 
 import maybe_all_here.mileageservice.domain.Mileage;
-import maybe_all_here.mileageservice.dto.MileageResponse;
+import maybe_all_here.mileageservice.dto.mileage.MileageResponse;
 
 public class MileageMapper {
 
