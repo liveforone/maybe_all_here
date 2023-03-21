@@ -18,12 +18,12 @@ public class Mileage {
     @Column(unique = true, nullable = false)
     private String email;
 
-    private long mileage;
+    private long mileagePoint;
 
     @Builder
-    public Mileage(Long id, String email, long mileage) {
+    public Mileage(Long id, String email, long mileagePoint) {
         this.id = id;
         this.email = email;
-        this.mileage = mileage;
+        this.mileagePoint = mileagePoint;
     }
 }

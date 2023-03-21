@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 public class MileageResponse {
 
     private String email;
-    private long mileage;
+    private long mileagePoint;
 }
