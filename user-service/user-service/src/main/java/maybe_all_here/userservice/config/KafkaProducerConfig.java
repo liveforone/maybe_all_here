@@ -1,8 +1,8 @@
 package maybe_all_here.userservice.config;
 
-import com.fasterxml.jackson.databind.ser.std.StringSerializer;
 import maybe_all_here.userservice.kafka.constant.KafkaServer;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
