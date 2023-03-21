@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping
+@RequestMapping(FallbackUrl.BASE)
 public class FallbackController {
 
     @GetMapping(FallbackUrl.USER)
