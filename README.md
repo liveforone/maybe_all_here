@@ -35,6 +35,13 @@
 * feign client를 사용할 경우 반드시 서킷브레이커 넣는다.
 * kafka producer의 경우에만 gson 넣는다.
 * 1:1 인경우에는 fk(외부식별자) 역할을 하는 컬럼에 unique 걸기
+* 서킷브레이커에서는 서킷브레이커가 활성화가 되면(null이면) 새 빈 객체를 new 생성자로 생성해 리턴해야한다. 그래야 mapper에서 정상적인 처리가 가능해진다.
+
+## 카프카 로그가 미친 듯이 내려갈때
+* 카프카와 주키퍼 로그가 저장된 var폴더에서 로그 기록 두 폴더를 모두 삭제하고 카프카를 재시작하면된다.
+
+## 카프카 설정시
+* serial and deserial 은 import org.apache.kafka.common.serialization.StringDeserializer; 를 사용해야 에러가 안뜬다.
 
 ## 프로젝트 후 
 * 컬럼에 unique 걸려있는거 확인하고
