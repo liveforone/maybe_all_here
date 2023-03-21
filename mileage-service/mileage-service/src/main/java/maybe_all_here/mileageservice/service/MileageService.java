@@ -18,7 +18,7 @@ public class MileageService {
         Mileage mileage = mileageRepository.getMileageByEmail(email);
 
         if (CommonUtils.isNull(mileage)) {
-            return null;
+            return new MileageResponse();
         }
 
         return MileageMapper.entityToDto(mileage);
