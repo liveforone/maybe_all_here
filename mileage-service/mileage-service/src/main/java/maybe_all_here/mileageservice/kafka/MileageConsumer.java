@@ -4,8 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import maybe_all_here.mileageservice.dto.updateMileage.AccumulateRequest;
+import maybe_all_here.mileageservice.dto.updateMileage.UsingMileageRequest;
 import maybe_all_here.mileageservice.kafka.constant.KafkaLog;
 import maybe_all_here.mileageservice.kafka.constant.Topic;
+import maybe_all_here.mileageservice.kafka.util.AccumulatePolicy;
 import maybe_all_here.mileageservice.repository.MileageRepository;
 import maybe_all_here.mileageservice.service.util.MileageMapper;
 import maybe_all_here.mileageservice.utility.CommonUtils;
@@ -34,5 +37,31 @@ public class MileageConsumer {
             mileageRepository.save(MileageMapper.createMileage(email));
             log.info(KafkaLog.CREATE_MILEAGE_SUCCESS.getValue());
         }
+    }
+
+    @KafkaListener(topics = Topic.INCREASE_MILEAGE)
+    @Transactional
+    public void increaseMileage(String kafkaMessage) throws JsonProcessingException {
+        log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        AccumulateRequest request = objectMapper.readValue(kafkaMessage, AccumulateRequest.class);
+
+        long calculatedMileage = AccumulatePolicy.calculateAccumulate(request);
+
+        mileageRepository.increaseMileage(calculatedMileage, request.getEmail());
+        log.info(KafkaLog.INCREASE_MILEAGE_SUCCESS.getValue());
+    }
+
+    @KafkaListener(topics = Topic.DECREASE_MILEAGE)
+    @Transactional
+    public void decreaseMileage(String kafkaMessage) throws JsonProcessingException {
+        log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        UsingMileageRequest request = objectMapper.readValue(kafkaMessage, UsingMileageRequest.class);
+
+        mileageRepository.decreaseMileage(request.getSpentMileage(), request.getEmail());
+        log.info(KafkaLog.DECREASE_MILEAGE_SUCCESS.getValue());
     }
 }
