@@ -48,7 +48,7 @@ public class MemberService {
         MileageResponse mileage = circuitBreakerFactory
                 .create(CircuitLog.MEMBER_CIRCUIT_LOG.getValue())
                 .run(() -> mileageFeignService.getMyMileage(email),
-                        throwable -> null
+                        throwable -> new MileageResponse()
                 );
 
         return MemberMapper.createMemberInfo(member, mileage);
