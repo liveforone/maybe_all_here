@@ -47,7 +47,7 @@ public class MemberMapper {
                 .email(member.getEmail())
                 .realName(member.getRealName())
                 .auth(member.getAuth())
-                .mileage((CommonUtils.isNull(mileageResponse) ? 0 : mileageResponse.getMileage()))
+                .mileagePoint((CommonUtils.isNull(mileageResponse) ? 0 : mileageResponse.getMileagePoint()))
                 .build();
     }
 }

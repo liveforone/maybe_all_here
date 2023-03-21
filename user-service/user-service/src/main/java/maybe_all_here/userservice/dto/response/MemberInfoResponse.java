@@ -15,6 +15,6 @@ public class MemberInfoResponse {
     private Long id;
     private String email;
     private String realName;
-    private long mileage;
+    private long mileagePoint;
     private Role auth;
 }
