@@ -2,7 +2,7 @@ package maybe_all_here.mileageservice.service;
 
 import lombok.RequiredArgsConstructor;
 import maybe_all_here.mileageservice.domain.Mileage;
-import maybe_all_here.mileageservice.dto.MileageResponse;
+import maybe_all_here.mileageservice.dto.mileage.MileageResponse;
 import maybe_all_here.mileageservice.repository.MileageRepository;
 import maybe_all_here.mileageservice.service.util.MileageMapper;
 import maybe_all_here.mileageservice.utility.CommonUtils;
