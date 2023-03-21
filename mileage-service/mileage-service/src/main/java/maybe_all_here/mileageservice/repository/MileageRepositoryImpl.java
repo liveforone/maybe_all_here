@@ -18,4 +18,18 @@ public class MileageRepositoryImpl implements MileageCustomRepository {
                 .where(mileage.email.eq(email))
                 .fetchOne();
     }
+
+    public void increaseMileage(long calculatedMileage, String email) {
+        queryFactory.update(mileage)
+                .set(mileage.mileagePoint, mileage.mileagePoint.add(calculatedMileage))
+                .where(mileage.email.eq(email))
+                .execute();
+    }
+
+    public void decreaseMileage(long spentMileage, String email) {
+        queryFactory.update(mileage)
+                .set(mileage.mileagePoint, mileage.mileagePoint.add(-spentMileage))
+                .where(mileage.email.eq(email))
+                .execute();
+    }
 }
