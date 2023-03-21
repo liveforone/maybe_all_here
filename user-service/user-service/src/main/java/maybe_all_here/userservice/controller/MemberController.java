@@ -10,7 +10,12 @@ import maybe_all_here.userservice.controller.constant.MemberUrl;
 import maybe_all_here.userservice.controller.constant.ParamConstant;
 import maybe_all_here.userservice.controller.restResponse.RestResponse;
 import maybe_all_here.userservice.domain.Role;
-import maybe_all_here.userservice.dto.*;
+import maybe_all_here.userservice.dto.changeInfo.ChangeEmailRequest;
+import maybe_all_here.userservice.dto.changeInfo.ChangePasswordRequest;
+import maybe_all_here.userservice.dto.response.MemberInfoResponse;
+import maybe_all_here.userservice.dto.response.MemberResponse;
+import maybe_all_here.userservice.dto.signupAndLogin.MemberLoginRequest;
+import maybe_all_here.userservice.dto.signupAndLogin.MemberSignupRequest;
 import maybe_all_here.userservice.jwt.TokenInfo;
 import maybe_all_here.userservice.jwt.constant.JwtConstant;
 import maybe_all_here.userservice.kafka.UserProducer;
@@ -119,15 +124,14 @@ public class MemberController {
 
     @GetMapping(MemberUrl.MY_PAGE)
     @LogExecutionTime
-    public ResponseEntity<MemberResponse> myPage(Principal principal) {
-        MemberResponse member = memberService.getMemberByEmail(principal.getName());
-
+    public ResponseEntity<MemberInfoResponse> myPage(Principal principal) {
+        MemberInfoResponse member = memberService.getMemberInfo(principal.getName());
         return ResponseEntity.ok(member);
     }
 
     @GetMapping(MemberUrl.USER_INFO)
     @LogExecutionTime
-    public ResponseEntity<?> userInfo(@PathVariable(ParamConstant.EMAIL) String email) {
+    public ResponseEntity<MemberResponse> userInfo(@PathVariable(ParamConstant.EMAIL) String email) {
         MemberResponse member = memberService.getMemberByEmail(email);
 
         return ResponseEntity.ok(member);
