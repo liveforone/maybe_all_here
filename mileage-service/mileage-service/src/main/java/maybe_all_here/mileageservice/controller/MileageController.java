@@ -3,7 +3,7 @@ package maybe_all_here.mileageservice.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import maybe_all_here.mileageservice.controller.constant.ParamConstant;
-import maybe_all_here.mileageservice.dto.MileageResponse;
+import maybe_all_here.mileageservice.dto.mileage.MileageResponse;
 import maybe_all_here.mileageservice.service.MileageService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
