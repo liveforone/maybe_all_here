@@ -1,4 +1,4 @@
-package maybe_all_here.mileageservice.dto;
+package maybe_all_here.mileageservice.dto.mileage;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
