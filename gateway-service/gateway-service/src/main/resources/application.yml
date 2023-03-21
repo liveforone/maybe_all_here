@@ -35,18 +35,18 @@ spring:
               args:
                 name: user-service
                 fallbackuri: forward:/fallback/user
-#        - id: bankbook-service
-#          uri: lb://BANKBOOK-SERVICE
-#          predicates:
-#            - Path=/bankbook-service/**
-#          filters:
-#            - RemoveRequestHeader=Cookie
-#            - RewritePath=/bankbook-service/(?<segment>.*), /$\{segment}
-#            - AuthorizationHeaderFilter
-#            - name: CircuitBreaker
-#              args:
-#                name: bankbook-service
-#                fallbackuri: forward:/fallback/bankbook
+        - id: mileage-service
+          uri: lb://MILEAGE-SERVICE
+          predicates:
+            - Path=/mileage-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/mileage-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
+            - name: CircuitBreaker
+              args:
+                name: mileage-service
+                fallbackuri: forward:/fallback/mileage
 
 management:
   endpoints:

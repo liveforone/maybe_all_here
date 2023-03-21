@@ -26,4 +26,9 @@ public class FallbackController {
     public Mono<String> fallbackUserDelete() {
         return Mono.just(FallbackMessage.USER_LOG);
     }
+
+    @GetMapping(FallbackUrl.MILEAGE)
+    public Mono<String> fallbackMileageGet() {
+        return Mono.just(FallbackMessage.MILEAGE_LOG);
+    }
 }
