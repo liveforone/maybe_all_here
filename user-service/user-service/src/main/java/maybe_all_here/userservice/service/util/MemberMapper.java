@@ -1,8 +1,11 @@
 package maybe_all_here.userservice.service.util;
 
 import maybe_all_here.userservice.domain.Member;
-import maybe_all_here.userservice.dto.MemberResponse;
-import maybe_all_here.userservice.dto.MemberSignupRequest;
+import maybe_all_here.userservice.dto.mileage.MileageResponse;
+import maybe_all_here.userservice.dto.response.MemberInfoResponse;
+import maybe_all_here.userservice.dto.response.MemberResponse;
+import maybe_all_here.userservice.dto.signupAndLogin.MemberSignupRequest;
+import maybe_all_here.userservice.utility.CommonUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,5 +36,18 @@ public class MemberMapper {
                 .stream()
                 .map(MemberMapper::entityToDto)
                 .collect(Collectors.toList());
+    }
+
+    public static MemberInfoResponse createMemberInfo(
+            Member member,
+            MileageResponse mileageResponse
+    ) {
+        return MemberInfoResponse.builder()
+                .id(member.getId())
+                .email(member.getEmail())
+                .realName(member.getRealName())
+                .auth(member.getAuth())
+                .mileage((CommonUtils.isNull(mileageResponse) ? 0 : mileageResponse.getMileage()))
+                .build();
     }
 }
