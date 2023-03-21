@@ -1,4 +1,4 @@
-package maybe_all_here.userservice.dto;
+package maybe_all_here.userservice.dto.changeInfo;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

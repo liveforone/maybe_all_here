@@ -1,4 +1,4 @@
-package maybe_all_here.userservice.dto;
+package maybe_all_here.userservice.dto.signupAndLogin;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

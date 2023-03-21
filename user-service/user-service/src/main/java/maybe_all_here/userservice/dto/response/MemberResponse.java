@@ -1,4 +1,4 @@
-package maybe_all_here.userservice.dto;
+package maybe_all_here.userservice.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
