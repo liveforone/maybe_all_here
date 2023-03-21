@@ -1,16 +1,22 @@
 package maybe_all_here.userservice.service;
 
 import lombok.RequiredArgsConstructor;
+import maybe_all_here.userservice.domain.Member;
 import maybe_all_here.userservice.domain.Role;
-import maybe_all_here.userservice.dto.ChangeEmailRequest;
-import maybe_all_here.userservice.dto.MemberLoginRequest;
-import maybe_all_here.userservice.dto.MemberResponse;
-import maybe_all_here.userservice.dto.MemberSignupRequest;
+import maybe_all_here.userservice.dto.changeInfo.ChangeEmailRequest;
+import maybe_all_here.userservice.dto.mileage.MileageResponse;
+import maybe_all_here.userservice.dto.response.MemberInfoResponse;
+import maybe_all_here.userservice.dto.signupAndLogin.MemberLoginRequest;
+import maybe_all_here.userservice.dto.response.MemberResponse;
+import maybe_all_here.userservice.dto.signupAndLogin.MemberSignupRequest;
+import maybe_all_here.userservice.feignClient.MileageFeignService;
 import maybe_all_here.userservice.jwt.JwtTokenProvider;
 import maybe_all_here.userservice.jwt.TokenInfo;
 import maybe_all_here.userservice.repository.MemberRepository;
+import maybe_all_here.userservice.service.constant.CircuitLog;
 import maybe_all_here.userservice.service.util.MemberMapper;
 import maybe_all_here.userservice.service.util.PasswordUtils;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -28,11 +34,24 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
+    private final MileageFeignService mileageFeignService;
+    private final CircuitBreakerFactory<?, ?> circuitBreakerFactory;
 
     private static final String ADMIN = "admin@intelligentBank.com";
 
     public MemberResponse getMemberByEmail(String email) {
         return MemberMapper.entityToDto(memberRepository.findByEmail(email));
+    }
+
+    public MemberInfoResponse getMemberInfo(String email) {
+        Member member = memberRepository.findByEmail(email);
+        MileageResponse mileage = circuitBreakerFactory
+                .create(CircuitLog.MEMBER_CIRCUIT_LOG.getValue())
+                .run(() -> mileageFeignService.getMyMileage(email),
+                        throwable -> null
+                );
+
+        return MemberMapper.createMemberInfo(member, mileage);
     }
 
     /*
