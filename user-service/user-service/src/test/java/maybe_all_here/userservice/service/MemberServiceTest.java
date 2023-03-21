@@ -2,8 +2,8 @@ package maybe_all_here.userservice.service;
 
 import jakarta.persistence.EntityManager;
 import maybe_all_here.userservice.domain.Role;
-import maybe_all_here.userservice.dto.ChangeEmailRequest;
-import maybe_all_here.userservice.dto.MemberSignupRequest;
+import maybe_all_here.userservice.dto.changeInfo.ChangeEmailRequest;
+import maybe_all_here.userservice.dto.signupAndLogin.MemberSignupRequest;
 import maybe_all_here.userservice.validator.MemberValidator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
