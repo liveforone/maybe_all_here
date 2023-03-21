@@ -13,6 +13,7 @@ import maybe_all_here.userservice.domain.Role;
 import maybe_all_here.userservice.dto.*;
 import maybe_all_here.userservice.jwt.TokenInfo;
 import maybe_all_here.userservice.jwt.constant.JwtConstant;
+import maybe_all_here.userservice.kafka.UserProducer;
 import maybe_all_here.userservice.service.MemberService;
 import maybe_all_here.userservice.validator.MemberValidator;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,7 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
+    private final UserProducer userProducer;
     private final MemberValidator memberValidator;
 
     @GetMapping(MemberUrl.HOME)
@@ -50,11 +52,13 @@ public class MemberController {
             return RestResponse.validError(bindingResult);
         }
 
-        if (memberValidator.isDuplicateEmail(memberSignupRequest.getEmail())) {
+        String email = memberSignupRequest.getEmail();
+        if (memberValidator.isDuplicateEmail(email)) {
             return RestResponse.duplicateEmail();
         }
 
         memberService.signup(memberSignupRequest);
+        userProducer.createMileage(email);
         log.info(ControllerLog.SIGNUP_SUCCESS.getValue());
 
         return RestResponse.signupSuccess();
@@ -74,11 +78,13 @@ public class MemberController {
             return RestResponse.validError(bindingResult);
         }
 
-        if (memberValidator.isDuplicateEmail(memberSignupRequest.getEmail())) {
+        String email = memberSignupRequest.getEmail();
+        if (memberValidator.isDuplicateEmail(email)) {
             return RestResponse.duplicateEmail();
         }
 
         memberService.signupSeller(memberSignupRequest);
+        userProducer.createMileage(email);
         log.info(ControllerLog.SIGNUP_SUCCESS.getValue());
 
         return RestResponse.signupSuccess();
