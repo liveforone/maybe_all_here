@@ -18,6 +18,6 @@ public class UserProducer {
     public void createMileage(String email) {
         String jsonOrder = gson.toJson(email);
 
-        kafkaTemplate.send(Topic.REQUEST_CREATE_MILEAGE, jsonOrder);
+        kafkaTemplate.send(Topic.CREATE_MILEAGE, jsonOrder);
     }
 }
