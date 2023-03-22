@@ -1,4 +1,4 @@
-package may_all_here.shopservice.dto;
+package may_all_here.shopservice.dto.shop;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
