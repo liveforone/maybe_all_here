@@ -47,6 +47,18 @@ spring:
               args:
                 name: mileage-service
                 fallbackuri: forward:/fallback/mileage
+        - id: shop-service
+          uri: lb://SHOP-SERVICE
+          predicates:
+            - Path=/shop-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/shop-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
+            - name: CircuitBreaker
+              args:
+                name: shop-service
+                fallbackuri: forward:/fallback/shop
 
 management:
   endpoints:
