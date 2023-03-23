@@ -1,4 +1,4 @@
-package may_all_here.shopservice.feignClient;
+package may_all_here.shopservice.feignClient.constant;
 
 public class MemberUrl {
 
