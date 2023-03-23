@@ -60,7 +60,18 @@ public class ShopController {
         return ResponseEntity.ok(shop);
     }
 
+    @GetMapping(ShopUrl.SHOP_SELLER_PAGE)
+    public ResponseEntity<?> shopSellerPage(
+            @PathVariable(ParamConstant.EMAIL) String email
+    ) {
+        ShopResponse shop = shopService.getShopByEmail(email);
 
+        if (CommonUtils.isNull(shop)) {
+            return RestResponse.shopIsNull();
+        }
+
+        return ResponseEntity.ok(shop);
+    }
 
 //    @PatchMapping
 }
