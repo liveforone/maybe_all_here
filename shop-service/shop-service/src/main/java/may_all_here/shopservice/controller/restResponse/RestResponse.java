@@ -34,4 +34,10 @@ public class RestResponse {
                 .status(HttpStatus.CREATED)
                 .body(ResponseMessage.SHOP_CREATE_SUCCESS.getValue());
     }
+
+    public static ResponseEntity<?> shopIsNull() {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(ResponseMessage.SHOP_IS_NULL.getValue());
+    }
 }
