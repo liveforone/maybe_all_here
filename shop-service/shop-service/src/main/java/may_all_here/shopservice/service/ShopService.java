@@ -27,6 +27,16 @@ public class ShopService {
         return ShopMapper.entityToDtoDetail(shop);
     }
 
+    public ShopResponse getShopByEmail(String email) {
+        Shop shop = shopRepository.findShopByEmail(email);
+
+        if (CommonUtils.isNull(shop)) {
+            return new ShopResponse();
+        }
+
+        return ShopMapper.entityToDtoDetail(shop);
+    }
+
     @Transactional
     public Long createShop(ShopRequest shopRequest) {
         return shopRepository
