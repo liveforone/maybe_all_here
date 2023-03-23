@@ -1,9 +1,12 @@
 package may_all_here.shopservice.service;
 
 import lombok.RequiredArgsConstructor;
+import may_all_here.shopservice.domain.Shop;
 import may_all_here.shopservice.dto.shop.ShopRequest;
+import may_all_here.shopservice.dto.shop.ShopResponse;
 import may_all_here.shopservice.repository.ShopRepository;
 import may_all_here.shopservice.service.util.ShopMapper;
+import may_all_here.shopservice.utility.CommonUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +16,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class ShopService {
 
     private final ShopRepository shopRepository;
+
+    public ShopResponse getShopById(Long shopId) {
+        Shop shop = shopRepository.findShopById(shopId);
+
+        if (CommonUtils.isNull(shop)) {
+            return new ShopResponse();
+        }
+
+        return ShopMapper.entityToDtoDetail(shop);
+    }
 
     @Transactional
     public Long createShop(ShopRequest shopRequest) {
