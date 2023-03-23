@@ -4,16 +4,17 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import may_all_here.shopservice.controller.constant.ControllerLog;
+import may_all_here.shopservice.controller.constant.ParamConstant;
 import may_all_here.shopservice.controller.constant.ShopUrl;
 import may_all_here.shopservice.controller.restResponse.RestResponse;
 import may_all_here.shopservice.dto.shop.ShopRequest;
+import may_all_here.shopservice.dto.shop.ShopResponse;
 import may_all_here.shopservice.service.ShopService;
+import may_all_here.shopservice.utility.CommonUtils;
 import may_all_here.shopservice.validator.ShopValidator;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -45,4 +46,21 @@ public class ShopController {
 
         return RestResponse.createShopSuccess();
     }
+
+    @GetMapping(ShopUrl.SHOP_DETAIL)
+    public ResponseEntity<?> shopDetail(
+            @PathVariable(ParamConstant.SHOP_ID) Long shopId
+    ) {
+        ShopResponse shop = shopService.getShopById(shopId);
+
+        if (CommonUtils.isNull(shop)) {
+            return RestResponse.shopIsNull();
+        }
+
+        return ResponseEntity.ok(shop);
+    }
+
+
+
+//    @PatchMapping
 }
