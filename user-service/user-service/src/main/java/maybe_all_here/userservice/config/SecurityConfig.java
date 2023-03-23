@@ -43,6 +43,7 @@ public class SecurityConfig {
                                 MemberUrl.SIGNUP,
                                 MemberUrl.SELLER_SIGNUP,
                                 MemberUrl.LOGIN,
+                                MemberUrl.USER_INFO,
                                 MemberUrl.ACTUATOR
                         ).permitAll()
                         .requestMatchers(
