@@ -18,4 +18,10 @@ public class ShopRepositoryImpl implements ShopCustomRepository {
                 .where(shop.email.eq(email))
                 .fetchOne();
     }
+
+    public Shop findShopById(Long id) {
+        return queryFactory.selectFrom(shop)
+                .where(shop.id.eq(id))
+                .fetchOne();
+    }
 }
