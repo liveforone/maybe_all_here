@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import maybe_all_here.userservice.aop.stopwatch.LogExecutionTime;
 import maybe_all_here.userservice.controller.constant.ControllerLog;
 import maybe_all_here.userservice.controller.constant.MemberUrl;
-import maybe_all_here.userservice.controller.constant.ParamConstant;
 import maybe_all_here.userservice.controller.restResponse.RestResponse;
 import maybe_all_here.userservice.domain.Role;
 import maybe_all_here.userservice.dto.changeInfo.ChangeEmailRequest;
@@ -126,14 +125,6 @@ public class MemberController {
     @LogExecutionTime
     public ResponseEntity<MemberInfoResponse> myPage(Principal principal) {
         MemberInfoResponse member = memberService.getMemberInfo(principal.getName());
-        return ResponseEntity.ok(member);
-    }
-
-    @GetMapping(MemberUrl.USER_INFO)
-    @LogExecutionTime
-    public ResponseEntity<MemberResponse> userInfo(@PathVariable(ParamConstant.EMAIL) String email) {
-        MemberResponse member = memberService.getMemberByEmail(email);
-
         return ResponseEntity.ok(member);
     }
 
