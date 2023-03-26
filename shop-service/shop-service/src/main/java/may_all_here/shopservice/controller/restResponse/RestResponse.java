@@ -40,4 +40,8 @@ public class RestResponse {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(ResponseMessage.SHOP_IS_NULL.getValue());
     }
+
+    public static ResponseEntity<?> updateShopNameSuccess() {
+        return ResponseEntity.ok(ResponseMessage.SHOP_NAME_UPDATE_SUCCESS.getValue());
+    }
 }
