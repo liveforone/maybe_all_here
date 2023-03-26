@@ -36,4 +36,10 @@ public class ShopValidator {
 
         return !CommonUtils.isNull(shop);
     }
+
+    public boolean isNotExistShop(Long shopId) {
+        Shop shop = shopRepository.findShopById(shopId);
+
+        return CommonUtils.isNull(shop);
+    }
 }
