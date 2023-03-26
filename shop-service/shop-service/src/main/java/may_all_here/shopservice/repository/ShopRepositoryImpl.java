@@ -24,4 +24,11 @@ public class ShopRepositoryImpl implements ShopCustomRepository {
                 .where(shop.id.eq(id))
                 .fetchOne();
     }
+
+    public void updateShopName(String shopName, Long shopId) {
+        queryFactory.update(shop)
+                .set(shop.shopName, shopName)
+                .where(shop.id.eq(shopId))
+                .execute();
+    }
 }

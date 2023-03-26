@@ -7,4 +7,5 @@ public interface ShopCustomRepository {
     Shop findShopByEmail(String email);
 
     Shop findShopById(Long id);
+    void updateShopName(String shopName, Long shopId);
 }
