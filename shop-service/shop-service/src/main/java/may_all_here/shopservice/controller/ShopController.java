@@ -87,5 +87,20 @@ public class ShopController {
 
         return RestResponse.updateShopNameSuccess();
     }
+
+    @PatchMapping(ShopUrl.CHANGE_SHOP_ADDRESS)
+    public ResponseEntity<?> changeShopAddress(
+            @PathVariable(ParamConstant.SHOP_ID) Long shopId,
+            @RequestBody String address
+    ) {
+        if (shopValidator.isNotExistShop(shopId)) {
+            return RestResponse.shopIsNull();
+        }
+
+        shopService.updateAddress(address, shopId);
+        log.info(ControllerLog.UPDATE_SHOP_ADDRESS_SUCCESS.getValue() + shopId);
+
+        return RestResponse.updateAddressSuccess();
+    }
     //address, tel
 }
