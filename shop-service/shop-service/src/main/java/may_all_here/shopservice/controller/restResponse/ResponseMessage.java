@@ -12,7 +12,8 @@ public enum ResponseMessage {
     SHOP_CREATE_SUCCESS("상점 개설에 성공하였습니다.\n축하합니다."),
     SHOP_IS_NULL("상점이 존재하지 않습니다."),
     SHOP_NAME_UPDATE_SUCCESS("상호명 변경에 성공하였습니다."),
-    SHOP_ADDRESS_UPDATE_SUCCESS("상점 주소 변경에 성공하였습니다.");
+    SHOP_ADDRESS_UPDATE_SUCCESS("상점 주소 변경에 성공하였습니다."),
+    SHOP_TEL_UPDATE_SUCCESS("상점 전화번호 변경에 성공하였습니다.");
 
     private final String value;
 }
