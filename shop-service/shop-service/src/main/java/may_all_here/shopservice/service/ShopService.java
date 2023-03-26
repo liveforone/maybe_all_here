@@ -43,4 +43,9 @@ public class ShopService {
                 .save(ShopMapper.dtoToEntity(shopRequest))
                 .getId();
     }
+
+    @Transactional
+    public void updateShopName(String shopName, Long shopId) {
+        shopRepository.updateShopName(shopName, shopId);
+    }
 }
