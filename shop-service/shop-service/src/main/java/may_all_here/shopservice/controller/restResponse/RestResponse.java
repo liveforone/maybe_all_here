@@ -44,4 +44,8 @@ public class RestResponse {
     public static ResponseEntity<?> updateShopNameSuccess() {
         return ResponseEntity.ok(ResponseMessage.SHOP_NAME_UPDATE_SUCCESS.getValue());
     }
+
+    public static ResponseEntity<?> updateAddressSuccess() {
+        return ResponseEntity.ok(ResponseMessage.SHOP_ADDRESS_UPDATE_SUCCESS.getValue());
+    }
 }
