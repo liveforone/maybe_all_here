@@ -102,5 +102,19 @@ public class ShopController {
 
         return RestResponse.updateAddressSuccess();
     }
-    //address, tel
+
+    @PatchMapping(ShopUrl.CHANGE_SHOP_TEL)
+    public ResponseEntity<?> changeShopTel(
+            @PathVariable(ParamConstant.SHOP_ID) Long shopId,
+            @RequestBody String tel
+    ) {
+        if (shopValidator.isNotExistShop(shopId)) {
+            return RestResponse.shopIsNull();
+        }
+
+        shopService.updateTel(tel, shopId);
+        log.info(ControllerLog.UPDATE_SHOP_TEL_SUCCESS.getValue() + shopId);
+
+        return RestResponse.updateTelSuccess();
+    }
 }
