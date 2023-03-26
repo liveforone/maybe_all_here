@@ -11,4 +11,6 @@ public interface ShopCustomRepository {
     void updateShopName(String shopName, Long shopId);
 
     void updateAddress(String address, Long shopId);
+
+    void updateTel(String tel, Long shopId);
 }
