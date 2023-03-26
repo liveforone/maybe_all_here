@@ -73,5 +73,19 @@ public class ShopController {
         return ResponseEntity.ok(shop);
     }
 
-//    @PatchMapping
+    @PatchMapping(ShopUrl.CHANGE_SHOP_NAME)
+    public ResponseEntity<?> changeShopName(
+            @PathVariable(ParamConstant.SHOP_ID) Long shopId,
+            @RequestBody String shopName
+    ) {
+        if (shopValidator.isNotExistShop(shopId)) {
+            return RestResponse.shopIsNull();
+        }
+
+        shopService.updateShopName(shopName, shopId);
+        log.info(ControllerLog.UPDATE_SHOP_NAME_SUCCESS.getValue() + shopId);
+
+        return RestResponse.updateShopNameSuccess();
+    }
+    //address, tel
 }
