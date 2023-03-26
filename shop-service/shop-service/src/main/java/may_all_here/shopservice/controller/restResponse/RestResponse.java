@@ -48,4 +48,8 @@ public class RestResponse {
     public static ResponseEntity<?> updateAddressSuccess() {
         return ResponseEntity.ok(ResponseMessage.SHOP_ADDRESS_UPDATE_SUCCESS.getValue());
     }
+
+    public static ResponseEntity<?> updateTelSuccess() {
+        return ResponseEntity.ok(ResponseMessage.SHOP_TEL_UPDATE_SUCCESS.getValue());
+    }
 }
