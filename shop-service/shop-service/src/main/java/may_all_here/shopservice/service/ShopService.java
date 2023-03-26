@@ -53,4 +53,9 @@ public class ShopService {
     public void updateAddress(String address, Long shopId) {
         shopRepository.updateAddress(address, shopId);
     }
+
+    @Transactional
+    public void updateTel(String tel, Long shopId) {
+        shopRepository.updateTel(tel, shopId);
+    }
 }
