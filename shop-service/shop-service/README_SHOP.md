@@ -21,6 +21,9 @@
 [POST] /create-shop : 상점 개설, auth == SELLER
 [GET] /shop/{shopId} : 상점 상세조회
 [GET] /shop/info/{email} : 상점 정보 상세 페이지, 상점의 주인만 접근 가능
+[PATCH] /shop/change-name/{shopId} : 상호 변경, 상점의 주인만 접근 가능
+[PATCH] /shop/change-address/{shopId} : 상점 주소 변경, 상점의 주인만 접근 가능
+[PATCH] /shop/change-tel/{shopId} : 상점 전화번호 변경, 상점의 주인만 접근 가능
 ```
 
 ## 시큐리티가 있는 서비스에서 데이터를 가져올때
