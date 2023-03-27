@@ -103,6 +103,26 @@ class ShopServiceTest {
     }
 
     @Test
-    void updateTel() {
+    @Transactional
+    void updateTelTest() {
+        //given
+        String shopName = "test4";
+        String address = "seoul, S.Korea";
+        String tel = "07011111111";
+        String email = "test1234@gmail.com";
+        Long shopId = createShop(shopName, address, tel, email);
+        em.flush();
+        em.clear();
+
+        //when
+        String updatedTel = "07012345678";
+        shopService.updateTel(updatedTel, shopId);
+        em.flush();
+        em.clear();
+
+        //then
+        Assertions
+                .assertThat(shopService.getShopById(shopId).getTel())
+                .isEqualTo(updatedTel);
     }
 }
