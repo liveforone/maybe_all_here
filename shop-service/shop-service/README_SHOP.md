@@ -26,6 +26,17 @@
 [PATCH] /shop/change-tel/{shopId} : 상점 전화번호 변경, 상점의 주인만 접근 가능
 ```
 
+## Json body 예시
+```
+[상점 등록]
+{
+  "shopName": "test_shop",
+  "address": "seoul, korea",
+  "tel": "01012345678",
+  "email": "seller1234@gmail.com"
+}
+```
+
 ## 시큐리티가 있는 서비스에서 데이터를 가져올때
 * 유저 서비스는 시큐리티가 작동하는 서비스 이다.
 * 문제는 시큐리티가 작동하는 서비스는 Feign client로 가져올때 주의해야한다.
