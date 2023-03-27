@@ -2,6 +2,7 @@ package may_all_here.shopservice.service;
 
 import lombok.RequiredArgsConstructor;
 import may_all_here.shopservice.domain.Shop;
+import may_all_here.shopservice.dto.shop.SellerInfoResponse;
 import may_all_here.shopservice.dto.shop.ShopRequest;
 import may_all_here.shopservice.dto.shop.ShopResponse;
 import may_all_here.shopservice.repository.ShopRepository;
@@ -35,6 +36,16 @@ public class ShopService {
         }
 
         return ShopMapper.entityToDtoDetail(shop);
+    }
+
+    public SellerInfoResponse getSellerInfo(Long shopId) {
+        Shop shop = shopRepository.findShopById(shopId);
+
+        if (CommonUtils.isNull(shop)) {
+            return new SellerInfoResponse();
+        }
+
+        return ShopMapper.entityToSellerInfoDto(shop);
     }
 
     @Transactional
