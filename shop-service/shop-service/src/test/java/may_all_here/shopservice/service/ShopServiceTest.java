@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 class ShopServiceTest {
 
@@ -18,6 +16,18 @@ class ShopServiceTest {
 
     @Autowired
     ShopService shopService;
+
+    private Long createShop(
+            String shopName, String address,
+            String tel, String email
+    ) {
+        ShopRequest shopRequest = new ShopRequest();
+        shopRequest.setShopName(shopName);
+        shopRequest.setAddress(address);
+        shopRequest.setTel(tel);
+        shopRequest.setEmail(email);
+        return shopService.createShop(shopRequest);
+    }
 
     @Test
     @Transactional
@@ -45,7 +55,27 @@ class ShopServiceTest {
     }
 
     @Test
-    void updateShopName() {
+    @Transactional
+    void updateShopNameTest() {
+        //given
+        String shopName = "test2";
+        String address = "seoul, S.Korea";
+        String tel = "07011111111";
+        String email = "test1234@gmail.com";
+        Long shopId = createShop(shopName, address, tel, email);
+        em.flush();
+        em.clear();
+
+        //when
+        String updatedShopName = "updated test2";
+        shopService.updateShopName(updatedShopName, shopId);
+        em.flush();
+        em.clear();
+
+        //then
+        Assertions
+                .assertThat(shopService.getShopById(shopId).getShopName())
+                .isEqualTo(updatedShopName);
     }
 
     @Test
