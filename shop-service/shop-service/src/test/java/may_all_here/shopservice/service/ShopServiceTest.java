@@ -79,7 +79,27 @@ class ShopServiceTest {
     }
 
     @Test
-    void updateAddress() {
+    @Transactional
+    void updateAddressTest() {
+        //given
+        String shopName = "test3";
+        String address = "seoul, S.Korea";
+        String tel = "07011111111";
+        String email = "test1234@gmail.com";
+        Long shopId = createShop(shopName, address, tel, email);
+        em.flush();
+        em.clear();
+
+        //when
+        String updatedAddress = "pangyo, S.Korea";
+        shopService.updateAddress(updatedAddress, shopId);
+        em.flush();
+        em.clear();
+
+        //them
+        Assertions
+                .assertThat(shopService.getShopById(shopId).getAddress())
+                .isEqualTo(updatedAddress);
     }
 
     @Test
