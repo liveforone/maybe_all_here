@@ -24,6 +24,7 @@
 [PATCH] /shop/change-name/{shopId} : 상호 변경, 상점의 주인만 접근 가능
 [PATCH] /shop/change-address/{shopId} : 상점 주소 변경, 상점의 주인만 접근 가능
 [PATCH] /shop/change-tel/{shopId} : 상점 전화번호 변경, 상점의 주인만 접근 가능
+[POST] /shop/seller-info/{shopId} : 외부에 상점 주인 정보 제공 api
 ```
 
 ## Json body 예시
