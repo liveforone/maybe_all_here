@@ -63,8 +63,8 @@
 * 유저 서비스
 * 마일리지 서비스
 * 상점 서비스
-* 상품 서비스(fk : email, shopId, 상점의 상품 목록은 shopId를 pathvariable로 한다.)
-* 파일 서비스
+* 상품 서비스
+* 파일 서비스(kafka consumer)
 * 결제 서비스
 * 리뷰 서비스
 * 추천 서비스
