@@ -9,7 +9,9 @@ public enum KafkaLog {
 
     KAFKA_RECEIVE_LOG("Consumer receive Kafka Message -> "),
     KAFKA_NULL_LOG("!! Kafka Message is Null !!"),
-    DECREASE_REMAINING_SUCCESS("Decrease remaining success || Item id : ");
+    DECREASE_REMAINING_SUCCESS("Decrease remaining success || Item id : "),
+    INCREASE_GOOD_SUCCESS("Increase Good Success || Item id : "),
+    INCREASE_BAD_SUCCESS("Increase bad Success || Item id : ");
 
     private final String value;
 }
