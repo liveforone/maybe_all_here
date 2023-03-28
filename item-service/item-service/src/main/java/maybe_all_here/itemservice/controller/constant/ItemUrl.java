@@ -11,4 +11,5 @@ public class ItemUrl {
     public static final String EDIT_TITLE = "/item/update-title/{itemId}";
     public static final String EDIT_CONTENT = "/item/update-content/{itemId}";
     public static final String EDIT_PRICE = "/item/update-price/{itemId}";
+    public static final String EDIT_REMAINING = "/item/update-remaining/{itemId}";
 }
