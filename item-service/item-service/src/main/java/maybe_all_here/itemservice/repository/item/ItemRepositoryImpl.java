@@ -94,7 +94,7 @@ public class ItemRepositoryImpl implements ItemCustomRepository {
 
     public void editRemainingById(long remaining, Long itemId) {
         queryFactory.update(item)
-                .set(item.remaining, remaining)
+                .set(item.remaining, item.remaining.add(remaining))
                 .where(item.id.eq(itemId))
                 .execute();
     }
