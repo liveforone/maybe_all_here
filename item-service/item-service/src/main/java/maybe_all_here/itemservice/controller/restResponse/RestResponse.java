@@ -36,4 +36,8 @@ public class RestResponse {
     public static ResponseEntity<?> editContentSuccess() {
         return ResponseEntity.ok(RestMessage.EDIT_CONTENT_SUCCESS.getValue());
     }
+
+    public static ResponseEntity<?> editPriceSuccess() {
+        return ResponseEntity.ok(RestMessage.EDIT_PRICE_SUCCESS.getValue());
+    }
 }
