@@ -19,7 +19,7 @@ public class ItemRepositoryImpl implements ItemCustomRepository {
     QItem item = QItem.item;
 
     private BooleanExpression ltBookId(Long lastId) {
-        if (lastId == null) {
+        if (lastId == 0) {
             return null;
         }
 
