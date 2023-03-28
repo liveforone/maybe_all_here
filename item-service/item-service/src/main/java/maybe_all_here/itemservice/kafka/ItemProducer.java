@@ -3,6 +3,7 @@ package maybe_all_here.itemservice.kafka;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import maybe_all_here.itemservice.dto.file.FileSaveRequest;
 import maybe_all_here.itemservice.kafka.constant.Topic;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,11 @@ public class ItemProducer {
     private final KafkaTemplate<String, String> kafkaTemplate;
     Gson gson = new Gson();
 
-    public void saveFile(List<MultipartFile> files) {
-        String jsonOrder = gson.toJson(files);
+    public void saveFile(List<MultipartFile> files, Long itemId) {
+        FileSaveRequest request = new FileSaveRequest();
+        request.setFiles(files);
+        request.setItemId(itemId);
+        String jsonOrder = gson.toJson(request);
 
         kafkaTemplate.send(Topic.SAVE_FILE, jsonOrder);
     }
