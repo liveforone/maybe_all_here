@@ -7,4 +7,5 @@ public class ItemUrl {
     public static final String CREATE_ITEM = "/create-item/{shopId}";
     public static final String SHOP_ITEMS_LIST = "/items/{shopId}";
     public static final String SELLER_ITEMS_LIST = "/items/seller/{shopId}";
+    public static final String SEARCH_ITEMS_LIST = "/items/search";
 }
