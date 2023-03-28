@@ -6,4 +6,5 @@ public class FallbackUrl {
     public static final String USER = "/user";
     public static final String MILEAGE = "/mileage";
     public static final String SHOP = "/shop";
+    public static final String ITEM = "/item";
 }
