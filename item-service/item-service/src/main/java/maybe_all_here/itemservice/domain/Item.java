@@ -28,13 +28,18 @@ public class Item {
 
     private long remaining;
 
+    private long good;
+    private long bad;
+
     @Builder
-    public Item(Long id, Long shopId, String title, String content, long price, long remaining) {
+    public Item(Long id, Long shopId, String title, String content, long price, long remaining, long good, long bad) {
         this.id = id;
         this.shopId = shopId;
         this.title = title;
         this.content = content;
         this.price = price;
         this.remaining = remaining;
+        this.good = good;
+        this.bad = bad;
     }
 }
