@@ -16,4 +16,10 @@ public class RestResponse {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(errorMessage);
     }
+
+    public static ResponseEntity<?> createItemSuccess() {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(RestMessage.CREATE_ITEM_SUCCESS.getValue());
+    }
 }
