@@ -32,4 +32,8 @@ public class RestResponse {
     public static ResponseEntity<?> editTitleSuccess() {
         return ResponseEntity.ok(RestMessage.EDIT_TITLE_SUCCESS.getValue());
     }
+
+    public static ResponseEntity<?> editContentSuccess() {
+        return ResponseEntity.ok(RestMessage.EDIT_CONTENT_SUCCESS.getValue());
+    }
 }
