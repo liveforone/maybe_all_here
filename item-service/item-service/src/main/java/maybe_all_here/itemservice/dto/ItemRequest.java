@@ -1,4 +1,4 @@
-package maybe_all_here.itemservice.dto.item;
+package maybe_all_here.itemservice.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

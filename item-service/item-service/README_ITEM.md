@@ -1,21 +1,36 @@
 ## 상품 서비스 소개
 ## 상세 요구사항
 
-price, title, content, remaining
-(fk : email, shopId, 상점의 상품 목록은 shopId를 pathvariable로 한다.)
+상점의 상품 리스트 페이지는 두 종류가 있다.
+일반 회원들이 볼 수 있는 페이지와
+셀러가 볼 수 있는 페이지가 있다.
+두번째 경우는 상품 수정, 삭제 와도 연결된다.
+모든 상품 리스트는 추천순으로 나열되고
+
+상품 제목으로 검색이 가능하다.
+검색리스트는 추천순으로 나열된다.
+
+상품 홈은 최신순 + 추천순으로 나열된다.
+
+(fk : shopId)
 
 카테고리는 고민을 해봐야함. 검색을 집중해서 한다면 카테고리는 사실 필요가 없음. 일반적으로도 검색을 많이 사용하고,
 검색이 직관적이고, 편하고, 카테고리처럼 답이 있는 제약이 걸린게 아닌 자유로워서 검색으로 두고 카테고리 태그를 따로 안다는 것이 더 효과적일 수도 있다.
+
+상점 접근 후에는 email이 아닌 shopId로 모든 api가 걸림
+사실상 모든 권한을 획득.
+이렇게 상품 서비스에 진입하면 등록, 수정, 삭제 등 모든 action이 자유로움
+
+추천/비추천은 리뷰 수정시에도 수정 불가능함(영구)
 
 ## API 설계
 ## Json body 예시
 
 ## 서비스간 통신
-kafak producer -> file service에게 list형식의 multipartfile 넘기기
+파일 저장 : kafka producer -> file service에게 list형식의 multipartfile 넘기기
 
-상점 seller 페이지에서 내 상품 보기 클릭시 내 상품과 상품 등록 버튼이 나옴.
-상품 등록 버튼 클릭시 상품이 등록됨.
-이때 shopId의 pathvariable이 걸릴텐데,
-이 shopId로 shop 서비스에게 상점 정보 요청해서(dto만들어야함) 상점 주인 이메일 받아오기
-이메일을 저장하는 이유는 상품을 수정할때 이메일 재차 확인 할것이기 때문.
-sellerinfoResponse 형식으로 받아옴
+파일 삭제 : kafka producer -> itemId 넘겨서 벌크 연산으로 delete 처리 
+
+주문(결제)시 수량 감소 -> kafak consumer
+
+리뷰 등록시 추천/비추천 업데이트 -> kafka consumer

@@ -1,7 +1,7 @@
 package maybe_all_here.itemservice.service;
 
 import jakarta.persistence.EntityManager;
-import maybe_all_here.itemservice.dto.item.ItemRequest;
+import maybe_all_here.itemservice.dto.ItemRequest;
 import maybe_all_here.itemservice.service.item.ItemService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
