@@ -78,6 +78,13 @@ public class ItemRepositoryImpl implements ItemCustomRepository {
                 .execute();
     }
 
+    public void editContentById(String content, Long itemId) {
+        queryFactory.update(item)
+                .set(item.content, content)
+                .where(item.id.eq(itemId))
+                .execute();
+    }
+
     public void decreaseRemaining(ItemRemainingRequest itemRemainingRequest) {
         queryFactory.update(item)
                 .set(
