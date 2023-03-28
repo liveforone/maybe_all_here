@@ -17,4 +17,6 @@ public class ItemResponse {
     private String content;
     private long price;
     private long remaining;
+    private long good;
+    private long bad;
 }
