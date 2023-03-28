@@ -9,9 +9,8 @@ public interface ItemCustomRepository {
 
     List<Item> findItemHome(Long lastId, int pageSize);
     Item findOneById(Long itemId);
+    List<Item> findItemsByShopId(Long shopId, Long lastId, int pageSize);
     void decreaseRemaining(ItemRemainingRequest itemRemainingRequest);
-
     void increaseGood(Long itemId);
-
     void increaseBad(Long itemId);
 }

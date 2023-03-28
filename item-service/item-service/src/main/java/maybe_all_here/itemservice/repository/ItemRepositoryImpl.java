@@ -43,6 +43,20 @@ public class ItemRepositoryImpl implements ItemCustomRepository {
                 .fetchOne();
     }
 
+    public List<Item> findItemsByShopId(Long shopId, Long lastId, int pageSize) {
+        return queryFactory.selectFrom(item)
+                .where(
+                        item.shopId.eq(shopId),
+                        ltBookId(lastId)
+                )
+                .orderBy(
+                        item.good.desc(),
+                        item.id.desc()
+                )
+                .limit(pageSize)
+                .fetch();
+    }
+
     public void decreaseRemaining(ItemRemainingRequest itemRemainingRequest) {
         queryFactory.update(item)
                 .set(
