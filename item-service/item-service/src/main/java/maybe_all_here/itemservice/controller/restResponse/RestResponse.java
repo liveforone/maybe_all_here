@@ -40,4 +40,8 @@ public class RestResponse {
     public static ResponseEntity<?> editPriceSuccess() {
         return ResponseEntity.ok(RestMessage.EDIT_PRICE_SUCCESS.getValue());
     }
+
+    public static ResponseEntity<?> editRemainingSuccess() {
+        return ResponseEntity.ok(RestMessage.EDIT_REMAINING_SUCCESS.getValue());
+    }
 }
