@@ -28,15 +28,6 @@ public class ItemController {
     private final ItemProducer itemProducer;
     private final ItemValidator itemValidator;
 
-    /*
-    상품 페이지
-    일반 상점 상품리스트
-    셀러 상점 상품리스트
-    검색(페이징)
-    수정(제목, 내용, 가격, 재고)
-    삭제(파일 -> 리뷰 -> 상품 순으로)
-     */
-
     @GetMapping(ItemUrl.ITEM_HOME)
     public ResponseEntity<?> itemHome(
             @RequestParam(name = ParamConstant.LAST_ID) Long lastId,
@@ -58,6 +49,24 @@ public class ItemController {
         ItemResponse item = itemService.getItemById(itemId);
         return ResponseEntity.ok(item);
     }
+
+    @GetMapping(ItemUrl.SHOP_ITEMS_LIST)
+    public ResponseEntity<?> shopItemsList(
+            @PathVariable(ParamConstant.SHOP_ID) Long shopId,
+            @RequestParam(name = ParamConstant.LAST_ID) Long lastId,
+            @RequestParam(name = ParamConstant.PAGE_SIZE) int pageSize
+    ) {
+        List<ItemResponse> items = itemService.getItemsByShopId(shopId, lastId, pageSize);
+
+        return ResponseEntity.ok(items);
+    }
+
+    /*
+    셀러 상점 상품리스트
+    검색(페이징)
+    수정(제목, 내용, 가격, 재고)
+    삭제(파일 -> 리뷰 -> 상품 순으로)
+     */
 
     @PostMapping(ItemUrl.CREATE_ITEM)
     public ResponseEntity<?> createItem(
