@@ -28,8 +28,8 @@ public class ItemProducer {
         kafkaTemplate.send(Topic.SAVE_FILE, jsonOrder);
     }
 
-    public void deleteFile(Long shopId) {
-        String jsonOrder = gson.toJson(shopId);
+    public void deleteFile(Long itemId) {
+        String jsonOrder = gson.toJson(itemId);
 
         kafkaTemplate.send(Topic.DELETE_FILE, jsonOrder);
     }
