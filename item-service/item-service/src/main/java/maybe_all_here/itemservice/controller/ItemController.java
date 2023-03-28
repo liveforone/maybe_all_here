@@ -83,6 +83,24 @@ public class ItemController {
         return ResponseEntity.ok(items);
     }
 
+    @PostMapping(ItemUrl.CREATE_ITEM)
+    public ResponseEntity<?> createItem(
+            @RequestPart @Valid ItemRequest itemRequest,
+            BindingResult bindingResult,
+            @RequestPart List<MultipartFile> uploadFile,
+            @PathVariable(ParamConstant.SHOP_ID) Long shopId
+    ) {
+        if (bindingResult.hasErrors()) {
+            return RestResponse.validError(bindingResult);
+        }
+
+        Long itemId = itemService.createItem(itemRequest, shopId);
+        itemProducer.saveFile(uploadFile, itemId);
+        log.info(ControllerLog.CREATE_ITEM_SUCCESS.getValue() + itemId);
+
+        return RestResponse.createItemSuccess();
+    }
+
     @PatchMapping(ItemUrl.EDIT_TITLE)
     public ResponseEntity<?> editTitle(
             @PathVariable(ParamConstant.ITEM_ID) Long itemId,
@@ -143,25 +161,19 @@ public class ItemController {
         return RestResponse.editRemainingSuccess();
     }
 
-    /*
-    삭제(파일 -> 리뷰 -> 상품 순으로)
-     */
-
-    @PostMapping(ItemUrl.CREATE_ITEM)
-    public ResponseEntity<?> createItem(
-            @RequestPart @Valid ItemRequest itemRequest,
-            BindingResult bindingResult,
-            @RequestPart List<MultipartFile> uploadFile,
-            @PathVariable(ParamConstant.SHOP_ID) Long shopId
+    @DeleteMapping(ItemUrl.DELETE_ITEM)
+    public ResponseEntity<?> deleteItem(
+            @PathVariable(ParamConstant.ITEM_ID) Long itemId
     ) {
-        if (bindingResult.hasErrors()) {
-            return RestResponse.validError(bindingResult);
+        if (itemValidator.isNullItem(itemId)) {
+            return RestResponse.itemIsNull();
         }
 
-        Long itemId = itemService.createItem(itemRequest, shopId);
-        itemProducer.saveFile(uploadFile, itemId);
-        log.info(ControllerLog.CREATE_ITEM_SUCCESS.getValue() + itemId);
+        itemProducer.deleteFile(itemId);
+        //리뷰 벌크 삭제
+        itemService.deleteItemById(itemId);
+        log.info(ControllerLog.DELETE_ITEM_SUCCESS.getValue() + itemId);
 
-        return RestResponse.createItemSuccess();
+        return RestResponse.deleteItemSuccess();
     }
 }
