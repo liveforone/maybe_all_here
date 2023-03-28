@@ -1,4 +1,4 @@
-package maybe_all_here.itemservice.repository;
+package maybe_all_here.itemservice.repository.item;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import maybe_all_here.itemservice.domain.Item;
 import maybe_all_here.itemservice.domain.QItem;
 import maybe_all_here.itemservice.dto.item.ItemRemainingRequest;
+import maybe_all_here.itemservice.repository.item.ItemCustomRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

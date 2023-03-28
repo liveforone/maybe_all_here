@@ -1,4 +1,4 @@
-package maybe_all_here.itemservice.repository;
+package maybe_all_here.itemservice.repository.item;
 
 import maybe_all_here.itemservice.domain.Item;
 import maybe_all_here.itemservice.dto.item.ItemRemainingRequest;
