@@ -50,4 +50,9 @@ public class ItemService {
     public void editTitleById(String title, Long itemId) {
         itemRepository.editTitleById(title, itemId);
     }
+
+    @Transactional
+    public void editContentById(String content, Long itemId) {
+        itemRepository.editContentById(content, itemId);
+    }
 }
