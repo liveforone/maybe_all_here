@@ -17,6 +17,12 @@ public class RestResponse {
                 .body(errorMessage);
     }
 
+    public static ResponseEntity<?> itemIsNull() {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(RestMessage.NULL_ITEM.getValue());
+    }
+
     public static ResponseEntity<?> createItemSuccess() {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
