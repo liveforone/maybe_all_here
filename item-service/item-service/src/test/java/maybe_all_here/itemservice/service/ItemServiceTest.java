@@ -102,7 +102,26 @@ class ItemServiceTest {
     }
 
     @Test
-    void editPriceById() {
+    @Transactional
+    void editPriceByIdTest() {
+        //given
+        String title = "test4";
+        String content = "test_content4";
+        long price = 10000;
+        long remaining = 500;
+        Long shopId = 103L;
+        Long itemId = createItem(title, content, price, remaining, shopId);
+
+        //when
+        long updatedPrice = 20000;
+        itemService.editPriceById(updatedPrice, itemId);
+        em.flush();
+        em.clear();
+
+        //then
+        Assertions
+                .assertThat(itemService.getItemById(itemId).getPrice())
+                .isEqualTo(updatedPrice);
     }
 
     @Test
