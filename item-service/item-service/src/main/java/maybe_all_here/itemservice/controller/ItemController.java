@@ -83,6 +83,21 @@ public class ItemController {
         return ResponseEntity.ok(items);
     }
 
+    @PatchMapping(ItemUrl.EDIT_TITLE)
+    public ResponseEntity<?> editTitle(
+            @PathVariable(ParamConstant.ITEM_ID) Long itemId,
+            @RequestBody String title
+    ) {
+        if (itemValidator.isNullItem(itemId)) {
+            return RestResponse.itemIsNull();
+        }
+
+        itemService.editTitleById(title, itemId);
+        log.info(ControllerLog.EDIT_TITLE_SUCCESS.getValue() + itemId);
+
+        return RestResponse.editTitleSuccess();
+    }
+
     /*
     수정(제목, 내용, 가격, 재고)
     삭제(파일 -> 리뷰 -> 상품 순으로)
