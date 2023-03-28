@@ -6,9 +6,11 @@ import maybe_all_here.itemservice.controller.constant.ControllerLog;
 import maybe_all_here.itemservice.controller.constant.ItemUrl;
 import maybe_all_here.itemservice.controller.constant.ParamConstant;
 import maybe_all_here.itemservice.controller.restResponse.RestResponse;
+import maybe_all_here.itemservice.dto.item.ItemDetailResponse;
 import maybe_all_here.itemservice.dto.item.ItemRequest;
 import maybe_all_here.itemservice.dto.item.ItemResponse;
 import maybe_all_here.itemservice.service.item.ItemService;
+import maybe_all_here.itemservice.service.uploadFile.UploadFileService;
 import maybe_all_here.itemservice.validator.ItemValidator;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -25,6 +27,7 @@ public class ItemController {
 
     private final ItemService itemService;
     private final ItemValidator itemValidator;
+    private final UploadFileService uploadFileService;
 
     @GetMapping(ItemUrl.ITEM_HOME)
     public ResponseEntity<List<ItemResponse>> itemHome(
@@ -44,7 +47,7 @@ public class ItemController {
             return RestResponse.itemIsNull();
         }
 
-        ItemResponse item = itemService.getItemById(itemId);
+        ItemDetailResponse item = itemService.getItemDetailById(itemId);
         return ResponseEntity.ok(item);
     }
 
@@ -93,6 +96,7 @@ public class ItemController {
         }
 
         Long itemId = itemService.createItem(itemRequest, shopId);
+        uploadFileService.saveFile(uploadFile, itemId);
         log.info(ControllerLog.CREATE_ITEM_SUCCESS.getValue() + itemId);
 
         return RestResponse.createItemSuccess();
@@ -166,8 +170,8 @@ public class ItemController {
             return RestResponse.itemIsNull();
         }
 
-        itemProducer.deleteFile(itemId);
         //리뷰 벌크 삭제
+        uploadFileService.deleteFileByItemId(itemId);
         itemService.deleteItemById(itemId);
         log.info(ControllerLog.DELETE_ITEM_SUCCESS.getValue() + itemId);
 

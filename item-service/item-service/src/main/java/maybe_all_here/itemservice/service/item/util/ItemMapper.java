@@ -1,10 +1,13 @@
 package maybe_all_here.itemservice.service.item.util;
 
 import maybe_all_here.itemservice.domain.Item;
+import maybe_all_here.itemservice.domain.UploadFile;
+import maybe_all_here.itemservice.dto.item.ItemDetailResponse;
 import maybe_all_here.itemservice.dto.item.ItemRequest;
 import maybe_all_here.itemservice.dto.item.ItemResponse;
 import maybe_all_here.itemservice.utility.CommonUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,5 +46,28 @@ public class ItemMapper {
                 .stream()
                 .map(ItemMapper::entityToDto)
                 .collect(Collectors.toList());
+    }
+
+    public static ItemDetailResponse entityToDtoDetail(Item item, List<UploadFile> files) {
+        if (CommonUtils.isNull(item)) {
+            return new ItemDetailResponse();
+        } else {
+            List<String> saveFileName = new ArrayList<>();
+            for (UploadFile file : files) {
+                saveFileName.add(file.getSaveFileName());
+            }
+
+            return ItemDetailResponse.builder()
+                    .id(item.getId())
+                    .shopId(item.getShopId())
+                    .title(item.getTitle())
+                    .content(item.getContent())
+                    .price(item.getPrice())
+                    .remaining(item.getRemaining())
+                    .good(item.getGood())
+                    .bad(item.getBad())
+                    .saveFileName(saveFileName)
+                    .build();
+        }
     }
 }

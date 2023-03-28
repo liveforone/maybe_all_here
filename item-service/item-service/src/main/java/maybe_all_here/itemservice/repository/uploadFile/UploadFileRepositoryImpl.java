@@ -26,7 +26,20 @@ public class UploadFileRepositoryImpl implements UploadFileCustomRepository {
                 .fetch();
     }
 
-    public void deleteBulkFileByItem(Long itemId) {
+    public List<UploadFile> findFilesByItemId(Long itemId) {
+        return queryFactory.selectFrom(uploadFile)
+                .where(uploadFile.item.id.eq(itemId))
+                .orderBy(uploadFile.id.asc())
+                .fetch();
+    }
+
+    public void deleteBulkFileByItem(Item item) {
+        queryFactory.delete(uploadFile)
+                .where(uploadFile.item.eq(item))
+                .execute();
+    }
+
+    public void deleteBulkFileByItemId(Long itemId) {
         queryFactory.delete(uploadFile)
                 .where(uploadFile.item.id.eq(itemId))
                 .execute();

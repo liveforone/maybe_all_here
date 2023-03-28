@@ -1,9 +1,13 @@
 package maybe_all_here.itemservice.service.item;
 
 import lombok.RequiredArgsConstructor;
+import maybe_all_here.itemservice.domain.Item;
+import maybe_all_here.itemservice.domain.UploadFile;
+import maybe_all_here.itemservice.dto.item.ItemDetailResponse;
 import maybe_all_here.itemservice.dto.item.ItemRequest;
 import maybe_all_here.itemservice.dto.item.ItemResponse;
 import maybe_all_here.itemservice.repository.item.ItemRepository;
+import maybe_all_here.itemservice.repository.uploadFile.UploadFileRepository;
 import maybe_all_here.itemservice.service.item.util.ItemMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +20,7 @@ import java.util.List;
 public class ItemService {
 
     private final ItemRepository itemRepository;
+    private final UploadFileRepository uploadFileRepository;
 
     public List<ItemResponse> getItemHome(Long lastId, int pageSize) {
         return ItemMapper.entityToDtoList(itemRepository.findItemHome(lastId, pageSize));
@@ -23,6 +28,13 @@ public class ItemService {
 
     public ItemResponse getItemById(Long itemId) {
         return ItemMapper.entityToDto(itemRepository.findOneById(itemId));
+    }
+
+    public ItemDetailResponse getItemDetailById(Long itemId) {
+        Item item = itemRepository.findOneById(itemId);
+        List<UploadFile> files = uploadFileRepository.findFilesByItem(item);
+
+        return ItemMapper.entityToDtoDetail(item, files);
     }
 
     public List<ItemResponse> getItemsByShopId(Long shopId, Long lastId, int pageSize) {

@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ItemResponse {
+public class ItemDetailResponse {
 
     private Long id;
     private Long shopId;
@@ -21,4 +21,5 @@ public class ItemResponse {
     private long remaining;
     private long good;
     private long bad;
+    private List<String> saveFileName;
 }

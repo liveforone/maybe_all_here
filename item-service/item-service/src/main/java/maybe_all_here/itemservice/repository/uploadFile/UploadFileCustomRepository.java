@@ -8,6 +8,7 @@ import java.util.List;
 public interface UploadFileCustomRepository {
 
     List<UploadFile> findFilesByItem(Item item);
-
-    void deleteBulkFileByItem(Long itemId);
+    List<UploadFile> findFilesByItemId(Long itemId);
+    void deleteBulkFileByItem(Item item);
+    void deleteBulkFileByItemId(Long itemId);
 }
