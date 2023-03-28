@@ -17,6 +17,18 @@ class ItemServiceTest {
     @Autowired
     ItemService itemService;
 
+    private Long createItem(
+            String title, String content,
+            long price, long remaining, Long shopId
+    ) {
+        ItemRequest itemRequest = new ItemRequest();
+        itemRequest.setTitle(title);
+        itemRequest.setContent(content);
+        itemRequest.setPrice(price);
+        itemRequest.setRemaining(remaining);
+        return itemService.createItem(itemRequest, shopId);
+    }
+
     @Test
     @Transactional
     void createItemTest() {
@@ -44,7 +56,26 @@ class ItemServiceTest {
     }
 
     @Test
-    void editTitleById() {
+    @Transactional
+    void editTitleByIdTest() {
+        //given
+        String title = "test2";
+        String content = "test_content2";
+        long price = 10000;
+        long remaining = 500;
+        Long shopId = 101L;
+        Long itemId = createItem(title, content, price, remaining, shopId);
+
+        //when
+        String updatedTitle = "updated_test2";
+        itemService.editTitleById(updatedTitle, itemId);
+        em.flush();
+        em.clear();
+
+        //then
+        Assertions
+                .assertThat(itemService.getItemById(itemId).getTitle())
+                .isEqualTo(updatedTitle);
     }
 
     @Test
