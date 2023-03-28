@@ -3,7 +3,7 @@ package maybe_all_here.itemservice.repository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import maybe_all_here.itemservice.domain.QItem;
-import maybe_all_here.itemservice.dto.ItemRemainingRequest;
+import maybe_all_here.itemservice.dto.item.ItemRemainingRequest;
 import org.springframework.stereotype.Repository;
 
 @Repository

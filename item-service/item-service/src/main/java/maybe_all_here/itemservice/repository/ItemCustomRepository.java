@@ -1,6 +1,6 @@
 package maybe_all_here.itemservice.repository;
 
-import maybe_all_here.itemservice.dto.ItemRemainingRequest;
+import maybe_all_here.itemservice.dto.item.ItemRemainingRequest;
 
 public interface ItemCustomRepository {
 
