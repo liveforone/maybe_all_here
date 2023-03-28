@@ -45,4 +45,9 @@ public class ItemService {
                 .save(ItemMapper.dtoToEntity(itemRequest))
                 .getId();
     }
+
+    @Transactional
+    public void editTitleById(String title, Long itemId) {
+        itemRepository.editTitleById(title, itemId);
+    }
 }
