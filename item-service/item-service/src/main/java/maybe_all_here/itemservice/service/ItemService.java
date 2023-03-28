@@ -31,6 +31,12 @@ public class ItemService {
         );
     }
 
+    public List<ItemResponse> searchItemsByKeyword(String keyword, Long lastId, int pageSize) {
+        return ItemMapper.entityToDtoList(
+                itemRepository.searchItemsByKeyword(keyword, lastId, pageSize)
+        );
+    }
+
     @Transactional
     public Long createItem(ItemRequest itemRequest, Long shopId) {
         itemRequest.setShopId(shopId);
