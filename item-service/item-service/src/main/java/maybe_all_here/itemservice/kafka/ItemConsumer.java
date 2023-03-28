@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import maybe_all_here.itemservice.dto.ItemRemainingRequest;
+import maybe_all_here.itemservice.dto.item.ItemRemainingRequest;
 import maybe_all_here.itemservice.kafka.constant.KafkaLog;
 import maybe_all_here.itemservice.kafka.constant.Topic;
 import maybe_all_here.itemservice.repository.ItemRepository;
