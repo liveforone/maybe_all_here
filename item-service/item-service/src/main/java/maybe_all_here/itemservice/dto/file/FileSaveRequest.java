@@ -11,5 +11,5 @@ import java.util.List;
 public class FileSaveRequest {
 
     private List<MultipartFile> files;
-    private Long shopId;
+    private Long itemId;
 }
