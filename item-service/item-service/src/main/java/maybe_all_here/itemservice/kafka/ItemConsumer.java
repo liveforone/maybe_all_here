@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import maybe_all_here.itemservice.dto.item.ItemRemainingRequest;
 import maybe_all_here.itemservice.kafka.constant.KafkaLog;
 import maybe_all_here.itemservice.kafka.constant.Topic;
-import maybe_all_here.itemservice.repository.ItemRepository;
+import maybe_all_here.itemservice.repository.item.ItemRepository;
 import maybe_all_here.itemservice.utility.CommonUtils;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;

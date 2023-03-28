@@ -1,6 +1,5 @@
 package maybe_all_here.itemservice.controller;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import maybe_all_here.itemservice.controller.constant.ControllerLog;
@@ -9,14 +8,14 @@ import maybe_all_here.itemservice.controller.constant.ParamConstant;
 import maybe_all_here.itemservice.controller.restResponse.RestResponse;
 import maybe_all_here.itemservice.dto.item.ItemRequest;
 import maybe_all_here.itemservice.dto.item.ItemResponse;
-import maybe_all_here.itemservice.kafka.ItemProducer;
-import maybe_all_here.itemservice.service.ItemService;
+import maybe_all_here.itemservice.service.item.ItemService;
 import maybe_all_here.itemservice.validator.ItemValidator;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -25,7 +24,6 @@ import java.util.List;
 public class ItemController {
 
     private final ItemService itemService;
-    private final ItemProducer itemProducer;
     private final ItemValidator itemValidator;
 
     @GetMapping(ItemUrl.ITEM_HOME)
@@ -85,17 +83,16 @@ public class ItemController {
 
     @PostMapping(ItemUrl.CREATE_ITEM)
     public ResponseEntity<?> createItem(
-            @RequestPart @Valid ItemRequest itemRequest,
+            @RequestPart ItemRequest itemRequest,
             BindingResult bindingResult,
             @RequestPart List<MultipartFile> uploadFile,
             @PathVariable(ParamConstant.SHOP_ID) Long shopId
-    ) {
+    ) throws IllegalStateException, IOException {
         if (bindingResult.hasErrors()) {
             return RestResponse.validError(bindingResult);
         }
 
         Long itemId = itemService.createItem(itemRequest, shopId);
-        itemProducer.saveFile(uploadFile, itemId);
         log.info(ControllerLog.CREATE_ITEM_SUCCESS.getValue() + itemId);
 
         return RestResponse.createItemSuccess();
