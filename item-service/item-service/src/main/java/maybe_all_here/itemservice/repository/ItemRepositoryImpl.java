@@ -85,6 +85,13 @@ public class ItemRepositoryImpl implements ItemCustomRepository {
                 .execute();
     }
 
+    public void editPriceById(long price, Long itemId) {
+        queryFactory.update(item)
+                .set(item.price, price)
+                .where(item.id.eq(itemId))
+                .execute();
+    }
+
     public void decreaseRemaining(ItemRemainingRequest itemRemainingRequest) {
         queryFactory.update(item)
                 .set(

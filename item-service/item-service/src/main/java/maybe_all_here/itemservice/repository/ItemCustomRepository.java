@@ -13,6 +13,7 @@ public interface ItemCustomRepository {
     List<Item> searchItemsByKeyword(String keyword, Long lastId, int pageSize);
     void editTitleById(String title, Long itemId);
     void editContentById(String content, Long itemId);
+    void editPriceById(long price, Long itemId);
     void decreaseRemaining(ItemRemainingRequest itemRemainingRequest);
     void increaseGood(Long itemId);
     void increaseBad(Long itemId);
