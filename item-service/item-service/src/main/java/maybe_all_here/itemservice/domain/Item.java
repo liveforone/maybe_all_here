@@ -15,9 +15,6 @@ public class Item {
     private Long id;
 
     @Column(nullable = false, updatable = false)
-    private String email;
-
-    @Column(nullable = false, updatable = false)
     private Long shopId;
 
     @Column(nullable = false)
@@ -32,9 +29,8 @@ public class Item {
     private long remaining;
 
     @Builder
-    public Item(Long id, String email, Long shopId, String title, String content, long price, long remaining) {
+    public Item(Long id, Long shopId, String title, String content, long price, long remaining) {
         this.id = id;
-        this.email = email;
         this.shopId = shopId;
         this.title = title;
         this.content = content;
