@@ -28,4 +28,8 @@ public class RestResponse {
                 .status(HttpStatus.CREATED)
                 .body(RestMessage.CREATE_ITEM_SUCCESS.getValue());
     }
+
+    public static ResponseEntity<?> editTitleSuccess() {
+        return ResponseEntity.ok(RestMessage.EDIT_TITLE_SUCCESS.getValue());
+    }
 }
