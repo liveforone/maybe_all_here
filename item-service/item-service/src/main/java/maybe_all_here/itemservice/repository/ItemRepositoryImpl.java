@@ -37,6 +37,12 @@ public class ItemRepositoryImpl implements ItemCustomRepository {
                 .fetch();
     }
 
+    public Item findOneById(Long itemId) {
+        return queryFactory.selectFrom(item)
+                .where(item.id.eq(itemId))
+                .fetchOne();
+    }
+
     public void decreaseRemaining(ItemRemainingRequest itemRemainingRequest) {
         queryFactory.update(item)
                 .set(

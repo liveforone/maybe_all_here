@@ -8,6 +8,7 @@ import java.util.List;
 public interface ItemCustomRepository {
 
     List<Item> findItemHome(Long lastId, int pageSize);
+    Item findOneById(Long itemId);
     void decreaseRemaining(ItemRemainingRequest itemRemainingRequest);
 
     void increaseGood(Long itemId);
