@@ -33,6 +33,10 @@ public class RestResponse {
         return ResponseEntity.ok(RestMessage.EDIT_TITLE_SUCCESS.getValue());
     }
 
+    public static ResponseEntity<?> editFileSuccess() {
+        return ResponseEntity.ok(RestMessage.EDIT_FILE_SUCCESS.getValue());
+    }
+
     public static ResponseEntity<?> editContentSuccess() {
         return ResponseEntity.ok(RestMessage.EDIT_CONTENT_SUCCESS.getValue());
     }

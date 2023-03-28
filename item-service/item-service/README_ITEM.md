@@ -23,13 +23,16 @@
 
 추천/비추천은 리뷰 수정시에도 수정 불가능함(영구)
 
+파일데이터는 상품과 같은 DB에 다른 테이블로 저장한다.
+gson 등을 활용해 직렬화해서 다른 서비스로 보낼때 
+multipartfile은 불가능하다. 따라서 파일은 상품서비스에서 처리한다.
+
+상품 삭제시 파일 + 리뷰 모두 삭제된다.
+
 ## API 설계
 ## Json body 예시
 
 ## 서비스간 통신
-파일 저장 : kafka producer -> file service에게 list형식의 multipartfile 넘기기
-
-파일 삭제 : kafka producer -> itemId 넘겨서 벌크 연산으로 delete 처리 
 
 주문(결제)시 수량 감소 -> kafak consumer
 

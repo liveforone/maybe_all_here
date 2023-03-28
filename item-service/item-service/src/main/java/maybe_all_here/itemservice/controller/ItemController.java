@@ -102,6 +102,21 @@ public class ItemController {
         return RestResponse.createItemSuccess();
     }
 
+    @PatchMapping(ItemUrl.EDIT_FILE)
+    public ResponseEntity<?> editFile(
+            @PathVariable(ParamConstant.ITEM_ID) Long itemId,
+            @RequestPart List<MultipartFile> uploadFile
+    ) throws IOException {
+        if (itemValidator.isNullItem(itemId)) {
+            return RestResponse.itemIsNull();
+        }
+
+        uploadFileService.editFile(uploadFile, itemId);
+        log.info(ControllerLog.EDIT_TITLE_SUCCESS.getValue() + itemId);
+
+        return RestResponse.editFileSuccess();
+    }
+
     @PatchMapping(ItemUrl.EDIT_TITLE)
     public ResponseEntity<?> editTitle(
             @PathVariable(ParamConstant.ITEM_ID) Long itemId,

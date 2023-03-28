@@ -9,6 +9,7 @@ public enum ControllerLog {
 
     CREATE_ITEM_SUCCESS("Create Item Success || Item id : "),
     EDIT_TITLE_SUCCESS("Edit Item title success || Item id : "),
+    EDIT_FILE_SUCCESS("Edit Item file success || Item id : "),
     EDIT_CONTENT_SUCCESS("Edit Item content success || Item id : "),
     EDIT_PRICE_SUCCESS("Edit Item price success || Item id : "),
     EDIT_REMAINING_SUCCESS("Edit Item remaining success || Item id : "),
