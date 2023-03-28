@@ -1,4 +1,4 @@
-package maybe_all_here.itemservice.service.util;
+package maybe_all_here.itemservice.service.item.util;
 
 import maybe_all_here.itemservice.domain.Item;
 import maybe_all_here.itemservice.dto.item.ItemRequest;
