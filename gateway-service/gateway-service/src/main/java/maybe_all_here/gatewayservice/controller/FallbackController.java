@@ -46,4 +46,24 @@ public class FallbackController {
     public Mono<String> fallbackShopPatch() {
         return Mono.just(FallbackMessage.SHOP_LOG);
     }
+
+    @GetMapping(FallbackUrl.ITEM)
+    public Mono<String> fallbackItemGet() {
+        return Mono.just(FallbackMessage.ITEM_LOG);
+    }
+
+    @PostMapping(FallbackUrl.ITEM)
+    public Mono<String> fallbackItemPost() {
+        return Mono.just(FallbackMessage.ITEM_LOG);
+    }
+
+    @PatchMapping(FallbackUrl.ITEM)
+    public Mono<String> fallbackItemPatch() {
+        return Mono.just(FallbackMessage.ITEM_LOG);
+    }
+
+    @DeleteMapping(FallbackUrl.ITEM)
+    public Mono<String> fallbackItemDelete() {
+        return Mono.just(FallbackMessage.ITEM_LOG);
+    }
 }
