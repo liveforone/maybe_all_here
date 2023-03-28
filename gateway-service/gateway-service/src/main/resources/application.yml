@@ -59,6 +59,18 @@ spring:
               args:
                 name: shop-service
                 fallbackuri: forward:/fallback/shop
+        - id: item-service
+          uri: lb://ITEM-SERVICE
+          predicates:
+            - Path=/item-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/item-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
+            - name: CircuitBreaker
+              args:
+                name: item-service
+                fallbackuri: forward:/fallback/item
 
 management:
   endpoints:
