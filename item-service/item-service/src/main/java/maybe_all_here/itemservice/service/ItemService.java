@@ -60,4 +60,9 @@ public class ItemService {
     public void editPriceById(long price, Long itemId) {
         itemRepository.editPriceById(price, itemId);
     }
+
+    @Transactional
+    public void editRemainingById(long remaining, Long itemId) {
+        itemRepository.editRemainingById(remaining, itemId);
+    }
 }
