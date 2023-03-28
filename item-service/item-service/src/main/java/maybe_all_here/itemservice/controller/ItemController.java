@@ -113,8 +113,23 @@ public class ItemController {
         return RestResponse.editContentSuccess();
     }
 
+    @PatchMapping(ItemUrl.EDIT_PRICE)
+    public ResponseEntity<?> editPrice(
+            @PathVariable(ParamConstant.ITEM_ID) Long itemId,
+            @RequestBody long price
+    ) {
+        if (itemValidator.isNullItem(itemId)) {
+            return RestResponse.itemIsNull();
+        }
+
+        itemService.editPriceById(price, itemId);
+        log.info(ControllerLog.EDIT_PRICE_SUCCESS.getValue() + itemId);
+
+        return RestResponse.editPriceSuccess();
+    }
+
     /*
-    수정(내용, 가격, 재고)
+    수정(가격, 재고)
     삭제(파일 -> 리뷰 -> 상품 순으로)
      */
 
