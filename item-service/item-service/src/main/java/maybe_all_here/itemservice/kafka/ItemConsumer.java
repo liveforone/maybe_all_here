@@ -35,4 +35,36 @@ public class ItemConsumer {
             log.info(KafkaLog.DECREASE_REMAINING_SUCCESS.getValue() + request.getItemId());
         }
     }
+
+    @KafkaListener(topics = Topic.ITEM_IS_GOOD)
+    @Transactional
+    public void increaseItemGood(String kafkaMessage) throws JsonProcessingException {
+        log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        Long itemId = objectMapper.readValue(kafkaMessage, Long.class);
+
+        if (CommonUtils.isNull(itemId)) {
+            log.info(KafkaLog.KAFKA_NULL_LOG.getValue());
+        } else {
+            itemRepository.increaseGood(itemId);
+            log.info(KafkaLog.INCREASE_GOOD_SUCCESS.getValue() + itemId);
+        }
+    }
+
+    @KafkaListener(topics = Topic.ITEM_IS_BAD)
+    @Transactional
+    public void increaseItemBad(String kafkaMessage) throws JsonProcessingException {
+        log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        Long itemId = objectMapper.readValue(kafkaMessage, Long.class);
+
+        if (CommonUtils.isNull(itemId)) {
+            log.info(KafkaLog.KAFKA_NULL_LOG.getValue());
+        } else {
+            itemRepository.increaseBad(itemId);
+            log.info(KafkaLog.INCREASE_BAD_SUCCESS.getValue() + itemId);
+        }
+    }
 }
