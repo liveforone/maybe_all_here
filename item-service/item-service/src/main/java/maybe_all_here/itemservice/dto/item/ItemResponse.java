@@ -1,4 +1,4 @@
-package maybe_all_here.itemservice.dto;
+package maybe_all_here.itemservice.dto.item;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
