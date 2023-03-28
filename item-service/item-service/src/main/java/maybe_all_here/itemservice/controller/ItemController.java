@@ -61,6 +61,17 @@ public class ItemController {
         return ResponseEntity.ok(items);
     }
 
+    @GetMapping(ItemUrl.SELLER_ITEMS_LIST)
+    public ResponseEntity<?> sellerItemsList(
+            @PathVariable(ParamConstant.SHOP_ID) Long shopId,
+            @RequestParam(name = ParamConstant.LAST_ID) Long lastId,
+            @RequestParam(name = ParamConstant.PAGE_SIZE) int pageSize
+    ) {
+        List<ItemResponse> items = itemService.getItemsByShopId(shopId, lastId, pageSize);
+
+        return ResponseEntity.ok(items);
+    }
+
     /*
     셀러 상점 상품리스트
     검색(페이징)
