@@ -57,6 +57,20 @@ public class ItemRepositoryImpl implements ItemCustomRepository {
                 .fetch();
     }
 
+    public List<Item> searchItemsByKeyword(String keyword, Long lastId, int pageSize) {
+        return queryFactory.selectFrom(item)
+                .where(
+                        item.title.contains(keyword),
+                        ltBookId(lastId)
+                )
+                .orderBy(
+                        item.good.desc(),
+                        item.id.desc()
+                )
+                .limit(pageSize)
+                .fetch();
+    }
+
     public void decreaseRemaining(ItemRemainingRequest itemRemainingRequest) {
         queryFactory.update(item)
                 .set(
