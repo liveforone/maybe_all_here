@@ -25,6 +25,12 @@ public class ItemService {
         return ItemMapper.entityToDto(itemRepository.findOneById(itemId));
     }
 
+    public List<ItemResponse> getItemsByShopId(Long shopId, Long lastId, int pageSize) {
+        return ItemMapper.entityToDtoList(
+                itemRepository.findItemsByShopId(shopId, lastId, pageSize)
+        );
+    }
+
     @Transactional
     public Long createItem(ItemRequest itemRequest, Long shopId) {
         itemRequest.setShopId(shopId);
