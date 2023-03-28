@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 public class ItemRepositoryImpl implements ItemCustomRepository {
 
     private final JPAQueryFactory queryFactory;
+    private static final long RECOMMEND = 1;
     QItem item = QItem.item;
 
     public void decreaseRemaining(ItemRemainingRequest itemRemainingRequest) {
@@ -20,6 +21,20 @@ public class ItemRepositoryImpl implements ItemCustomRepository {
                         item.remaining.add(-itemRemainingRequest.getOrderQuantity())
                 )
                 .where(item.id.eq(itemRemainingRequest.getItemId()))
+                .execute();
+    }
+
+    public void increaseGood(Long itemId) {
+        queryFactory.update(item)
+                .set(item.good, item.good.add(RECOMMEND))
+                .where(item.id.eq(itemId))
+                .execute();
+    }
+
+    public void increaseBad(Long itemId) {
+        queryFactory.update(item)
+                .set(item.bad, item.bad.add(RECOMMEND))
+                .where(item.id.eq(itemId))
                 .execute();
     }
 }
