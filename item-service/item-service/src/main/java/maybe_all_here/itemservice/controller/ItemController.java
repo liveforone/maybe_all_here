@@ -29,7 +29,7 @@ public class ItemController {
     private final ItemValidator itemValidator;
 
     @GetMapping(ItemUrl.ITEM_HOME)
-    public ResponseEntity<?> itemHome(
+    public ResponseEntity<List<ItemResponse>> itemHome(
             @RequestParam(name = ParamConstant.LAST_ID) Long lastId,
             @RequestParam(name = ParamConstant.PAGE_SIZE) int pageSize
     ) {
@@ -51,7 +51,7 @@ public class ItemController {
     }
 
     @GetMapping(ItemUrl.SHOP_ITEMS_LIST)
-    public ResponseEntity<?> shopItemsList(
+    public ResponseEntity<List<ItemResponse>> shopItemsList(
             @PathVariable(ParamConstant.SHOP_ID) Long shopId,
             @RequestParam(name = ParamConstant.LAST_ID) Long lastId,
             @RequestParam(name = ParamConstant.PAGE_SIZE) int pageSize
@@ -62,7 +62,7 @@ public class ItemController {
     }
 
     @GetMapping(ItemUrl.SELLER_ITEMS_LIST)
-    public ResponseEntity<?> sellerItemsList(
+    public ResponseEntity<List<ItemResponse>> sellerItemsList(
             @PathVariable(ParamConstant.SHOP_ID) Long shopId,
             @RequestParam(name = ParamConstant.LAST_ID) Long lastId,
             @RequestParam(name = ParamConstant.PAGE_SIZE) int pageSize
@@ -72,8 +72,18 @@ public class ItemController {
         return ResponseEntity.ok(items);
     }
 
+    @GetMapping(ItemUrl.SEARCH_ITEMS_LIST)
+    public ResponseEntity<List<ItemResponse>> searchItems(
+            @RequestParam(name = ParamConstant.KEYWORD) String keyword,
+            @RequestParam(name = ParamConstant.LAST_ID) Long lastId,
+            @RequestParam(name = ParamConstant.PAGE_SIZE) int pageSize
+    ) {
+        List<ItemResponse> items = itemService.searchItemsByKeyword(keyword, lastId, pageSize);
+
+        return ResponseEntity.ok(items);
+    }
+
     /*
-    검색(페이징)
     수정(제목, 내용, 가격, 재고)
     삭제(파일 -> 리뷰 -> 상품 순으로)
      */
