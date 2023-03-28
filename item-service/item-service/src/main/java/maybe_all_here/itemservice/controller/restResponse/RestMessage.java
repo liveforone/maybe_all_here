@@ -11,7 +11,8 @@ public enum RestMessage {
     CREATE_ITEM_SUCCESS("상품 등록에 성공하셨습니다."),
     EDIT_TITLE_SUCCESS("수정한 제목이 정상적으로 반영되었습니다."),
     EDIT_CONTENT_SUCCESS("수정한 내용이 정상적으로 반영되었습니다."),
-    EDIT_PRICE_SUCCESS("수정한 가격이 정상적으로 반영되었습니다.");
+    EDIT_PRICE_SUCCESS("수정한 가격이 정상적으로 반영되었습니다."),
+    EDIT_REMAINING_SUCCESS("수정한 수량이 정상적으로 반영되었습니다.");
 
     private final String value;
 }
