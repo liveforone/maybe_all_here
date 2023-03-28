@@ -15,6 +15,7 @@ public interface ItemCustomRepository {
     void editContentById(String content, Long itemId);
     void editPriceById(long price, Long itemId);
     void editRemainingById(long remaining, Long itemId);
+    void deleteItemById(Long itemId);
     void decreaseRemaining(ItemRemainingRequest itemRemainingRequest);
     void increaseGood(Long itemId);
     void increaseBad(Long itemId);

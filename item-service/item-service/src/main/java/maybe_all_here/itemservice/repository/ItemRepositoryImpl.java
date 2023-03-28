@@ -99,6 +99,12 @@ public class ItemRepositoryImpl implements ItemCustomRepository {
                 .execute();
     }
 
+    public void deleteItemById(Long itemId) {
+        queryFactory.delete(item)
+                .where(item.id.eq(itemId))
+                .execute();
+    }
+
     public void decreaseRemaining(ItemRemainingRequest itemRemainingRequest) {
         queryFactory.update(item)
                 .set(
