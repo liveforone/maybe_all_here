@@ -128,8 +128,22 @@ public class ItemController {
         return RestResponse.editPriceSuccess();
     }
 
+    @PatchMapping(ItemUrl.EDIT_REMAINING)
+    public ResponseEntity<?> editRemaining(
+            @PathVariable(ParamConstant.ITEM_ID) Long itemId,
+            @RequestBody long remaining
+    ) {
+        if (itemValidator.isNullItem(itemId)) {
+            return RestResponse.itemIsNull();
+        }
+
+        itemService.editRemainingById(remaining, itemId);
+        log.info(ControllerLog.EDIT_REMAINING_SUCCESS.getValue() + itemId);
+
+        return RestResponse.editRemainingSuccess();
+    }
+
     /*
-    수정(가격, 재고)
     삭제(파일 -> 리뷰 -> 상품 순으로)
      */
 
