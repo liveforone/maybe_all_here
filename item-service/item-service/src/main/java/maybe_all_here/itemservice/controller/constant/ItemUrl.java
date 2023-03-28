@@ -9,4 +9,5 @@ public class ItemUrl {
     public static final String SELLER_ITEMS_LIST = "/items/seller/{shopId}";
     public static final String SEARCH_ITEMS_LIST = "/items/search";
     public static final String EDIT_TITLE = "/item/update-title/{itemId}";
+    public static final String EDIT_CONTENT = "/item/update-content/{itemId}";
 }
