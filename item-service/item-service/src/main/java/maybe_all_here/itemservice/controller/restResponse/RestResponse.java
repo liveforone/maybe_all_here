@@ -44,4 +44,8 @@ public class RestResponse {
     public static ResponseEntity<?> editRemainingSuccess() {
         return ResponseEntity.ok(RestMessage.EDIT_REMAINING_SUCCESS.getValue());
     }
+
+    public static ResponseEntity<?> deleteItemSuccess() {
+        return ResponseEntity.ok(RestMessage.DELETE_ITEM_SUCCESS.getValue());
+    }
 }
