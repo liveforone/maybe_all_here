@@ -65,4 +65,9 @@ public class ItemService {
     public void editRemainingById(long remaining, Long itemId) {
         itemRepository.editRemainingById(remaining, itemId);
     }
+
+    @Transactional
+    public void deleteItemById(Long itemId) {
+        itemRepository.deleteItemById(itemId);
+    }
 }
