@@ -125,10 +125,25 @@ class ItemServiceTest {
     }
 
     @Test
-    void editRemainingById() {
-    }
+    @Transactional
+    void editRemainingByIdTest() {
+        //given
+        String title = "test5";
+        String content = "test_content5";
+        long price = 10000;
+        long remaining = 500;
+        Long shopId = 104L;
+        Long itemId = createItem(title, content, price, remaining, shopId);
 
-    @Test
-    void deleteItemById() {
+        //when
+        long updatedRemaining = 1000;
+        itemService.editRemainingById(updatedRemaining, itemId);
+        em.flush();
+        em.clear();
+
+        //then
+        Assertions
+                .assertThat(itemService.getItemById(itemId).getRemaining())
+                .isEqualTo(updatedRemaining);
     }
 }
