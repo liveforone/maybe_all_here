@@ -1,7 +1,9 @@
 package maybe_all_here.itemservice.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import maybe_all_here.itemservice.authentication.AuthenticationInfo;
 import maybe_all_here.itemservice.controller.constant.ControllerLog;
 import maybe_all_here.itemservice.controller.constant.ItemUrl;
 import maybe_all_here.itemservice.controller.constant.ParamConstant;
@@ -28,6 +30,7 @@ public class ItemController {
     private final ItemService itemService;
     private final ItemValidator itemValidator;
     private final UploadFileService uploadFileService;
+    private final AuthenticationInfo authenticationInfo;
 
     @GetMapping(ItemUrl.ITEM_HOME)
     public ResponseEntity<List<ItemResponse>> itemHome(
@@ -89,10 +92,15 @@ public class ItemController {
             @RequestPart ItemRequest itemRequest,
             BindingResult bindingResult,
             @RequestPart List<MultipartFile> uploadFile,
-            @PathVariable(ParamConstant.SHOP_ID) Long shopId
+            @PathVariable(ParamConstant.SHOP_ID) Long shopId,
+            HttpServletRequest request
     ) throws IllegalStateException, IOException {
         if (bindingResult.hasErrors()) {
             return RestResponse.validError(bindingResult);
+        }
+
+        if (itemValidator.isNotSeller(authenticationInfo.getAuth(request))) {
+            return RestResponse.notSeller();
         }
 
         Long itemId = itemService.createItem(itemRequest, shopId);
@@ -105,7 +113,8 @@ public class ItemController {
     @PatchMapping(ItemUrl.EDIT_FILE)
     public ResponseEntity<?> editFile(
             @PathVariable(ParamConstant.ITEM_ID) Long itemId,
-            @RequestPart List<MultipartFile> uploadFile
+            @RequestPart List<MultipartFile> uploadFile,
+            HttpServletRequest request
     ) throws IOException {
         if (itemValidator.isNullItem(itemId)) {
             return RestResponse.itemIsNull();
