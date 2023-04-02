@@ -52,4 +52,10 @@ public class RestResponse {
     public static ResponseEntity<?> deleteItemSuccess() {
         return ResponseEntity.ok(RestMessage.DELETE_ITEM_SUCCESS.getValue());
     }
+
+    public static ResponseEntity<?> notSeller() {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(RestMessage.NOT_SELLER.getValue());
+    }
 }
