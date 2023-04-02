@@ -18,7 +18,5 @@ public class ShopRequest {
 
     @NotBlank(message = "전화번호는 반드시 기입해야합니다.")
     private String tel;
-
-    @NotBlank(message = "셀러의 이메일은 반드시 기입해야합니다.")
     private String email;
 }
