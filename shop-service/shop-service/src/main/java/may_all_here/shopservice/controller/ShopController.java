@@ -1,8 +1,10 @@
 package may_all_here.shopservice.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import may_all_here.shopservice.authentication.AuthenticationInfo;
 import may_all_here.shopservice.controller.constant.ControllerLog;
 import may_all_here.shopservice.controller.constant.ParamConstant;
 import may_all_here.shopservice.controller.constant.ShopUrl;
@@ -23,25 +25,28 @@ public class ShopController {
 
     private final ShopService shopService;
     private final ShopValidator shopValidator;
+    private final AuthenticationInfo authenticationInfo;
 
     @PostMapping(ShopUrl.CREATE_SHOP)
     public ResponseEntity<?> createShop(
             @RequestBody @Valid ShopRequest shopRequest,
-            BindingResult bindingResult
+            BindingResult bindingResult,
+            HttpServletRequest request
     ) {
         if (bindingResult.hasErrors()) {
             return RestResponse.validError(bindingResult);
         }
 
-        if (shopValidator.isNotSeller(shopRequest)) {
+        if (shopValidator.isNotSeller(authenticationInfo.getAuth(request))) {
             return RestResponse.notSellerError();
         }
 
-        if (shopValidator.isDuplicateUser(shopRequest)) {
+        String email = authenticationInfo.getEmail(request);
+        if (shopValidator.isDuplicateUser(email)) {
             return RestResponse.duplicateUser();
         }
 
-        Long shopId = shopService.createShop(shopRequest);
+        Long shopId = shopService.createShop(shopRequest, email);
         log.info(ControllerLog.SHOP_CREATE_SUCCESS.getValue() + shopId);
 
         return RestResponse.createShopSuccess();
@@ -76,10 +81,16 @@ public class ShopController {
     @PatchMapping(ShopUrl.CHANGE_SHOP_NAME)
     public ResponseEntity<?> changeShopName(
             @PathVariable(ParamConstant.SHOP_ID) Long shopId,
-            @RequestBody String shopName
+            @RequestBody String shopName,
+            HttpServletRequest request
     ) {
         if (shopValidator.isNotExistShop(shopId)) {
             return RestResponse.shopIsNull();
+        }
+
+        String email = authenticationInfo.getEmail(request);
+        if (shopValidator.isNotOwner(email)) {
+            return RestResponse.notOwner();
         }
 
         shopService.updateShopName(shopName, shopId);
@@ -91,10 +102,16 @@ public class ShopController {
     @PatchMapping(ShopUrl.CHANGE_SHOP_ADDRESS)
     public ResponseEntity<?> changeShopAddress(
             @PathVariable(ParamConstant.SHOP_ID) Long shopId,
-            @RequestBody String address
+            @RequestBody String address,
+            HttpServletRequest request
     ) {
         if (shopValidator.isNotExistShop(shopId)) {
             return RestResponse.shopIsNull();
+        }
+
+        String email = authenticationInfo.getEmail(request);
+        if (shopValidator.isNotOwner(email)) {
+            return RestResponse.notOwner();
         }
 
         shopService.updateAddress(address, shopId);
@@ -106,10 +123,16 @@ public class ShopController {
     @PatchMapping(ShopUrl.CHANGE_SHOP_TEL)
     public ResponseEntity<?> changeShopTel(
             @PathVariable(ParamConstant.SHOP_ID) Long shopId,
-            @RequestBody String tel
+            @RequestBody String tel,
+            HttpServletRequest request
     ) {
         if (shopValidator.isNotExistShop(shopId)) {
             return RestResponse.shopIsNull();
+        }
+
+        String email = authenticationInfo.getEmail(request);
+        if (shopValidator.isNotOwner(email)) {
+            return RestResponse.notOwner();
         }
 
         shopService.updateTel(tel, shopId);
