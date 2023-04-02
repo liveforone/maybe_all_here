@@ -1,7 +1,6 @@
 package may_all_here.shopservice.service.util;
 
 import may_all_here.shopservice.domain.Shop;
-import may_all_here.shopservice.dto.shop.SellerInfoResponse;
 import may_all_here.shopservice.dto.shop.ShopRequest;
 import may_all_here.shopservice.dto.shop.ShopResponse;
 
@@ -22,12 +21,6 @@ public class ShopMapper {
                 .shopName(shop.getShopName())
                 .address(shop.getAddress())
                 .tel(shop.getTel())
-                .build();
-    }
-
-    public static SellerInfoResponse entityToSellerInfoDto(Shop shop) {
-        return SellerInfoResponse.builder()
-                .email(shop.getEmail())
                 .build();
     }
 }
