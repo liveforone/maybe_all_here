@@ -25,8 +25,7 @@ class ShopServiceTest {
         shopRequest.setShopName(shopName);
         shopRequest.setAddress(address);
         shopRequest.setTel(tel);
-        shopRequest.setEmail(email);
-        return shopService.createShop(shopRequest);
+        return shopService.createShop(shopRequest, email);
     }
 
     @Test
@@ -41,10 +40,9 @@ class ShopServiceTest {
         shopRequest.setShopName(shopName);
         shopRequest.setAddress(address);
         shopRequest.setTel(tel);
-        shopRequest.setEmail(email);
 
         //when
-        Long shopId = shopService.createShop(shopRequest);
+        Long shopId = shopService.createShop(shopRequest, email);
         em.flush();
         em.clear();
 
@@ -96,7 +94,7 @@ class ShopServiceTest {
         em.flush();
         em.clear();
 
-        //them
+        //then
         Assertions
                 .assertThat(shopService.getShopById(shopId).getAddress())
                 .isEqualTo(updatedAddress);

@@ -49,7 +49,8 @@ public class ShopService {
     }
 
     @Transactional
-    public Long createShop(ShopRequest shopRequest) {
+    public Long createShop(ShopRequest shopRequest, String email) {
+        shopRequest.setEmail(email);
         return shopRepository
                 .save(ShopMapper.dtoToEntity(shopRequest))
                 .getId();
