@@ -1,4 +1,4 @@
-package may_all_here.shopservice.dto.member;
+package may_all_here.shopservice.authentication;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,9 +7,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum Role {
 
-    ADMIN("ROLE_ADMIN"),
     MEMBER("ROLE_MEMBER"),
-    SELLER("ROLE_SELLER");
+    SELLER("ROLE_SELLER"),
+    ADMIN("ROLE_ADMIN");
 
-    private String value;
+    private final String value;
 }
