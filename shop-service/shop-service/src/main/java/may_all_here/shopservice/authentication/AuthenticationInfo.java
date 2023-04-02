@@ -5,7 +5,6 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.extern.slf4j.Slf4j;
 import may_all_here.shopservice.authentication.constant.JwtConstant;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -15,7 +14,6 @@ import java.security.Key;
 import java.util.Base64;
 
 @Component
-@Slf4j
 public class AuthenticationInfo {
 
     private final Key key;
@@ -28,14 +26,12 @@ public class AuthenticationInfo {
     public String getEmail(HttpServletRequest request) {
         String token = resolveToken(request);
         Claims claims = getAuthentication(token);
-        log.info("!! Email is " + claims.getSubject());
         return claims.getSubject();
     }
 
     public String getAuth(HttpServletRequest request) {
         String token = resolveToken(request);
         Claims claims = getAuthentication(token);
-        log.info("!! Auth is " + claims.get(JwtConstant.CLAIM_NAME).toString());
         return claims.get(JwtConstant.CLAIM_NAME).toString();
     }
 
