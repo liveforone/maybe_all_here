@@ -3,7 +3,6 @@ package may_all_here.shopservice.validator;
 import lombok.RequiredArgsConstructor;
 import may_all_here.shopservice.authentication.Role;
 import may_all_here.shopservice.domain.Shop;
-import may_all_here.shopservice.dto.shop.ShopRequest;
 import may_all_here.shopservice.repository.ShopRepository;
 import may_all_here.shopservice.utility.CommonUtils;
 import org.springframework.stereotype.Component;
