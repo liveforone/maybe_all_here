@@ -31,4 +31,10 @@ public class ShopValidator {
 
         return CommonUtils.isNull(shop);
     }
+
+    public boolean isNotOwner(String email) {
+        Shop shop = shopRepository.findShopByEmail(email);
+
+        return CommonUtils.isNull(shop);
+    }
 }
