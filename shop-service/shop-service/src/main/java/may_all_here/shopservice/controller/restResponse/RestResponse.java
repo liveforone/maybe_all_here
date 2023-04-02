@@ -52,4 +52,10 @@ public class RestResponse {
     public static ResponseEntity<?> updateTelSuccess() {
         return ResponseEntity.ok(ResponseMessage.SHOP_TEL_UPDATE_SUCCESS.getValue());
     }
+
+    public static ResponseEntity<?> notOwner() {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(ResponseMessage.NOT_OWNER.getValue());
+    }
 }
