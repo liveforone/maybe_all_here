@@ -44,7 +44,18 @@ public class ReviewController {
 
         return ResponseEntity.ok(reviews);
     }
-    //리뷰 디테일
+
+    @GetMapping(ReviewUrl.REVIEW_DETAIL)
+    public ResponseEntity<?> reviewDetail(
+            @PathVariable(ParamConstant.REVIEW_ID) Long reviewId
+    ) {
+        if (reviewValidator.isNullReview(reviewId)) {
+            return RestResponse.reviewIsNull();
+        }
+
+        ReviewResponse review = reviewService.getReviewById(reviewId);
+        return ResponseEntity.ok(review);
+    }
     //리뷰 수정
     //리뷰 삭제
 
