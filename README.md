@@ -34,6 +34,7 @@
 * [마일리지 서비스](https://github.com/liveforone/maybe_all_here/wiki/%EB%A7%88%EC%9D%BC%EB%A6%AC%EC%A7%80-%EC%84%9C%EB%B9%84%EC%8A%A4)
 * [상점 서비스](https://github.com/liveforone/maybe_all_here/wiki/%EC%83%81%EC%A0%90-%EC%84%9C%EB%B9%84%EC%8A%A4)
 * [상품 서비스](https://github.com/liveforone/maybe_all_here/wiki/%EC%83%81%ED%92%88-%EC%84%9C%EB%B9%84%EC%8A%A4)
+* [리뷰 서비스](https://github.com/liveforone/maybe_all_here/wiki/%EB%A6%AC%EB%B7%B0-%EC%84%9C%EB%B9%84%EC%8A%A4)
 ### 서비스(데이터)간 통신
 * [데이터 통신 전략](https://github.com/liveforone/maybe_all_here/wiki/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%86%B5%EC%8B%A0-%EC%A0%84%EB%9E%B5)
 * [Kafka 활용 전략](https://github.com/liveforone/maybe_all_here/wiki/%EC%B9%B4%ED%94%84%EC%B9%B4-%ED%99%9C%EC%9A%A9-%EC%A0%84%EB%9E%B5)
@@ -129,12 +130,11 @@
 검색이 직관적이고, 편하고, 카테고리처럼 답이 있는 제약이 걸린게 아닌 자유로워서 검색으로 두고 카테고리 태그를 따로 안다는 것이 더 효과적일 수도 있다.
 
 ## 주문
+* 주문 서비스 제작전 모든 서비스를 훑어서 서비스간 통신 정리 먼저 하기
+* 주문시 상품 수량감소
+* 리뷰서비스에 itemId와 email로 주문 찾아서 리턴하기(쿼리스트링으로 받아야함)
 * 주문에는 반드시 생성 날자 createdDate 들어가야함.
-
-## 리뷰 시 추천
-* 추천은 dto에서 추천/비추천을 식별할 것을 넣어서
-* if문으로 추천시 추천 producer, 비추천시 비추천 producer로 보내기
-* 상품 서비스에 토픽 있음. 참고
+* 주문 취소시 리뷰 삭제(email, itemId) : producer
 
 ## 위키 할일 : 모든 문서는 위에 있으니 참고해 작성
 * 수익창출
