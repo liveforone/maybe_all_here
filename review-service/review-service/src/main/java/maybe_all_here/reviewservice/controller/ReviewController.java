@@ -10,6 +10,7 @@ import maybe_all_here.reviewservice.controller.constant.ParamConstant;
 import maybe_all_here.reviewservice.controller.constant.ReviewUrl;
 import maybe_all_here.reviewservice.controller.restResponse.RestResponse;
 import maybe_all_here.reviewservice.dto.order.OrderProvideResponse;
+import maybe_all_here.reviewservice.dto.review.ReviewEditRequest;
 import maybe_all_here.reviewservice.dto.review.ReviewRequest;
 import maybe_all_here.reviewservice.dto.review.ReviewResponse;
 import maybe_all_here.reviewservice.feignClient.OrderFeignService;
@@ -56,8 +57,6 @@ public class ReviewController {
         ReviewResponse review = reviewService.getReviewById(reviewId);
         return ResponseEntity.ok(review);
     }
-    //리뷰 수정
-    //리뷰 삭제
 
     @PostMapping(ReviewUrl.CREATE_REVIEW)
     public ResponseEntity<?> createReview(
@@ -94,4 +93,27 @@ public class ReviewController {
                         throwable -> new OrderProvideResponse()
                 );
     }
+
+    @PatchMapping(ReviewUrl.EDIT_REVIEW)
+    public ResponseEntity<?> editReview(
+            @PathVariable(ParamConstant.REVIEW_ID) Long reviewId,
+            @RequestBody ReviewEditRequest reviewEditRequest,
+            BindingResult bindingResult,
+            HttpServletRequest request
+    ) {
+        if (bindingResult.hasErrors()) {
+            return RestResponse.validError(bindingResult);
+        }
+
+        String email = authenticationInfo.getEmail(request);
+        if (reviewValidator.isNotOwner(reviewId, email)) {
+            return RestResponse.notOwner();
+        }
+
+        reviewService.editReviewById(reviewEditRequest, reviewId);
+        log.info(ControllerLog.EDIT_REVIEW_SUCCESS.getValue() + reviewId);
+
+        return RestResponse.editSuccess();
+    }
+    //리뷰 삭제
 }
