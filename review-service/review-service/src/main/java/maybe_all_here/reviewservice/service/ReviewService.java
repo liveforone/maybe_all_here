@@ -33,12 +33,12 @@ public class ReviewService {
     }
 
     @Transactional
-    public void createReview(ReviewRequest reviewRequest, String email, Long itemId) {
+    public Long createReview(ReviewRequest reviewRequest, String email, Long itemId) {
         reviewRequest.setEmail(email);
         reviewRequest.setItemId(itemId);
 
 //        reviewProducer.sendRecommendState(reviewRequest);
-        reviewRepository.save(ReviewMapper.dtoToEntity(reviewRequest));
+        return reviewRepository.save(ReviewMapper.dtoToEntity(reviewRequest)).getId();
     }
 
     @Transactional
