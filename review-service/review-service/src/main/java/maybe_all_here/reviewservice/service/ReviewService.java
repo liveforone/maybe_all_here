@@ -19,6 +19,12 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final ReviewProducer reviewProducer;
 
+    public ReviewResponse getReviewById(Long reviewId) {
+        return ReviewMapper.entityToDtoDetail(
+                reviewRepository.findOneById(reviewId)
+        );
+    }
+
     public List<ReviewResponse> getReviewsByItemId(Long itemId, Long lastId, int pageSize) {
         return ReviewMapper.entityToDtoList(
                 reviewRepository.findReviewsByItemId(itemId, lastId, pageSize)
