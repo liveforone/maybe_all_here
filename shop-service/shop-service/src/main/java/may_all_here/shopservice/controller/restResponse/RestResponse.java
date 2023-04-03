@@ -37,7 +37,7 @@ public class RestResponse {
 
     public static ResponseEntity<?> shopIsNull() {
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
+                .status(HttpStatus.NOT_FOUND)
                 .body(ResponseMessage.SHOP_IS_NULL.getValue());
     }
 
