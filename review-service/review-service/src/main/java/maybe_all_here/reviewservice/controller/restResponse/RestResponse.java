@@ -50,4 +50,8 @@ public class RestResponse {
     public static ResponseEntity<?> editSuccess() {
         return ResponseEntity.ok(RestMessage.EDIT_REVIEW_SUCCESS.getValue());
     }
+
+    public static ResponseEntity<?> deleteSuccess() {
+        return ResponseEntity.ok(RestMessage.DELETE_REVIEW_SUCCESS.getValue());
+    }
 }

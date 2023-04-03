@@ -12,7 +12,8 @@ public enum RestMessage {
     CREATE_REVIEW_SUCCESS("리뷰가 성공적으로 등록되었습니다."),
     REVIEW_IS_NULL("리뷰가 존재하지 않습니다."),
     NOT_OWNER("작성자가 아닙니다."),
-    EDIT_REVIEW_SUCCESS("리뷰 수정에 성공했습니다.");
+    EDIT_REVIEW_SUCCESS("리뷰 수정에 성공했습니다."),
+    DELETE_REVIEW_SUCCESS("리뷰를 성공적으로 삭제하였습니다.");
 
     private final String value;
 }
