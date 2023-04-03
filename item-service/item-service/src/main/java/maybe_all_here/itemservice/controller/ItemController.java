@@ -11,6 +11,7 @@ import maybe_all_here.itemservice.controller.restResponse.RestResponse;
 import maybe_all_here.itemservice.dto.item.ItemDetailResponse;
 import maybe_all_here.itemservice.dto.item.ItemRequest;
 import maybe_all_here.itemservice.dto.item.ItemResponse;
+import maybe_all_here.itemservice.kafka.ItemProducer;
 import maybe_all_here.itemservice.service.item.ItemService;
 import maybe_all_here.itemservice.service.uploadFile.UploadFileService;
 import maybe_all_here.itemservice.validator.ItemValidator;
@@ -31,6 +32,7 @@ public class ItemController {
     private final ItemValidator itemValidator;
     private final UploadFileService uploadFileService;
     private final AuthenticationInfo authenticationInfo;
+    private final ItemProducer itemProducer;
 
     @GetMapping(ItemUrl.ITEM_HOME)
     public ResponseEntity<List<ItemResponse>> itemHome(
@@ -194,7 +196,7 @@ public class ItemController {
             return RestResponse.itemIsNull();
         }
 
-        //리뷰 벌크 삭제
+        itemProducer.removeBelongReview(itemId);
         uploadFileService.deleteFileByItemId(itemId);
         itemService.deleteItemById(itemId);
         log.info(ControllerLog.DELETE_ITEM_SUCCESS.getValue() + itemId);
