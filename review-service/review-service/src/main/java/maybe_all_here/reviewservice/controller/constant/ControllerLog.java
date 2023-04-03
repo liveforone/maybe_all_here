@@ -7,7 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ControllerLog {
 
-    CREATE_REVIEW_SUCCESS("리뷰 작성에 성공했습니다.");
+    CREATE_REVIEW_SUCCESS("리뷰 작성에 성공했습니다."),
+    EDIT_REVIEW_SUCCESS("Review Edit Success | id : ");
 
     private final String value;
 }
