@@ -45,4 +45,9 @@ public class ReviewService {
     public void editReviewById(ReviewEditRequest reviewEditRequest, Long reviewId) {
         reviewRepository.editReviewById(reviewEditRequest.getContent(), reviewId);
     }
+
+    @Transactional
+    public void deleteReviewById(Long reviewId) {
+        reviewRepository.deleteOneById(reviewId);
+    }
 }
