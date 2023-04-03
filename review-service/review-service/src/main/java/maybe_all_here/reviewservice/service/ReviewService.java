@@ -1,6 +1,7 @@
 package maybe_all_here.reviewservice.service;
 
 import lombok.RequiredArgsConstructor;
+import maybe_all_here.reviewservice.dto.review.ReviewEditRequest;
 import maybe_all_here.reviewservice.dto.review.ReviewRequest;
 import maybe_all_here.reviewservice.dto.review.ReviewResponse;
 import maybe_all_here.reviewservice.kafka.ReviewProducer;
@@ -38,5 +39,10 @@ public class ReviewService {
 
 //        reviewProducer.sendRecommendState(reviewRequest);
         reviewRepository.save(ReviewMapper.dtoToEntity(reviewRequest));
+    }
+
+    @Transactional
+    public void editReviewById(ReviewEditRequest reviewEditRequest, Long reviewId) {
+        reviewRepository.editReviewById(reviewEditRequest.getContent(), reviewId);
     }
 }
