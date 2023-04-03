@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import maybe_all_here.reviewservice.dto.review.Recommend;
 import maybe_all_here.reviewservice.dto.review.ReviewRequest;
+import maybe_all_here.reviewservice.kafka.constant.KafkaLog;
 import maybe_all_here.reviewservice.kafka.constant.Topic;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -33,12 +34,16 @@ public class ReviewProducer {
     private void recommendItem(Long itemId) {
         String jsonOrder = gson.toJson(itemId);
 
-        kafkaTemplate.send(Topic.ITEM_IS_GOOD, jsonOrder);
+        String topic = Topic.ITEM_IS_GOOD;
+        kafkaTemplate.send(topic, jsonOrder);
+        log.info(KafkaLog.KAFKA_SEND_LOG.getValue() + topic);
     }
 
     private void notRecommendItem(Long itemId) {
         String jsonOrder = gson.toJson(itemId);
 
-        kafkaTemplate.send(Topic.ITEM_IS_BAD, jsonOrder);
+        String topic = Topic.ITEM_IS_BAD;
+        kafkaTemplate.send(topic, jsonOrder);
+        log.info(KafkaLog.KAFKA_SEND_LOG.getValue() + topic);
     }
 }
