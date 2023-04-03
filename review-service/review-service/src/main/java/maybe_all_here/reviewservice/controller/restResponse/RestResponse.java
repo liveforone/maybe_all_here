@@ -19,7 +19,7 @@ public class RestResponse {
 
     public static ResponseEntity<?> orderIsNull() {
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
+                .status(HttpStatus.NOT_FOUND)
                 .body(RestMessage.NULL_ORDER.getValue());
     }
 
@@ -37,7 +37,7 @@ public class RestResponse {
 
     public static ResponseEntity<?> reviewIsNull() {
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
+                .status(HttpStatus.NOT_FOUND)
                 .body(RestMessage.REVIEW_IS_NULL.getValue());
     }
 
@@ -45,5 +45,9 @@ public class RestResponse {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(RestMessage.NOT_OWNER.getValue());
+    }
+
+    public static ResponseEntity<?> editSuccess() {
+        return ResponseEntity.ok(RestMessage.EDIT_REVIEW_SUCCESS.getValue());
     }
 }
