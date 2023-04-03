@@ -76,9 +76,9 @@ public class ReviewController {
             return RestResponse.orderIsNull();
         }
 
-//        if (reviewValidator.isCancelOrder(order)) {
-//            return RestResponse.orderCanceled();
-//        }
+        if (reviewValidator.isCancelOrder(order)) {
+            return RestResponse.orderCanceled();
+        }
 
         reviewService.createReview(reviewRequest, email, itemId);
         log.info(ControllerLog.CREATE_REVIEW_SUCCESS.getValue());
