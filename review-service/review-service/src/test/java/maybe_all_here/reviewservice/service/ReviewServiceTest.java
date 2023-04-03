@@ -75,6 +75,23 @@ class ReviewServiceTest {
     }
 
     @Test
+    @Transactional
     void deleteReviewById() {
+        //given
+        Long itemId = 1L;
+        String email = "aa1234@gmail.com";
+        String content = "test_content";
+        String recommend = "true";
+        Long reviewId = createReview(itemId, email, content, recommend);
+
+        //when
+        reviewService.deleteReviewById(reviewId);
+        em.flush();
+        em.clear();
+
+        //then
+        Assertions
+                .assertThat(reviewService.getReviewById(reviewId).getId())
+                .isNull();
     }
 }
