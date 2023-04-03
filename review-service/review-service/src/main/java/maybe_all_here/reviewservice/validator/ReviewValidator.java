@@ -8,6 +8,8 @@ import maybe_all_here.reviewservice.repository.ReviewRepository;
 import maybe_all_here.reviewservice.utility.CommonUtils;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 @Component
 @RequiredArgsConstructor
 public class ReviewValidator {
@@ -24,5 +26,11 @@ public class ReviewValidator {
         if (order.getOrderState() == OrderState.CANCEL) {
             return false;
         } else return !CommonUtils.isNull(order);
+    }
+
+    public boolean isNotOwner(Long reviewId, String email) {
+        Review review = reviewRepository.findOneById(reviewId);
+
+        return !Objects.equals(review.getEmail(), email);
     }
 }
