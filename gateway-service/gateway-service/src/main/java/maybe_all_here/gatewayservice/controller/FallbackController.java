@@ -66,4 +66,24 @@ public class FallbackController {
     public Mono<String> fallbackItemDelete() {
         return Mono.just(FallbackMessage.ITEM_LOG);
     }
+
+    @GetMapping(FallbackUrl.REVIEW)
+    public Mono<String> fallbackReviewGet() {
+        return Mono.just(FallbackMessage.REVIEW_LOG);
+    }
+
+    @PostMapping(FallbackUrl.REVIEW)
+    public Mono<String> fallbackReviewPost() {
+        return Mono.just(FallbackMessage.REVIEW_LOG);
+    }
+
+    @PatchMapping(FallbackUrl.REVIEW)
+    public Mono<String> fallbackReviewPatch() {
+        return Mono.just(FallbackMessage.REVIEW_LOG);
+    }
+
+    @DeleteMapping(FallbackUrl.REVIEW)
+    public Mono<String> fallbackReviewDelete() {
+        return Mono.just(FallbackMessage.REVIEW_LOG);
+    }
 }
