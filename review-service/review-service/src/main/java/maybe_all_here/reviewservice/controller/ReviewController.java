@@ -11,6 +11,7 @@ import maybe_all_here.reviewservice.controller.constant.ReviewUrl;
 import maybe_all_here.reviewservice.controller.restResponse.RestResponse;
 import maybe_all_here.reviewservice.dto.order.OrderProvideResponse;
 import maybe_all_here.reviewservice.dto.review.ReviewRequest;
+import maybe_all_here.reviewservice.dto.review.ReviewResponse;
 import maybe_all_here.reviewservice.feignClient.OrderFeignService;
 import maybe_all_here.reviewservice.service.ReviewService;
 import maybe_all_here.reviewservice.utility.CommonUtils;
@@ -18,10 +19,9 @@ import maybe_all_here.reviewservice.validator.ReviewValidator;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -33,6 +33,20 @@ public class ReviewController {
     private final OrderFeignService orderFeignService;
     private final CircuitBreakerFactory<?, ?> circuitBreakerFactory;
     private final ReviewValidator reviewValidator;
+
+    @GetMapping(ReviewUrl.REVIEWS_BELONG_TO_ITEM)
+    public ResponseEntity<?> getReviewsByItem(
+            @PathVariable(ParamConstant.ITEM_ID) Long itemId,
+            @RequestParam(name = ParamConstant.LAST_ID) Long lastId,
+            @RequestParam(name = ParamConstant.PAGE_SIZE) int pageSize
+    ) {
+        List<ReviewResponse> reviews = reviewService.getReviewsByItemId(itemId, lastId, pageSize);
+
+        return ResponseEntity.ok(reviews);
+    }
+    //리뷰 디테일
+    //리뷰 수정
+    //리뷰 삭제
 
     @PostMapping(ReviewUrl.CREATE_REVIEW)
     public ResponseEntity<?> createReview(
