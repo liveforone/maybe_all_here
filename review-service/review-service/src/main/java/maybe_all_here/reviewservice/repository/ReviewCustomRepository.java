@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface ReviewCustomRepository {
 
+    Review findOneById(Long reviewId);
     List<Review> findReviewsByItemId(Long itemId, Long lastId, int pageSize);
     void deleteBulkByItemId(Long itemId);
 }

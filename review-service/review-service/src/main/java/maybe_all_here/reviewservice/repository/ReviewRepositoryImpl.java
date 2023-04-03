@@ -16,10 +16,10 @@ public class ReviewRepositoryImpl implements ReviewCustomRepository {
     private final JPAQueryFactory queryFactory;
     QReview review = QReview.review;
 
-    public void deleteBulkByItemId(Long itemId) {
-        queryFactory.delete(review)
-                .where(review.itemId.eq(itemId))
-                .execute();
+    public Review findOneById(Long reviewId) {
+        return queryFactory.selectFrom(review)
+                .where(review.id.eq(reviewId))
+                .fetchOne();
     }
 
     public List<Review> findReviewsByItemId(Long itemId, Long lastId, int pageSize) {
@@ -31,6 +31,12 @@ public class ReviewRepositoryImpl implements ReviewCustomRepository {
                 .orderBy(review.id.desc())
                 .limit(pageSize)
                 .fetch();
+    }
+
+    public void deleteBulkByItemId(Long itemId) {
+        queryFactory.delete(review)
+                .where(review.itemId.eq(itemId))
+                .execute();
     }
 
     private BooleanExpression ltReviewId(Long lastId) {
