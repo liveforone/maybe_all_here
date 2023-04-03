@@ -40,4 +40,10 @@ public class RestResponse {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(RestMessage.REVIEW_IS_NULL.getValue());
     }
+
+    public static ResponseEntity<?> notOwner() {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(RestMessage.NOT_OWNER.getValue());
+    }
 }
