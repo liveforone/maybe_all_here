@@ -1,4 +1,4 @@
-package maybe_all_here.userservice.feignClient;
+package maybe_all_here.userservice.feignClient.constant;
 
 public class MileageUrl {
 
