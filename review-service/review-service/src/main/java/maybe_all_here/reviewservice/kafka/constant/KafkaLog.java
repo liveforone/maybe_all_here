@@ -9,7 +9,8 @@ public enum KafkaLog {
 
     KAFKA_RECEIVE_LOG("Consumer receive Kafka Message -> "),
     KAFKA_NULL_LOG("!! Kafka Message is Null !!"),
-    REMOVE_ALL_BELONG_REVIEW_SUCCESS("Remove All Belong review success || FK itemId : ");
+    REMOVE_ALL_BELONG_REVIEW_SUCCESS("Remove All Belong review success || FK itemId : "),
+    KAFKA_SEND_LOG("Kafka send Success | Topic : ");
 
     private final String value;
 }
