@@ -8,7 +8,8 @@ import lombok.Getter;
 public enum ControllerLog {
 
     CREATE_REVIEW_SUCCESS("리뷰 작성에 성공했습니다."),
-    EDIT_REVIEW_SUCCESS("Review Edit Success | id : ");
+    EDIT_REVIEW_SUCCESS("Review Edit Success | id : "),
+    DELETE_REVIEW_SUCCESS("Review Delete Success | id : ");
 
     private final String value;
 }
