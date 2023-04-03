@@ -33,6 +33,13 @@ public class ReviewRepositoryImpl implements ReviewCustomRepository {
                 .fetch();
     }
 
+    public void editReviewById(String content, Long reviewId) {
+        queryFactory.update(review)
+                .set(review.content, content)
+                .where(review.id.eq(reviewId))
+                .execute();
+    }
+
     public void deleteBulkByItemId(Long itemId) {
         queryFactory.delete(review)
                 .where(review.itemId.eq(itemId))
