@@ -115,5 +115,20 @@ public class ReviewController {
 
         return RestResponse.editSuccess();
     }
-    //리뷰 삭제
+
+    @DeleteMapping(ReviewUrl.DELETE_REVIEW)
+    public ResponseEntity<?> deleteReview(
+            @PathVariable(ParamConstant.REVIEW_ID) Long reviewId,
+            HttpServletRequest request
+    ) {
+        String email = authenticationInfo.getEmail(request);
+        if (reviewValidator.isNotOwner(reviewId, email)) {
+            return RestResponse.notOwner();
+        }
+
+        reviewService.deleteReviewById(reviewId);
+        log.info(ControllerLog.DELETE_REVIEW_SUCCESS.getValue() + reviewId);
+
+        return RestResponse.deleteSuccess();
+    }
 }
