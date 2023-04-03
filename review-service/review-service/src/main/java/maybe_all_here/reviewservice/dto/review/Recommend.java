@@ -1,4 +1,4 @@
-package maybe_all_here.reviewservice.dto;
+package maybe_all_here.reviewservice.dto.review;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
