@@ -3,6 +3,7 @@ package maybe_all_here.userservice.kafka;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import maybe_all_here.userservice.kafka.constant.KafkaLog;
 import maybe_all_here.userservice.kafka.constant.Topic;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,8 @@ public class UserProducer {
     public void createMileage(String email) {
         String jsonOrder = gson.toJson(email);
 
-        kafkaTemplate.send(Topic.CREATE_MILEAGE, jsonOrder);
+        String topic = Topic.CREATE_MILEAGE;
+        kafkaTemplate.send(topic, jsonOrder);
+        log.info(KafkaLog.KAFKA_SEND_LOG.getValue() + topic);
     }
 }
