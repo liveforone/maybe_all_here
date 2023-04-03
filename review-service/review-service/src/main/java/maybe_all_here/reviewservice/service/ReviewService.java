@@ -37,7 +37,7 @@ public class ReviewService {
         reviewRequest.setEmail(email);
         reviewRequest.setItemId(itemId);
 
-//        reviewProducer.sendRecommendState(reviewRequest);
+        reviewProducer.sendRecommendState(reviewRequest);
         return reviewRepository.save(ReviewMapper.dtoToEntity(reviewRequest)).getId();
     }
 
