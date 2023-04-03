@@ -34,4 +34,10 @@ public class RestResponse {
                 .status(HttpStatus.CREATED)
                 .body(RestMessage.CREATE_REVIEW_SUCCESS.getValue());
     }
+
+    public static ResponseEntity<?> reviewIsNull() {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(RestMessage.REVIEW_IS_NULL.getValue());
+    }
 }
