@@ -19,7 +19,7 @@ public class RestResponse {
 
     public static ResponseEntity<?> itemIsNull() {
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
+                .status(HttpStatus.NOT_FOUND)
                 .body(RestMessage.NULL_ITEM.getValue());
     }
 
