@@ -3,6 +3,7 @@ package maybe_all_here.itemservice.kafka;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import maybe_all_here.itemservice.kafka.constant.KafkaLog;
 import maybe_all_here.itemservice.kafka.constant.Topic;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,8 @@ public class ItemProducer {
     public void removeBelongReview(Long itemId) {
         String jsonOrder = gson.toJson(itemId);
 
-        kafkaTemplate.send(Topic.REMOVE_BELONG_REVIEW, jsonOrder);
+        String topic = Topic.REMOVE_BELONG_REVIEW;
+        kafkaTemplate.send(topic, jsonOrder);
+        log.info(KafkaLog.KAFKA_SEND_LOG.getValue() + topic);
     }
 }

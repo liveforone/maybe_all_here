@@ -11,7 +11,8 @@ public enum KafkaLog {
     KAFKA_NULL_LOG("!! Kafka Message is Null !!"),
     DECREASE_REMAINING_SUCCESS("Decrease remaining success || Item id : "),
     INCREASE_GOOD_SUCCESS("Increase Good Success || Item id : "),
-    INCREASE_BAD_SUCCESS("Increase bad Success || Item id : ");
+    INCREASE_BAD_SUCCESS("Increase bad Success || Item id : "),
+    KAFKA_SEND_LOG("Kafka send Success | Topic : ");
 
     private final String value;
 }
