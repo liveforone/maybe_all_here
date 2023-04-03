@@ -76,9 +76,9 @@ public class ReviewController {
             return RestResponse.orderIsNull();
         }
 
-        if (reviewValidator.isCancelOrder(order)) {
-            return RestResponse.orderCanceled();
-        }
+//        if (reviewValidator.isCancelOrder(order)) {
+//            return RestResponse.orderCanceled();
+//        }
 
         reviewService.createReview(reviewRequest, email, itemId);
         log.info(ControllerLog.CREATE_REVIEW_SUCCESS.getValue());
@@ -105,6 +105,10 @@ public class ReviewController {
             return RestResponse.validError(bindingResult);
         }
 
+        if (reviewValidator.isNullReview(reviewId)) {
+            return RestResponse.reviewIsNull();
+        }
+
         String email = authenticationInfo.getEmail(request);
         if (reviewValidator.isNotOwner(reviewId, email)) {
             return RestResponse.notOwner();
@@ -121,6 +125,10 @@ public class ReviewController {
             @PathVariable(ParamConstant.REVIEW_ID) Long reviewId,
             HttpServletRequest request
     ) {
+        if (reviewValidator.isNullReview(reviewId)) {
+            return RestResponse.reviewIsNull();
+        }
+
         String email = authenticationInfo.getEmail(request);
         if (reviewValidator.isNotOwner(reviewId, email)) {
             return RestResponse.notOwner();
