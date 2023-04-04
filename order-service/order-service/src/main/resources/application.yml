@@ -33,7 +33,7 @@ logging:
   level:
     org.hibernate.SQL: DEBUG
     org.springframework.web: DEBUG
-    #feing client 클래스의 참조를 복사해서 넣기
+    maybe_all_here.orderservice.feignClient.MileageFeignService: DEBUG
 
 management:
   endpoints:
