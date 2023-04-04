@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import maybe_all_here.reviewservice.dto.order.RemoveReviewBelongOrderRequest;
 import maybe_all_here.reviewservice.kafka.constant.KafkaLog;
 import maybe_all_here.reviewservice.kafka.constant.Topic;
 import maybe_all_here.reviewservice.repository.ReviewRepository;
@@ -18,22 +19,37 @@ import org.springframework.transaction.annotation.Transactional;
 public class ReviewConsumer {
 
     private final ReviewRepository reviewRepository;
+    ObjectMapper objectMapper = new ObjectMapper();
 
+    @KafkaListener(topics = Topic.REMOVE_REVIEW_BELONG_ORDER)
+    @Transactional
+    public void removeReviewBelongOrder(String kafkaMessage) throws JsonProcessingException {
+        log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);
 
+        RemoveReviewBelongOrderRequest request = objectMapper.readValue(
+                kafkaMessage, RemoveReviewBelongOrderRequest.class
+        );
+
+        if (CommonUtils.isNull(request)) {
+            log.info(KafkaLog.KAFKA_NULL_LOG.getValue());
+        } else {
+            reviewRepository.deleteOneByEmailAndItemId(request.getEmail(), request.getItemId());
+            log.info(KafkaLog.REMOVE_REVIEW_BELONG_ORDER_SUCCESS.getValue());
+        }
+    }
 
     @KafkaListener(topics = Topic.REMOVE_REVIEW_BELONG_ITEM)
     @Transactional
-    public void removeBelongReview(String kafkaMessage) throws JsonProcessingException {
+    public void removeReviewBelongItem(String kafkaMessage) throws JsonProcessingException {
         log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);
 
-        ObjectMapper objectMapper = new ObjectMapper();
         Long itemId = objectMapper.readValue(kafkaMessage, Long.class);
 
         if (CommonUtils.isNull(itemId)) {
             log.info(KafkaLog.KAFKA_NULL_LOG.getValue());
         } else {
             reviewRepository.deleteBulkByItemId(itemId);
-            log.info(KafkaLog.REMOVE_ALL_BELONG_REVIEW_SUCCESS.getValue() + itemId);
+            log.info(KafkaLog.REMOVE_REVIEW_BELONG_ITEM_SUCCESS.getValue() + itemId);
         }
     }
 }
