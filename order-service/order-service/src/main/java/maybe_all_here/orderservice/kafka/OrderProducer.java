@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import maybe_all_here.orderservice.dto.item.ItemRemainingRequest;
+import maybe_all_here.orderservice.dto.mileage.AccumulateRequest;
 import maybe_all_here.orderservice.dto.order.OrderRequest;
 import maybe_all_here.orderservice.dto.review.RemoveReviewBelongOrderRequest;
 import maybe_all_here.orderservice.kafka.constant.KafkaLog;
@@ -30,6 +31,15 @@ public class OrderProducer {
         kafkaTemplate.send(topic, jsonOrder);
         log.info(KafkaLog.KAFKA_SEND_LOG.getValue() + topic);
     }
+
+    public void increaseMileage(OrderRequest orderRequest) {
+        AccumulateRequest request = AccumulateRequest.builder()
+                .orderPrice(orderRequest.getTotalPrice())
+                .email(orderRequest.getEmail())
+                .build();
+    }
+
+
     
     public void removeReviewBelongOrder(String email, Long itemId) {
         RemoveReviewBelongOrderRequest request = RemoveReviewBelongOrderRequest.builder()
