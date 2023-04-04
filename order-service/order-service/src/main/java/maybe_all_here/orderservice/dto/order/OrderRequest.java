@@ -13,6 +13,7 @@ public class OrderRequest {
     private long orderQuantity;
     private long totalPrice;
     private long discountPrice;
+    private long spentMileage;
     private String email;
     private Long itemId;
     private OrderState orderState;
