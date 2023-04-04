@@ -19,13 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class ItemConsumer {
 
     private final ItemRepository itemRepository;
+    ObjectMapper objectMapper = new ObjectMapper();
 
     @KafkaListener(topics = Topic.DECREASE_REMAINING)
     @Transactional
     public void decreaseRemaining(String kafkaMessage) throws JsonProcessingException {
         log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);
 
-        ObjectMapper objectMapper = new ObjectMapper();
         ItemRemainingRequest request = objectMapper.readValue(kafkaMessage, ItemRemainingRequest.class);
 
         if (CommonUtils.isNull(request)) {
@@ -41,7 +41,6 @@ public class ItemConsumer {
     public void increaseItemGood(String kafkaMessage) throws JsonProcessingException {
         log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);
 
-        ObjectMapper objectMapper = new ObjectMapper();
         Long itemId = objectMapper.readValue(kafkaMessage, Long.class);
 
         if (CommonUtils.isNull(itemId)) {
@@ -57,7 +56,6 @@ public class ItemConsumer {
     public void increaseItemBad(String kafkaMessage) throws JsonProcessingException {
         log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);
 
-        ObjectMapper objectMapper = new ObjectMapper();
         Long itemId = objectMapper.readValue(kafkaMessage, Long.class);
 
         if (CommonUtils.isNull(itemId)) {
