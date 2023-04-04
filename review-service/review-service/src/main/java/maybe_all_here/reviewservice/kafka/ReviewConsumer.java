@@ -19,7 +19,9 @@ public class ReviewConsumer {
 
     private final ReviewRepository reviewRepository;
 
-    @KafkaListener(topics = Topic.REMOVE_BELONG_REVIEW)
+
+
+    @KafkaListener(topics = Topic.REMOVE_REVIEW_BELONG_ITEM)
     @Transactional
     public void removeBelongReview(String kafkaMessage) throws JsonProcessingException {
         log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);

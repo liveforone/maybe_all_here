@@ -19,7 +19,7 @@ public class ItemProducer {
     public void removeBelongReview(Long itemId) {
         String jsonOrder = gson.toJson(itemId);
 
-        String topic = Topic.REMOVE_BELONG_REVIEW;
+        String topic = Topic.REMOVE_REVIEW_BELONG_ITEM;
         kafkaTemplate.send(topic, jsonOrder);
         log.info(KafkaLog.KAFKA_SEND_LOG.getValue() + topic);
     }
