@@ -8,4 +8,5 @@ public class FallbackUrl {
     public static final String SHOP = "/shop";
     public static final String ITEM = "/item";
     public static final String REVIEW = "/review";
+    public static final String ORDER = "/order";
 }
