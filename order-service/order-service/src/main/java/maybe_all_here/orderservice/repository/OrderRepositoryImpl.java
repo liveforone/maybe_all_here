@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class OrderRepositoryImpl {
+public class OrderRepositoryImpl implements OrderCustomRepository {
 
     private final JPAQueryFactory queryFactory;
     QOrders orders = QOrders.orders;
