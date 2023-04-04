@@ -22,13 +22,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class MileageConsumer {
 
     private final MileageRepository mileageRepository;
+    ObjectMapper objectMapper = new ObjectMapper();
 
     @KafkaListener(topics = Topic.CREATE_MILEAGE)
     @Transactional
     public void createMileage(String kafkaMessage) throws JsonProcessingException {
         log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);
 
-        ObjectMapper objectMapper = new ObjectMapper();
         String email = objectMapper.readValue(kafkaMessage, String.class);
 
         if (CommonUtils.isNull(email)) {
@@ -44,7 +44,6 @@ public class MileageConsumer {
     public void increaseMileage(String kafkaMessage) throws JsonProcessingException {
         log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);
 
-        ObjectMapper objectMapper = new ObjectMapper();
         AccumulateRequest request = objectMapper.readValue(kafkaMessage, AccumulateRequest.class);
 
         long calculatedMileage = AccumulatePolicy.calculateAccumulate(request);
@@ -58,7 +57,6 @@ public class MileageConsumer {
     public void decreaseMileage(String kafkaMessage) throws JsonProcessingException {
         log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);
 
-        ObjectMapper objectMapper = new ObjectMapper();
         UsingMileageRequest request = objectMapper.readValue(kafkaMessage, UsingMileageRequest.class);
 
         mileageRepository.decreaseMileage(request.getSpentMileage(), request.getEmail());
