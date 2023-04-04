@@ -33,12 +33,19 @@ logging:
   level:
     org.hibernate.SQL: DEBUG
     org.springframework.web: DEBUG
+    maybe_all_here.reviewservice.feignClient.OrderFeignService: DEBUG
 
 management:
   endpoints:
     web:
       exposure:
         include: health, info
+
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: FULL
 
 jwt:
   secret: VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHa
