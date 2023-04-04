@@ -12,5 +12,7 @@ public interface ReviewCustomRepository {
     void editReviewById(String content, Long reviewId);
 
     void deleteOneById(Long reviewId);
+
+    void deleteOneByEmailAndItemId(String email, Long itemId);
     void deleteBulkByItemId(Long itemId);
 }

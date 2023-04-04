@@ -46,6 +46,15 @@ public class ReviewRepositoryImpl implements ReviewCustomRepository {
                 .execute();
     }
 
+    public void deleteOneByEmailAndItemId(String email, Long itemId) {
+        queryFactory.delete(review)
+                .where(
+                        review.email.eq(email),
+                        review.itemId.eq(itemId)
+                )
+                .execute();
+    }
+
     public void deleteBulkByItemId(Long itemId) {
         queryFactory.delete(review)
                 .where(review.itemId.eq(itemId))
