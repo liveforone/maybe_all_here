@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import maybe_all_here.orderservice.dto.item.ItemRemainingRequest;
 import maybe_all_here.orderservice.dto.mileage.AccumulateRequest;
+import maybe_all_here.orderservice.dto.mileage.UsingMileageRequest;
 import maybe_all_here.orderservice.dto.order.OrderRequest;
 import maybe_all_here.orderservice.dto.review.RemoveReviewBelongOrderRequest;
 import maybe_all_here.orderservice.kafka.constant.KafkaLog;
@@ -37,9 +38,24 @@ public class OrderProducer {
                 .orderPrice(orderRequest.getTotalPrice())
                 .email(orderRequest.getEmail())
                 .build();
+
+        String jsonOrder = gson.toJson(request);
+        String topic = Topic.INCREASE_MILEAGE;
+        kafkaTemplate.send(topic, jsonOrder);
+        log.info(KafkaLog.KAFKA_SEND_LOG.getValue() + topic);
     }
 
+    public void decreaseMileage(OrderRequest orderRequest) {
+        UsingMileageRequest request = UsingMileageRequest.builder()
+                .spentMileage(orderRequest.getSpentMileage())
+                .email(orderRequest.getEmail())
+                .build();
 
+        String jsonOrder = gson.toJson(request);
+        String topic = Topic.DECREASE_MILEAGE;
+        kafkaTemplate.send(topic, jsonOrder);
+        log.info(KafkaLog.KAFKA_SEND_LOG.getValue() + topic);
+    }
     
     public void removeReviewBelongOrder(String email, Long itemId) {
         RemoveReviewBelongOrderRequest request = RemoveReviewBelongOrderRequest.builder()
