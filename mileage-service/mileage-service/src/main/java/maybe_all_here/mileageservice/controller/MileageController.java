@@ -27,8 +27,17 @@ public class MileageController {
         return ResponseEntity.ok(mileage);
     }
 
+    @GetMapping(MileageUrl.MILEAGE_INFO)
+    public ResponseEntity<?> getMileageInfoForGetMethod(
+            @PathVariable(ParamConstant.EMAIL) String email
+    ) {
+        MileageResponse mileage = mileageService.getMileageByEmail(email);
+
+        return ResponseEntity.ok(mileage);
+    }
+
     @PostMapping(MileageUrl.MILEAGE_INFO)
-    public ResponseEntity<?> getMileageInfoForFeign(
+    public ResponseEntity<?> getMileageInfoForPostMethod(
             @PathVariable(ParamConstant.EMAIL) String email
     ) {
         MileageResponse mileage = mileageService.getMileageByEmail(email);
