@@ -8,9 +8,10 @@ import lombok.Getter;
 public enum KafkaLog {
 
     KAFKA_RECEIVE_LOG("Consumer receive Kafka Message -> "),
+    KAFKA_SEND_LOG("Kafka send Success | Topic : "),
     KAFKA_NULL_LOG("!! Kafka Message is Null !!"),
-    REMOVE_ALL_BELONG_REVIEW_SUCCESS("Remove All Belong review success || FK itemId : "),
-    KAFKA_SEND_LOG("Kafka send Success | Topic : ");
+    REMOVE_REVIEW_BELONG_ITEM_SUCCESS("Remove review Belong item success || FK itemId : "),
+    REMOVE_REVIEW_BELONG_ORDER_SUCCESS("Remove review belong order success");
 
     private final String value;
 }
