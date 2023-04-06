@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import maybe_all_here.itemservice.domain.Item;
 import maybe_all_here.itemservice.domain.UploadFile;
 import maybe_all_here.itemservice.dto.item.ItemDetailResponse;
+import maybe_all_here.itemservice.dto.item.ItemProvideResponse;
 import maybe_all_here.itemservice.dto.item.ItemRequest;
 import maybe_all_here.itemservice.dto.item.ItemResponse;
 import maybe_all_here.itemservice.repository.item.ItemRepository;
@@ -35,6 +36,10 @@ public class ItemService {
         List<UploadFile> files = uploadFileRepository.findFilesByItem(item);
 
         return ItemMapper.entityToDtoDetail(item, files);
+    }
+
+    public ItemProvideResponse getItemProvideById(Long itemId) {
+        return ItemMapper.entityToProvideDto(itemRepository.findOneById(itemId));
     }
 
     public List<ItemResponse> getItemsByShopId(Long shopId, Long lastId, int pageSize) {
