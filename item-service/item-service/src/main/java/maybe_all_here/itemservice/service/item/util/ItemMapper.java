@@ -3,6 +3,7 @@ package maybe_all_here.itemservice.service.item.util;
 import maybe_all_here.itemservice.domain.Item;
 import maybe_all_here.itemservice.domain.UploadFile;
 import maybe_all_here.itemservice.dto.item.ItemDetailResponse;
+import maybe_all_here.itemservice.dto.item.ItemProvideResponse;
 import maybe_all_here.itemservice.dto.item.ItemRequest;
 import maybe_all_here.itemservice.dto.item.ItemResponse;
 import maybe_all_here.itemservice.utility.CommonUtils;
@@ -69,5 +70,12 @@ public class ItemMapper {
                     .saveFileName(saveFileName)
                     .build();
         }
+    }
+
+    public static ItemProvideResponse entityToProvideDto(Item item) {
+        return ItemProvideResponse.builder()
+                .title(item.getTitle())
+                .remaining(item.getRemaining())
+                .build();
     }
 }
