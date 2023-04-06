@@ -30,6 +30,7 @@
 [PATCH] /item/update-remaining/{itemId} : 상품 재고 추가
 [DELETE] /item/delete/{itemId} : 상품 삭제 -> 연관된 리뷰와 파일도 같이 삭제된다.
 [GET] /file/{saveFileName} : 파일 조회, 뷰에서 이미지 보여줄때 사용
+[POST] /item-provide/{itemId} : 상품 수량 제공 api
 ```
 ## Json body 예시
 ```
