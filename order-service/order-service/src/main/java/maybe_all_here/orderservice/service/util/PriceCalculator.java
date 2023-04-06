@@ -1,4 +1,4 @@
-package maybe_all_here.orderservice.utility;
+package maybe_all_here.orderservice.service.util;
 
 public class PriceCalculator {
 
