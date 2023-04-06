@@ -20,6 +20,7 @@ import maybe_all_here.orderservice.utility.CommonUtils;
 import maybe_all_here.orderservice.validator.OrderValidator;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -62,9 +63,14 @@ public class OrderController {
     @PostMapping(OrderUrl.ORDER)
     public ResponseEntity<?> order(
             @RequestBody OrderRequest orderRequest,
+            BindingResult bindingResult,
             @PathVariable(ParamConstant.ITEM_ID) Long itemId,
             HttpServletRequest request
     ) {
+        if (bindingResult.hasErrors()) {
+            return RestResponse.validError(bindingResult);
+        }
+
         ItemProvideResponse item = getItemInfo(itemId);
 
         if (CommonUtils.isNull(item)) {
