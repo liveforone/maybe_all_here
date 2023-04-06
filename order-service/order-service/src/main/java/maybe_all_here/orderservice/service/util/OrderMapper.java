@@ -16,7 +16,7 @@ public class OrderMapper {
                 .itemTitle(orderRequest.getItemTitle())
                 .orderQuantity(orderRequest.getOrderQuantity())
                 .totalPrice(orderRequest.getTotalPrice())
-                .discountedPrice(orderRequest.getSpentMileage())
+                .discountedPrice(orderRequest.getDiscountedPrice())
                 .email(orderRequest.getEmail())
                 .itemId(orderRequest.getItemId())
                 .orderState(orderRequest.getOrderState())
@@ -57,7 +57,6 @@ public class OrderMapper {
                 .itemId(item.getId())
                 .orderState(OrderState.ORDER)
                 .build();
-
     }
 
     public static OrderResponse entityToDto(Orders orders) {
