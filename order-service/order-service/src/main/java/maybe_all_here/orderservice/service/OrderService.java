@@ -1,7 +1,6 @@
 package maybe_all_here.orderservice.service;
 
 import lombok.RequiredArgsConstructor;
-import maybe_all_here.orderservice.domain.OrderState;
 import maybe_all_here.orderservice.dto.item.ItemProvideResponse;
 import maybe_all_here.orderservice.dto.order.OrderProvideResponse;
 import maybe_all_here.orderservice.dto.order.OrderRequest;
@@ -31,19 +30,7 @@ public class OrderService {
     public Long order(
             OrderRequest orderRequest, ItemProvideResponse item, String email
     ) {
-        OrderRequest finalRequest = OrderRequest.builder()
-                .itemTitle(item.getTitle())
-                .orderQuantity(orderRequest.getOrderQuantity())
-                .totalPrice(calculateTotalPrice(
-                        item.getItemPrice(),
-                        orderRequest.getOrderQuantity()
-                ))
-                .discountPrice(orderRequest.getSpentMileage())
-                .spentMileage(orderRequest.getSpentMileage())
-                .email(email)
-                .itemId(item.getId())
-                .orderState(OrderState.ORDER)
-                .build();
+        OrderRequest finalRequest = OrderMapper.dtoToCalculatedDto(orderRequest, item, email);
 
         if (finalRequest.getSpentMileage() != ZERO) {
             orderProducer.decreaseMileage(finalRequest);
@@ -54,9 +41,5 @@ public class OrderService {
         return orderRepository
                 .save(OrderMapper.dtoToEntity(finalRequest))
                 .getId();
-    }
-
-    private long calculateTotalPrice(long itemPrice, long orderQuantity) {
-        return itemPrice * orderQuantity;
     }
 }
