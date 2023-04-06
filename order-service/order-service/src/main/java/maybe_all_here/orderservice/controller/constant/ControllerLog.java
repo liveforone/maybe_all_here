@@ -1,4 +1,4 @@
-package maybe_all_here.orderservice.controller;
+package maybe_all_here.orderservice.controller.constant;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
