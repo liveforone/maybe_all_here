@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum RestMessage {
 
+    ITEM_IS_NULL("존재하지 않는 상품입니다."),
     ITEM_IS_SOLD_OUT("상품의 재고가 모두 소진되었습니다.");
 
     private final String value;
