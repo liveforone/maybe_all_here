@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import maybe_all_here.orderservice.dto.item.ItemProvideResponse;
 import maybe_all_here.orderservice.dto.order.OrderProvideResponse;
 import maybe_all_here.orderservice.dto.order.OrderRequest;
+import maybe_all_here.orderservice.dto.order.OrderResponse;
 import maybe_all_here.orderservice.kafka.OrderProducer;
 import maybe_all_here.orderservice.repository.OrderRepository;
 import maybe_all_here.orderservice.service.util.OrderMapper;
@@ -23,6 +24,12 @@ public class OrderService {
     public OrderProvideResponse getOrderByEmailAndItemId(String email, Long itemId) {
         return OrderMapper.entityToProvideDto(
                 orderRepository.findOneByEmailAndItemId(email, itemId)
+        );
+    }
+
+    public OrderResponse getOrderById(Long orderId) {
+        return OrderMapper.entityToDto(
+                orderRepository.findOneById(orderId)
         );
     }
 
