@@ -2,6 +2,7 @@ package maybe_all_here.orderservice.validator;
 
 import lombok.RequiredArgsConstructor;
 import maybe_all_here.orderservice.dto.item.ItemProvideResponse;
+import maybe_all_here.orderservice.dto.order.OrderRequest;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,5 +13,9 @@ public class OrderValidator {
 
     public boolean isSoldOut(ItemProvideResponse item) {
         return item.getRemaining() <= SOLD_OUT;
+    }
+
+    public boolean isOverRemaining(OrderRequest orderRequest, ItemProvideResponse item) {
+        return orderRequest.getOrderQuantity() > item.getRemaining();
     }
 }
