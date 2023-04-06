@@ -12,5 +12,6 @@ import lombok.NoArgsConstructor;
 public class ItemProvideResponse {
 
     private String title;
+    private long itemPrice;
     private long remaining;
 }
