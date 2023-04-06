@@ -75,6 +75,7 @@ public class ItemMapper {
     public static ItemProvideResponse entityToProvideDto(Item item) {
         return ItemProvideResponse.builder()
                 .title(item.getTitle())
+                .itemPrice(item.getPrice())
                 .remaining(item.getRemaining())
                 .build();
     }
