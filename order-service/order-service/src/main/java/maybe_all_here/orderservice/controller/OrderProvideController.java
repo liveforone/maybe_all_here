@@ -8,6 +8,7 @@ import maybe_all_here.orderservice.service.OrderService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -16,7 +17,7 @@ public class OrderProvideController {
 
     private final OrderService orderService;
 
-    @GetMapping(OrderProvideUrl.ORDER_INFO)
+    @PostMapping(OrderProvideUrl.ORDER_INFO)
     public ResponseEntity<?> getOrderInfo(
             @PathVariable(ProvideParamConstant.EMAIL) String email,
             @PathVariable(ProvideParamConstant.ITEM_ID) Long itemId
