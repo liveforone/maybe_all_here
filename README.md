@@ -35,12 +35,13 @@
 * [상점 서비스](https://github.com/liveforone/maybe_all_here/wiki/%EC%83%81%EC%A0%90-%EC%84%9C%EB%B9%84%EC%8A%A4)
 * [상품 서비스](https://github.com/liveforone/maybe_all_here/wiki/%EC%83%81%ED%92%88-%EC%84%9C%EB%B9%84%EC%8A%A4)
 * [리뷰 서비스](https://github.com/liveforone/maybe_all_here/wiki/%EB%A6%AC%EB%B7%B0-%EC%84%9C%EB%B9%84%EC%8A%A4)
+* [주문 서비스]()
 ### 서비스(데이터)간 통신
 * [데이터 통신 전략](https://github.com/liveforone/maybe_all_here/wiki/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%86%B5%EC%8B%A0-%EC%A0%84%EB%9E%B5)
 * [Kafka 활용 전략](https://github.com/liveforone/maybe_all_here/wiki/%EC%B9%B4%ED%94%84%EC%B9%B4-%ED%99%9C%EC%9A%A9-%EC%A0%84%EB%9E%B5)
 * [Feign Client 활용 전략](https://github.com/liveforone/maybe_all_here/wiki/Feign-Client-%ED%99%9C%EC%9A%A9-%EC%A0%84%EB%9E%B5)
 * [Kafka Command](https://github.com/liveforone/maybe_all_here/wiki/Kafka-Command)
-* [Kafka 주요 에러 및 주의 사항]()
+* [Kafka 주요 에러 및 주의 사항](https://github.com/liveforone/maybe_all_here/wiki/Kafka-%EC%A3%BC%EC%9A%94-%EC%97%90%EB%9F%AC-%EB%B0%8F-%EC%A3%BC%EC%9D%98-%EC%82%AC%ED%95%AD)
 
 # 4. 프로젝트 진행
 ### 진행과정
@@ -74,12 +75,6 @@
 * 1:1 인경우에는 fk(외부식별자) 역할을 하는 컬럼에 unique 걸기
 * 서킷브레이커에서는 서킷브레이커가 활성화가 되면(null이면) 새 빈 객체를 new 생성자로 생성해 리턴해야한다. 그래야 mapper에서 정상적인 처리가 가능해진다.
 * 시큐리티가 있는 유저 서비스에서 데이터를 가져올때에는 해당 api를 permitall로 설정해야한다.
-
-## 카프카 로그가 미친 듯이 내려갈때
-* 카프카와 주키퍼 로그가 저장된 var폴더에서 로그 기록 두 폴더를 모두 삭제하고 카프카를 재시작하면된다.
-
-## 카프카 설정시
-* serial and deserial 은 import org.apache.kafka.common.serialization.StringDeserializer; 를 사용해야 에러가 안뜬다.
 
 ## 프로젝트 후 
 * 컬럼에 unique 걸려있는거 확인하고
@@ -129,18 +124,10 @@
 * 카테고리는 고민을 해봐야함. 검색을 집중해서 한다면 카테고리는 사실 필요가 없음. 일반적으로도 검색을 많이 사용하고,
 검색이 직관적이고, 편하고, 카테고리처럼 답이 있는 제약이 걸린게 아닌 자유로워서 검색으로 두고 카테고리 태그를 따로 안다는 것이 더 효과적일 수도 있다.
 
-## 주문
-* 주문 서비스 제작전 모든 서비스를 훑어서 서비스간 통신 정리 먼저 하기
-* 주문시 상품 수량감소
-* 리뷰서비스에 itemId와 email로 주문 찾아서 리턴하기(쿼리스트링으로 받아야함)
-* 주문에는 반드시 생성 날자 createdDate 들어가야함.
-* 주문 취소시 리뷰 삭제(email, itemId) : producer
-
 ## 위키 할일 : 모든 문서는 위에 있으니 참고해 작성
 * 수익창출
 * 장애시나리오(위에 있는 것 참고해서 작성)
 * 비즈니스 밸류 창출(장바구니 포함)
 * 데이터베이스 설계
-* kafka 에러및 주의사항
 * 프로젝트를 마치며
 * 위키 리드미에 맞게 정리
