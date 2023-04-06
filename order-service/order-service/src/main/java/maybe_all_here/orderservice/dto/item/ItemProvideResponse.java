@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ItemProvideResponse {
 
+    private Long id;
     private String title;
     private long itemPrice;
     private long remaining;
