@@ -22,4 +22,10 @@ public class RestResponse {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(RestMessage.OVER_REMAINING.getValue());
     }
+
+    public static ResponseEntity<?> overMileage() {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(RestMessage.OVER_MILEAGE.getValue());
+    }
 }
