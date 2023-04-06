@@ -5,12 +5,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import maybe_all_here.orderservice.authentication.AuthenticationInfo;
 import maybe_all_here.orderservice.controller.constant.CircuitLog;
+import maybe_all_here.orderservice.controller.constant.ControllerLog;
 import maybe_all_here.orderservice.controller.constant.OrderUrl;
 import maybe_all_here.orderservice.controller.constant.ParamConstant;
 import maybe_all_here.orderservice.controller.restResponse.RestResponse;
 import maybe_all_here.orderservice.dto.item.ItemProvideResponse;
 import maybe_all_here.orderservice.dto.mileage.MileageResponse;
 import maybe_all_here.orderservice.dto.order.OrderRequest;
+import maybe_all_here.orderservice.dto.order.OrderResponse;
 import maybe_all_here.orderservice.feignClient.ItemFeignService;
 import maybe_all_here.orderservice.feignClient.MileageFeignService;
 import maybe_all_here.orderservice.service.OrderService;
@@ -31,6 +33,15 @@ public class OrderController {
     private final AuthenticationInfo authenticationInfo;
     private final OrderValidator orderValidator;
     private final CircuitBreakerFactory<?, ?> circuitBreakerFactory;
+
+    @GetMapping(OrderUrl.ORDER_DETAIL)
+    public ResponseEntity<?> orderDetail(
+            @PathVariable(ParamConstant.ORDER_ID) Long orderId
+    ) {
+        OrderResponse order = orderService.getOrderById(orderId);
+
+        return ResponseEntity.ok(order);
+    }
 
     @GetMapping(OrderUrl.ORDER)
     public ResponseEntity<?> orderPage(HttpServletRequest request) {
@@ -96,7 +107,8 @@ public class OrderController {
                         throwable -> new MileageResponse()
                 );
     }
-    //post도 url 같음. 총 주문 가격 계산해야함(클래스 만들어서) | 총가격 = (수량 * 가격)
-    //할인 가격 : 사용한 마일리지
-    //order cancel, hypermart에서 order clock, cancel 등의 클래스 참고해서 제약걸리
+    //주문 리스트(페이징)
+    //order cancel, hypermart에서 order clock, cancel 등의 클래스 참고해서 제약걸기, validator 사용
+    //order cancel 테스트 코드 작성
+    //order 모든 api 테스트 
 }
