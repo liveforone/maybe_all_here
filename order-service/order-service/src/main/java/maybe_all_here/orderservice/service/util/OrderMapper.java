@@ -5,6 +5,7 @@ import maybe_all_here.orderservice.domain.Orders;
 import maybe_all_here.orderservice.dto.item.ItemProvideResponse;
 import maybe_all_here.orderservice.dto.order.OrderProvideResponse;
 import maybe_all_here.orderservice.dto.order.OrderRequest;
+import maybe_all_here.orderservice.dto.order.OrderResponse;
 import maybe_all_here.orderservice.utility.CommonUtils;
 import maybe_all_here.orderservice.utility.PriceCalculator;
 
@@ -57,5 +58,16 @@ public class OrderMapper {
                 .orderState(OrderState.ORDER)
                 .build();
 
+    }
+
+    public OrderResponse entityToDto(Orders orders) {
+        return OrderResponse.builder()
+                .id(orders.getId())
+                .itemTitle(orders.getItemTitle())
+                .orderQuantity(orders.getOrderQuantity())
+                .totalPrice(orders.getTotalPrice())
+                .discountedPrice(orders.getDiscountedPrice())
+                .orderState(orders.getOrderState())
+                .build();
     }
 }
