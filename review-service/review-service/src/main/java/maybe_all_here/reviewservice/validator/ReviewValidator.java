@@ -23,9 +23,7 @@ public class ReviewValidator {
     }
 
     public boolean isCancelOrder(OrderProvideResponse order) {
-        if (order.getOrderState() == OrderState.CANCEL) {
-            return false;
-        } else return !CommonUtils.isNull(order);
+        return order.getOrderState() == OrderState.CANCEL;
     }
 
     public boolean isNotOwner(Long reviewId, String email) {
