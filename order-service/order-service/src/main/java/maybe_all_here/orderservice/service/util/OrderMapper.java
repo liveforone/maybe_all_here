@@ -60,10 +60,11 @@ public class OrderMapper {
 
     }
 
-    public OrderResponse entityToDto(Orders orders) {
+    public static OrderResponse entityToDto(Orders orders) {
         if (CommonUtils.isNull(orders)) {
             return new OrderResponse();
         }
+
         return OrderResponse.builder()
                 .id(orders.getId())
                 .itemTitle(orders.getItemTitle())
