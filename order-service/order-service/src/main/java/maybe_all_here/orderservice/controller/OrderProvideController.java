@@ -6,7 +6,6 @@ import maybe_all_here.orderservice.controller.constant.ProvideParamConstant;
 import maybe_all_here.orderservice.dto.order.OrderProvideResponse;
 import maybe_all_here.orderservice.service.OrderService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
