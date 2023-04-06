@@ -16,4 +16,10 @@ public class RestResponse {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(RestMessage.ITEM_IS_SOLD_OUT.getValue());
     }
+
+    public static ResponseEntity<?> overRemaining() {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(RestMessage.OVER_REMAINING.getValue());
+    }
 }
