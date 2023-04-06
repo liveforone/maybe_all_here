@@ -12,7 +12,7 @@ public class OrderMapper {
                 .itemTitle(orderRequest.getItemTitle())
                 .orderQuantity(orderRequest.getOrderQuantity())
                 .totalPrice(orderRequest.getTotalPrice())
-                .discountPrice(orderRequest.getSpentMileage())
+                .discountedPrice(orderRequest.getSpentMileage())
                 .email(orderRequest.getEmail())
                 .itemId(orderRequest.getItemId())
                 .orderState(orderRequest.getOrderState())

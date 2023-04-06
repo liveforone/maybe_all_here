@@ -23,7 +23,7 @@ public class Orders {
     private String itemTitle;
     private long orderQuantity;
     private long totalPrice;
-    private long discountPrice;
+    private long discountedPrice;
 
     @Column(nullable = false, updatable = false)
     private String email;
@@ -39,12 +39,12 @@ public class Orders {
     private LocalDate createdDate;
 
     @Builder
-    public Orders(Long id, String itemTitle, long orderQuantity, long totalPrice, long discountPrice, String email, Long itemId, OrderState orderState) {
+    public Orders(Long id, String itemTitle, long orderQuantity, long totalPrice, long discountedPrice, String email, Long itemId, OrderState orderState) {
         this.id = id;
         this.itemTitle = itemTitle;
         this.orderQuantity = orderQuantity;
         this.totalPrice = totalPrice;
-        this.discountPrice = discountPrice;
+        this.discountedPrice = discountedPrice;
         this.email = email;
         this.itemId = itemId;
         this.orderState = orderState;

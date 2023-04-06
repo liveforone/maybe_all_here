@@ -16,7 +16,7 @@ public class OrderRequest {
     private String itemTitle;
     private long orderQuantity;
     private long totalPrice;
-    private long discountPrice;
+    private long discountedPrice;
     private long spentMileage;
     private String email;
     private Long itemId;
