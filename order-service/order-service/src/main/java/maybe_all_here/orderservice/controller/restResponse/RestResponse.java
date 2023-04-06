@@ -28,4 +28,10 @@ public class RestResponse {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(RestMessage.OVER_MILEAGE.getValue());
     }
+
+    public static ResponseEntity<?> orderSuccess() {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(RestMessage.ORDER_SUCCESS.getValue());
+    }
 }
