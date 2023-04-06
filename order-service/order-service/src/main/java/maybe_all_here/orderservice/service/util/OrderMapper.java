@@ -1,9 +1,12 @@
 package maybe_all_here.orderservice.service.util;
 
+import maybe_all_here.orderservice.domain.OrderState;
 import maybe_all_here.orderservice.domain.Orders;
+import maybe_all_here.orderservice.dto.item.ItemProvideResponse;
 import maybe_all_here.orderservice.dto.order.OrderProvideResponse;
 import maybe_all_here.orderservice.dto.order.OrderRequest;
 import maybe_all_here.orderservice.utility.CommonUtils;
+import maybe_all_here.orderservice.utility.PriceCalculator;
 
 public class OrderMapper {
 
@@ -29,5 +32,30 @@ public class OrderMapper {
                 .itemId(orders.getItemId())
                 .orderState(orders.getOrderState())
                 .build();
+    }
+
+    public static OrderRequest dtoToCalculatedDto(
+            OrderRequest orderRequest, ItemProvideResponse item, String email
+    ) {
+        long totalPrice = PriceCalculator.calculateTotalPrice(
+                item.getItemPrice(),
+                orderRequest.getOrderQuantity()
+        );
+
+        long discountedPrice = PriceCalculator.calculateDiscountedPrice(
+                totalPrice, orderRequest.getSpentMileage()
+        );
+
+        return OrderRequest.builder()
+                .itemTitle(item.getTitle())
+                .orderQuantity(orderRequest.getOrderQuantity())
+                .totalPrice(totalPrice)
+                .discountedPrice(discountedPrice)
+                .spentMileage(orderRequest.getSpentMileage())
+                .email(email)
+                .itemId(item.getId())
+                .orderState(OrderState.ORDER)
+                .build();
+
     }
 }
