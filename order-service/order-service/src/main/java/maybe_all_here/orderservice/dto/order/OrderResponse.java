@@ -16,6 +16,6 @@ public class OrderResponse {
     private String itemTitle;
     private long orderQuantity;
     private long totalPrice;
-    private long discountPrice;
+    private long discountedPrice;
     private OrderState orderState;
 }
