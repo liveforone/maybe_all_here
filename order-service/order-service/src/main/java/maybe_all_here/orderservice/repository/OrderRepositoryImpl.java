@@ -21,4 +21,10 @@ public class OrderRepositoryImpl implements OrderCustomRepository {
                 )
                 .fetchOne();
     }
+
+    public Orders findOneById(Long orderId) {
+        return queryFactory.selectFrom(orders)
+                .where(orders.id.eq(orderId))
+                .fetchOne();
+    }
 }

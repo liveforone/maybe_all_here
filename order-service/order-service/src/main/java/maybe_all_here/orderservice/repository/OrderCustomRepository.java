@@ -5,4 +5,6 @@ import maybe_all_here.orderservice.domain.Orders;
 public interface OrderCustomRepository {
 
     Orders findOneByEmailAndItemId(String email, Long itemId);
+
+    Orders findOneById(Long orderId);
 }
