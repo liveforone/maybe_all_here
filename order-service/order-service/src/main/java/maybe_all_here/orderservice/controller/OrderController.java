@@ -127,7 +127,26 @@ public class OrderController {
                         throwable -> new MileageResponse()
                 );
     }
-    //order cancel, hypermart에서 order clock, cancel 등의 클래스 참고해서 제약걸기, validator 사용
+
+    @PatchMapping(OrderUrl.ORDER_CANCEL)
+    public ResponseEntity<?> orderCancel(
+            @PathVariable(ParamConstant.ORDER_ID) Long orderId,
+            HttpServletRequest request
+    ) {
+        String email = authenticationInfo.getEmail(request);
+        if (orderValidator.isNotOwner(email, orderId)) {
+            return RestResponse.isNotOwner();
+        }
+
+        if (orderValidator.isOverCancelLimitDate(orderId)) {
+            return RestResponse.overCancelDate();
+        }
+
+        orderService.cancelOrder(orderId);
+        log.info(ControllerLog.ORDER_CANCEL_SUCCESS.getValue() + orderId);
+
+        return RestResponse.orderCancelSuccess();
+    }
     //order cancel 테스트 코드 작성
     //order 모든 api 테스트 
 }
