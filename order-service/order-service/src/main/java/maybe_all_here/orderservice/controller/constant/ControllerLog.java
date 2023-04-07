@@ -7,7 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ControllerLog {
 
-    ORDER_SUCCESS("Order Success | Order Id : ");
+    ORDER_SUCCESS("Order Success | Order Id : "),
+    ORDER_CANCEL_SUCCESS("Order Cancel Success | Order Id : ");
 
     private final String value;
 }
