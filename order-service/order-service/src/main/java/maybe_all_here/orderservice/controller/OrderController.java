@@ -147,6 +147,4 @@ public class OrderController {
 
         return RestResponse.orderCancelSuccess();
     }
-    //order cancel 테스트 코드 작성
-    //order 모든 api 테스트 
 }
