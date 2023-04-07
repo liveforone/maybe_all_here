@@ -49,4 +49,10 @@ public class OrderRepositoryImpl implements OrderCustomRepository {
                 .where(orders.id.eq(orderId))
                 .fetchOne();
     }
+
+    public void deleteOneById(Long orderId) {
+        queryFactory.delete(orders)
+                .where(orders.id.eq(orderId))
+                .execute();
+    }
 }
