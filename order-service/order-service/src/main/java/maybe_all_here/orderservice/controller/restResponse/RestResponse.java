@@ -46,4 +46,10 @@ public class RestResponse {
                 .status(HttpStatus.CREATED)
                 .body(RestMessage.ORDER_SUCCESS.getValue());
     }
+
+    public static ResponseEntity<?> overCancelDate() {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(RestMessage.ORDER_IS_OVER_DATE.getValue());
+    }
 }
