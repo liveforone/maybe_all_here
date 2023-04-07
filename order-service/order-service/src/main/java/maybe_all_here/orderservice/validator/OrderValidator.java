@@ -6,9 +6,11 @@ import maybe_all_here.orderservice.dto.item.ItemProvideResponse;
 import maybe_all_here.orderservice.dto.mileage.MileageResponse;
 import maybe_all_here.orderservice.dto.order.OrderRequest;
 import maybe_all_here.orderservice.repository.OrderRepository;
+import maybe_all_here.orderservice.utility.CommonUtils;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
@@ -32,6 +34,11 @@ public class OrderValidator {
 
     public boolean isOverCancelLimitDate(Long orderId) {
         Orders orders = orderRepository.findOneById(orderId);
+
+        if (CommonUtils.isNull(orders)) {
+            return true;
+        }
+
         LocalDate createdDate = orders.getCreatedDate();
         int orderDate = createdDate.getDayOfYear();
 
@@ -50,5 +57,11 @@ public class OrderValidator {
         };
 
         return nowDate > cancelLimitDate;
+    }
+
+    public boolean isNotOwner(String email, Long orderId) {
+        Orders orders = orderRepository.findOneById(orderId);
+
+        return !Objects.equals(orders.getEmail(), email);
     }
 }
