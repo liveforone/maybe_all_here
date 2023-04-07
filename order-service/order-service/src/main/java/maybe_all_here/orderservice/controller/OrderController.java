@@ -23,6 +23,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -34,6 +36,18 @@ public class OrderController {
     private final AuthenticationInfo authenticationInfo;
     private final OrderValidator orderValidator;
     private final CircuitBreakerFactory<?, ?> circuitBreakerFactory;
+
+    @GetMapping(OrderUrl.ORDER_LIST)
+    public ResponseEntity<?> orders(
+            @RequestParam(name = ParamConstant.LAST_ID) Long lastId,
+            @RequestParam(name = ParamConstant.PAGE_SIZE) int pageSize,
+            HttpServletRequest request
+    ) {
+        String email = authenticationInfo.getEmail(request);
+        List<OrderResponse> orders = orderService.getOrdersByEmail(email, lastId, pageSize);
+
+        return ResponseEntity.ok(orders);
+    }
 
     @GetMapping(OrderUrl.ORDER_DETAIL)
     public ResponseEntity<?> orderDetail(
@@ -113,7 +127,6 @@ public class OrderController {
                         throwable -> new MileageResponse()
                 );
     }
-    //주문 리스트(페이징)
     //order cancel, hypermart에서 order clock, cancel 등의 클래스 참고해서 제약걸기, validator 사용
     //order cancel 테스트 코드 작성
     //order 모든 api 테스트 
