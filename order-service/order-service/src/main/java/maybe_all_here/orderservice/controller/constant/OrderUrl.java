@@ -5,4 +5,5 @@ public class OrderUrl {
     public static final String ORDER_DETAIL = "/order/detail/{orderId}";
     public static final String ORDER_LIST = "/orders";
     public static final String ORDER = "/order/{itemId}";
+    public static final String ORDER_CANCEL = "/order/cancel/{orderId}";
 }
