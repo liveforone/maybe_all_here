@@ -8,6 +8,9 @@ import maybe_all_here.orderservice.dto.order.OrderRequest;
 import maybe_all_here.orderservice.dto.order.OrderResponse;
 import maybe_all_here.orderservice.utility.CommonUtils;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class OrderMapper {
 
     public static Orders dtoToEntity(OrderRequest orderRequest) {
@@ -71,5 +74,12 @@ public class OrderMapper {
                 .discountedPrice(orders.getDiscountedPrice())
                 .orderState(orders.getOrderState())
                 .build();
+    }
+
+    public static List<OrderResponse> entityToDtoList(List<Orders> orders) {
+        return orders
+                .stream()
+                .map(OrderMapper::entityToDto)
+                .collect(Collectors.toList());
     }
 }
