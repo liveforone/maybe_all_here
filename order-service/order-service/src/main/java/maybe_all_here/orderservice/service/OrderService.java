@@ -11,6 +11,8 @@ import maybe_all_here.orderservice.service.util.OrderMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -24,6 +26,12 @@ public class OrderService {
     public OrderProvideResponse getOrderByEmailAndItemId(String email, Long itemId) {
         return OrderMapper.entityToProvideDto(
                 orderRepository.findOneByEmailAndItemId(email, itemId)
+        );
+    }
+
+    public List<OrderResponse> getOrdersByEmail(String email, Long lastId, int pageSize) {
+        return OrderMapper.entityToDtoList(
+                orderRepository.findOrdersByEmail(email, lastId, pageSize)
         );
     }
 
