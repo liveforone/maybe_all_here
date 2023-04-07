@@ -58,4 +58,8 @@ public class RestResponse {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(RestMessage.NOT_OWNER_OF_ORDER.getValue());
     }
+
+    public static ResponseEntity<?> orderCancelSuccess() {
+        return ResponseEntity.ok(RestMessage.ORDER_CANCEL_SUCCESS.getValue());
+    }
 }
