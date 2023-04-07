@@ -18,7 +18,7 @@ public class ItemRepositoryImpl implements ItemCustomRepository {
     private static final long RECOMMEND = 1;
     QItem item = QItem.item;
 
-    private BooleanExpression ltBookId(Long lastId) {
+    private BooleanExpression ltItemId(Long lastId) {
         if (lastId == 0) {
             return null;
         }
@@ -28,7 +28,7 @@ public class ItemRepositoryImpl implements ItemCustomRepository {
 
     public List<Item> findItemHome(Long lastId, int pageSize) {
         return queryFactory.selectFrom(item)
-                .where(ltBookId(lastId))
+                .where(ltItemId(lastId))
                 .orderBy(
                         item.id.desc(),
                         item.good.desc()
@@ -47,7 +47,7 @@ public class ItemRepositoryImpl implements ItemCustomRepository {
         return queryFactory.selectFrom(item)
                 .where(
                         item.shopId.eq(shopId),
-                        ltBookId(lastId)
+                        ltItemId(lastId)
                 )
                 .orderBy(
                         item.good.desc(),
@@ -61,7 +61,7 @@ public class ItemRepositoryImpl implements ItemCustomRepository {
         return queryFactory.selectFrom(item)
                 .where(
                         item.title.contains(keyword),
-                        ltBookId(lastId)
+                        ltItemId(lastId)
                 )
                 .orderBy(
                         item.good.desc(),
