@@ -35,7 +35,7 @@
 * [상점 서비스](https://github.com/liveforone/maybe_all_here/wiki/%EC%83%81%EC%A0%90-%EC%84%9C%EB%B9%84%EC%8A%A4)
 * [상품 서비스](https://github.com/liveforone/maybe_all_here/wiki/%EC%83%81%ED%92%88-%EC%84%9C%EB%B9%84%EC%8A%A4)
 * [리뷰 서비스](https://github.com/liveforone/maybe_all_here/wiki/%EB%A6%AC%EB%B7%B0-%EC%84%9C%EB%B9%84%EC%8A%A4)
-* [주문 서비스]()
+* [주문 서비스](https://github.com/liveforone/maybe_all_here/wiki/%EC%A3%BC%EB%AC%B8-%EC%84%9C%EB%B9%84%EC%8A%A4)
 ### 서비스(데이터)간 통신
 * [데이터 통신 전략](https://github.com/liveforone/maybe_all_here/wiki/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%86%B5%EC%8B%A0-%EC%A0%84%EB%9E%B5)
 * [Kafka 활용 전략](https://github.com/liveforone/maybe_all_here/wiki/%EC%B9%B4%ED%94%84%EC%B9%B4-%ED%99%9C%EC%9A%A9-%EC%A0%84%EB%9E%B5)
@@ -99,7 +99,6 @@
 * 상품 서비스
 * 리뷰 서비스
 * 결제 서비스
-* 배송 서비스(추가 고민 : 배송정보, 전화번호)
 
 ## 장애 시나리오(MSA를 하는 목적 : 장애대응!!)
 ### 결제시 마일리지 계산 장애
