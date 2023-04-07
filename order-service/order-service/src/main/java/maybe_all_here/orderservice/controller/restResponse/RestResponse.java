@@ -52,4 +52,10 @@ public class RestResponse {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(RestMessage.ORDER_IS_OVER_DATE.getValue());
     }
+
+    public static ResponseEntity<?> isNotOwner() {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(RestMessage.NOT_OWNER_OF_ORDER.getValue());
+    }
 }
