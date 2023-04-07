@@ -35,10 +35,6 @@ public class OrderValidator {
     public boolean isOverCancelLimitDate(Long orderId) {
         Orders orders = orderRepository.findOneById(orderId);
 
-        if (CommonUtils.isNull(orders)) {
-            return true;
-        }
-
         LocalDate createdDate = orders.getCreatedDate();
         int orderDate = createdDate.getDayOfYear();
 
@@ -61,6 +57,10 @@ public class OrderValidator {
 
     public boolean isNotOwner(String email, Long orderId) {
         Orders orders = orderRepository.findOneById(orderId);
+
+        if (CommonUtils.isNull(orders)) {
+            return true;
+        }
 
         return !Objects.equals(orders.getEmail(), email);
     }
