@@ -53,4 +53,37 @@ class OrderServiceTest {
                 .assertThat(orderService.getOrderById(orderId).getDiscountedPrice())
                 .isEqualTo(finalPrice);
     }
+
+    @Test
+    @Transactional
+    void cancelOrderTest() {
+        //given
+        long orderQuantity = 1;
+        long itemPrice = 20000;
+        long mileage = 0;
+        String email = "aaaa1234@gmail.com";
+        OrderRequest orderRequest = OrderRequest.builder()
+                .orderQuantity(orderQuantity)
+                .spentMileage(mileage)
+                .build();
+        ItemProvideResponse item = ItemProvideResponse.builder()
+                .id(2L)
+                .title("test_item_title2")
+                .itemPrice(itemPrice)
+                .remaining(100)
+                .build();
+        Long orderId = orderService.order(orderRequest, item, email);
+        em.flush();
+        em.clear();
+
+        //when
+        orderService.cancelOrder(orderId);
+        em.flush();
+        em.clear();
+
+        //then
+        Assertions
+                .assertThat(orderService.getOrderById(orderId).getId())
+                .isNull();
+    }
 }
