@@ -1,6 +1,7 @@
 package maybe_all_here.orderservice.service;
 
 import lombok.RequiredArgsConstructor;
+import maybe_all_here.orderservice.domain.Orders;
 import maybe_all_here.orderservice.dto.item.ItemProvideResponse;
 import maybe_all_here.orderservice.dto.order.OrderProvideResponse;
 import maybe_all_here.orderservice.dto.order.OrderRequest;
@@ -60,6 +61,8 @@ public class OrderService {
 
     @Transactional
     public void cancelOrder(Long orderId) {
+        Orders orders = orderRepository.findOneById(orderId);
+        orderProducer.removeReviewBelongOrder(orders.getEmail(), orders.getItemId());
         orderRepository.deleteOneById(orderId);
     }
 }
