@@ -57,4 +57,9 @@ public class OrderService {
                 .save(OrderMapper.dtoToEntity(finalRequest))
                 .getId();
     }
+
+    @Transactional
+    public void cancelOrder(Long orderId) {
+        orderRepository.deleteOneById(orderId);
+    }
 }
