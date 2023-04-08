@@ -31,4 +31,10 @@ public class ReviewValidator {
 
         return !Objects.equals(review.getEmail(), email);
     }
+
+    public boolean isDuplicateReview(Long orderId) {
+        Review review = reviewRepository.findOneByOrderId(orderId);
+
+        return !CommonUtils.isNull(review);
+    }
 }
