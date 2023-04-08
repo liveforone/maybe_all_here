@@ -19,7 +19,7 @@
 [GET] /order/detail/{orderId} : 주문 상세 페이지
 [GET/POST] /order/{itemId} : 주문, OrderRequest dto 필요
 [PATCH] /order/cancel/{orderId} : 주문 취소, 주문 취소 정책에 의거해 작동
-[GET] /order-info/email/{email}/item/{itemId} : 리뷰 작성시 주문 상세 provide api
+[GET] /order-info/{orderId} : 리뷰 작성시 주문 상세 provide api
 ```
 
 ## Json body 예시

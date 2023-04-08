@@ -21,6 +21,7 @@
 ```
 [생성]
 {
+  "orderId" : 1,
   "content": "test_content",
   "recommend": "true"
 }
