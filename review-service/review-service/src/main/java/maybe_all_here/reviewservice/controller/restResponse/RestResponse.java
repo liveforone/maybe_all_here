@@ -29,6 +29,12 @@ public class RestResponse {
                 .body(RestMessage.CANCEL_ORDER.getValue());
     }
 
+    public static ResponseEntity<?> duplicateReview() {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(RestMessage.DUPLICATE_ORDER.getValue());
+    }
+
     public static ResponseEntity<?> createReviewSuccess() {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
