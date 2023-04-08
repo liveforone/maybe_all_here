@@ -26,7 +26,7 @@ public class Review {
     @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private Long orderId;
 
     @Column(nullable = false, columnDefinition = "TEXT")
