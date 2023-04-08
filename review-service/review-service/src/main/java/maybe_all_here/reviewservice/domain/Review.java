@@ -26,6 +26,9 @@ public class Review {
     @Column(nullable = false)
     private String email;
 
+    @Column(nullable = false)
+    private Long orderId;
+
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
@@ -37,10 +40,11 @@ public class Review {
     private LocalDate createdDate;
 
     @Builder
-    public Review(Long id, Long itemId, String email, String content, String recommend) {
+    public Review(Long id, Long itemId, String email, Long orderId, String content, String recommend) {
         this.id = id;
         this.itemId = itemId;
         this.email = email;
+        this.orderId = orderId;
         this.content = content;
         this.recommend = recommend;
     }

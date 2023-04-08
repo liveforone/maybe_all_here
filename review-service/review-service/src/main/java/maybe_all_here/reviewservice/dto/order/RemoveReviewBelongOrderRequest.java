@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RemoveReviewBelongOrderRequest {
 
+    Long orderId;
     String email;
     Long itemId;
 }

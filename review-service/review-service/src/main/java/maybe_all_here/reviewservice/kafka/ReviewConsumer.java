@@ -33,7 +33,7 @@ public class ReviewConsumer {
         if (CommonUtils.isNull(request)) {
             log.info(KafkaLog.KAFKA_NULL_LOG.getValue());
         } else {
-            reviewRepository.deleteOneByEmailAndItemId(request.getEmail(), request.getItemId());
+            reviewRepository.deleteOneByEmailAndItemIdAndOrderId(request.getEmail(), request.getItemId(), request.getOrderId());
             log.info(KafkaLog.REMOVE_REVIEW_BELONG_ORDER_SUCCESS.getValue());
         }
     }
