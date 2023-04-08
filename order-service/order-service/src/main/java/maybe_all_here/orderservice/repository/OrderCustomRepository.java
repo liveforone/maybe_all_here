@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface OrderCustomRepository {
 
-    Orders findOneByEmailAndItemId(String email, Long itemId);
+    Orders findOneForProvideById(Long orderId);
 
     List<Orders> findOrdersByEmail(String email, Long lastId, int pageSize);
 

@@ -25,12 +25,9 @@ public class OrderRepositoryImpl implements OrderCustomRepository {
         return orders.id.lt(lastId);
     }
 
-    public Orders findOneByEmailAndItemId(String email, Long itemId) {
+    public Orders findOneForProvideById(Long orderId) {
         return queryFactory.selectFrom(orders)
-                .where(
-                        orders.email.eq(email),
-                        orders.itemId.eq(itemId)
-                )
+                .where(orders.id.eq(orderId))
                 .fetchOne();
     }
 
