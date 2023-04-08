@@ -35,12 +35,10 @@ public class ReviewService {
 
     @Transactional
     public Long createReview(
-            ReviewRequest reviewRequest, OrderProvideResponse order,
-            String email, Long itemId
+            ReviewRequest reviewRequest, String email, Long itemId
     ) {
         reviewRequest.setEmail(email);
         reviewRequest.setItemId(itemId);
-        reviewRequest.setOrderId(order.getId());
 
         reviewProducer.sendRecommendState(reviewRequest);
         return reviewRepository.save(ReviewMapper.dtoToEntity(reviewRequest)).getId();

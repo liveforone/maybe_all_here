@@ -69,8 +69,7 @@ public class ReviewController {
             return RestResponse.validError(bindingResult);
         }
 
-        String email = authenticationInfo.getEmail(request);
-        OrderProvideResponse order = getOrder(email, itemId);
+        OrderProvideResponse order = getOrder(reviewRequest.getOrderId());
 
         if (CommonUtils.isNull(order)) {
             return RestResponse.orderIsNull();
@@ -80,16 +79,17 @@ public class ReviewController {
             return RestResponse.orderCanceled();
         }
 
+        String email = authenticationInfo.getEmail(request);
         reviewService.createReview(reviewRequest, email, itemId);
         log.info(ControllerLog.CREATE_REVIEW_SUCCESS.getValue());
 
         return RestResponse.createReviewSuccess();
     }
 
-    private OrderProvideResponse getOrder(String email, Long itemId) {
+    private OrderProvideResponse getOrder(Long orderId) {
         return circuitBreakerFactory
                 .create(CircuitLog.REVIEW_CIRCUIT_LOG.getValue())
-                .run(() -> orderFeignService.getOrderInfo(email, itemId),
+                .run(() -> orderFeignService.getOrderInfo(orderId),
                         throwable -> new OrderProvideResponse()
                 );
     }

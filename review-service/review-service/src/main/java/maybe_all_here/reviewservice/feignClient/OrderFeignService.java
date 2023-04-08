@@ -12,7 +12,6 @@ public interface OrderFeignService {
 
     @PostMapping(OrderUrl.ORDER_INFO)
     OrderProvideResponse getOrderInfo(
-            @PathVariable(ProvideParamConstant.EMAIL) String email,
-            @PathVariable(ProvideParamConstant.ITEM_ID) Long itemId
+            @PathVariable(ProvideParamConstant.ORDER_ID) Long orderId
     );
 }
