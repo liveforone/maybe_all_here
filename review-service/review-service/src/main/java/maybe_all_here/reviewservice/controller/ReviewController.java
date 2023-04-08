@@ -79,6 +79,10 @@ public class ReviewController {
             return RestResponse.orderCanceled();
         }
 
+        if (reviewValidator.isDuplicateReview(order.getId())) {
+            return RestResponse.duplicateReview();
+        }
+
         String email = authenticationInfo.getEmail(request);
         reviewService.createReview(reviewRequest, email, itemId);
         log.info(ControllerLog.CREATE_REVIEW_SUCCESS.getValue());
