@@ -1,7 +1,6 @@
 package maybe_all_here.reviewservice.service;
 
 import jakarta.persistence.EntityManager;
-import maybe_all_here.reviewservice.dto.order.OrderProvideResponse;
 import maybe_all_here.reviewservice.dto.review.ReviewEditRequest;
 import maybe_all_here.reviewservice.dto.review.ReviewRequest;
 import org.assertj.core.api.Assertions;
@@ -21,11 +20,10 @@ class ReviewServiceTest {
 
     private Long createReview(Long itemId, String email, Long orderId, String content, String recommend) {
         ReviewRequest reviewRequest = new ReviewRequest();
+        reviewRequest.setOrderId(orderId);
         reviewRequest.setContent(content);
         reviewRequest.setRecommend(recommend);
-        OrderProvideResponse order = new OrderProvideResponse();
-        order.setId(orderId);
-        return reviewService.createReview(reviewRequest, order, email, itemId);
+        return reviewService.createReview(reviewRequest, email, itemId);
     }
 
     @Test
@@ -37,14 +35,13 @@ class ReviewServiceTest {
         Long orderId = 1L;
         String content = "test_content";
         String recommend = "true";
-        OrderProvideResponse order = new OrderProvideResponse();
-        order.setId(orderId);
         ReviewRequest reviewRequest = new ReviewRequest();
+        reviewRequest.setOrderId(orderId);
         reviewRequest.setContent(content);
         reviewRequest.setRecommend(recommend);
 
         //when
-        Long reviewId = reviewService.createReview(reviewRequest, order, email, itemId);
+        Long reviewId = reviewService.createReview(reviewRequest, email, itemId);
         em.flush();
         em.clear();
 
