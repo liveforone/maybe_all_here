@@ -1,6 +1,7 @@
 package maybe_all_here.reviewservice.service;
 
 import lombok.RequiredArgsConstructor;
+import maybe_all_here.reviewservice.dto.order.OrderProvideResponse;
 import maybe_all_here.reviewservice.dto.review.ReviewEditRequest;
 import maybe_all_here.reviewservice.dto.review.ReviewRequest;
 import maybe_all_here.reviewservice.dto.review.ReviewResponse;
@@ -33,9 +34,13 @@ public class ReviewService {
     }
 
     @Transactional
-    public Long createReview(ReviewRequest reviewRequest, String email, Long itemId) {
+    public Long createReview(
+            ReviewRequest reviewRequest, OrderProvideResponse order,
+            String email, Long itemId
+    ) {
         reviewRequest.setEmail(email);
         reviewRequest.setItemId(itemId);
+        reviewRequest.setOrderId(order.getId());
 
         reviewProducer.sendRecommendState(reviewRequest);
         return reviewRepository.save(ReviewMapper.dtoToEntity(reviewRequest)).getId();
