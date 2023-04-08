@@ -13,6 +13,7 @@ public class ReviewResponse {
 
     private Long id;
     private String email;
+    private Long orderId;
     private String content;
     private String recommend;
 }
