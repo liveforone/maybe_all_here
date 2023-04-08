@@ -12,7 +12,7 @@
 ```
 [GET] /reviews/{itemId} : 상품 전체 리뷰
 [GET] /review/{reviewId} : 리뷰 상세 조회
-[POST] /create-review/item/{itemId} : 리뷰 등록
+[POST] /create-review/{itemId} : 리뷰 등록
 [PATCH] /edit-review/{reviewId} : 리뷰 수정
 [DELETE] /delete-review/{reviewId} : 리뷰 삭제
 ```
