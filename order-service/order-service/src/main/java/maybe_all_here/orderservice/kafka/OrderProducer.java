@@ -7,7 +7,6 @@ import maybe_all_here.orderservice.dto.item.ItemRemainingRequest;
 import maybe_all_here.orderservice.dto.mileage.AccumulateRequest;
 import maybe_all_here.orderservice.dto.mileage.UsingMileageRequest;
 import maybe_all_here.orderservice.dto.order.OrderRequest;
-import maybe_all_here.orderservice.dto.review.RemoveReviewBelongOrderRequest;
 import maybe_all_here.orderservice.kafka.constant.KafkaLog;
 import maybe_all_here.orderservice.kafka.constant.Topic;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -57,13 +56,8 @@ public class OrderProducer {
         log.info(KafkaLog.KAFKA_SEND_LOG.getValue() + topic);
     }
     
-    public void removeReviewBelongOrder(String email, Long itemId) {
-        RemoveReviewBelongOrderRequest request = RemoveReviewBelongOrderRequest.builder()
-                .email(email)
-                .itemId(itemId)
-                .build();
-
-        String jsonOrder = gson.toJson(request);
+    public void removeReviewBelongOrder(Long orderId) {
+        String jsonOrder = gson.toJson(orderId);
         String topic = Topic.REMOVE_REVIEW_BELONG_ORDER;
         kafkaTemplate.send(topic, jsonOrder);
         log.info(KafkaLog.KAFKA_SEND_LOG.getValue() + topic);
