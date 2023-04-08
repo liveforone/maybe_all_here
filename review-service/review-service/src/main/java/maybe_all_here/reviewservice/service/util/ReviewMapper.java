@@ -16,6 +16,7 @@ public class ReviewMapper {
                 .id(reviewRequest.getId())
                 .itemId(reviewRequest.getItemId())
                 .email(reviewRequest.getEmail())
+                .orderId(reviewRequest.getOrderId())
                 .content(reviewRequest.getContent())
                 .recommend(reviewRequest.getRecommend())
                 .build();
@@ -29,6 +30,7 @@ public class ReviewMapper {
         return ReviewResponse.builder()
                 .id(review.getId())
                 .email(review.getEmail())
+                .orderId(review.getOrderId())
                 .content(review.getContent())
                 .recommend(review.getRecommend())
                 .build();
