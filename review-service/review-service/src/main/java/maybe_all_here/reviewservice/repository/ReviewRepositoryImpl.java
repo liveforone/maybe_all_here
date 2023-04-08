@@ -22,6 +22,12 @@ public class ReviewRepositoryImpl implements ReviewCustomRepository {
                 .fetchOne();
     }
 
+    public Review findOneByOrderId(Long orderId) {
+        return queryFactory.selectFrom(review)
+                .where(review.orderId.eq(orderId))
+                .fetchOne();
+    }
+
     public List<Review> findReviewsByItemId(Long itemId, Long lastId, int pageSize) {
         return queryFactory.selectFrom(review)
                 .where(

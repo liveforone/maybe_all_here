@@ -7,6 +7,8 @@ import java.util.List;
 public interface ReviewCustomRepository {
 
     Review findOneById(Long reviewId);
+
+    Review findOneByOrderId(Long orderId);
     List<Review> findReviewsByItemId(Long itemId, Long lastId, int pageSize);
 
     void editReviewById(String content, Long reviewId);
