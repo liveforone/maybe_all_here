@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import maybe_all_here.reviewservice.dto.order.RemoveReviewBelongOrderRequest;
 import maybe_all_here.reviewservice.kafka.constant.KafkaLog;
 import maybe_all_here.reviewservice.kafka.constant.Topic;
 import maybe_all_here.reviewservice.repository.ReviewRepository;
@@ -26,14 +25,12 @@ public class ReviewConsumer {
     public void removeReviewBelongOrder(String kafkaMessage) throws JsonProcessingException {
         log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);
 
-        RemoveReviewBelongOrderRequest request = objectMapper.readValue(
-                kafkaMessage, RemoveReviewBelongOrderRequest.class
-        );
+        Long orderId = objectMapper.readValue(kafkaMessage, Long.class);
 
-        if (CommonUtils.isNull(request)) {
+        if (CommonUtils.isNull(orderId)) {
             log.info(KafkaLog.KAFKA_NULL_LOG.getValue());
         } else {
-            reviewRepository.deleteOneByEmailAndItemIdAndOrderId(request.getEmail(), request.getItemId(), request.getOrderId());
+            reviewRepository.deleteOneByOrderId(orderId);
             log.info(KafkaLog.REMOVE_REVIEW_BELONG_ORDER_SUCCESS.getValue());
         }
     }
