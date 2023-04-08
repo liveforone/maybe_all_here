@@ -13,6 +13,6 @@ public interface ReviewCustomRepository {
 
     void deleteOneById(Long reviewId);
 
-    void deleteOneByEmailAndItemIdAndOrderId(String email, Long itemId, Long orderId);
+    void deleteOneByOrderId(Long orderId);
     void deleteBulkByItemId(Long itemId);
 }
