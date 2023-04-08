@@ -24,9 +24,9 @@ public class OrderService {
 
     private static final int ZERO = 0;
 
-    public OrderProvideResponse getOrderByEmailAndItemId(String email, Long itemId) {
+    public OrderProvideResponse getProvideOrderById(Long orderId) {
         return OrderMapper.entityToProvideDto(
-                orderRepository.findOneByEmailAndItemId(email, itemId)
+                orderRepository.findOneForProvideById(orderId)
         );
     }
 
@@ -61,8 +61,7 @@ public class OrderService {
 
     @Transactional
     public void cancelOrder(Long orderId) {
-        Orders orders = orderRepository.findOneById(orderId);
-        orderProducer.removeReviewBelongOrder(orders.getEmail(), orders.getItemId());
+        orderProducer.removeReviewBelongOrder(orderId);
         orderRepository.cancelOneById(orderId);
     }
 }
