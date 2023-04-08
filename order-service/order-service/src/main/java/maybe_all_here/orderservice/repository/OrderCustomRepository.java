@@ -12,5 +12,5 @@ public interface OrderCustomRepository {
 
     Orders findOneById(Long orderId);
 
-    void deleteOneById(Long orderId);
+    void cancelOneById(Long orderId);
 }

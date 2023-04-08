@@ -63,6 +63,6 @@ public class OrderService {
     public void cancelOrder(Long orderId) {
         Orders orders = orderRepository.findOneById(orderId);
         orderProducer.removeReviewBelongOrder(orders.getEmail(), orders.getItemId());
-        orderRepository.deleteOneById(orderId);
+        orderRepository.cancelOneById(orderId);
     }
 }
