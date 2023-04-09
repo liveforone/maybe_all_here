@@ -71,7 +71,7 @@ public class ReviewController {
 
         OrderProvideResponse order = getOrder(reviewRequest.getOrderId());
 
-        if (CommonUtils.isNull(order)) {
+        if (CommonUtils.isNull(order.getId())) {
             return RestResponse.orderIsNull();
         }
 
