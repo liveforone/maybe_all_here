@@ -62,7 +62,7 @@ public class MemberService {
 
 
     @Transactional
-    @Async(AsyncConstant.serviceAsync)
+    @Async(AsyncConstant.commandAsync)
     public void signup(MemberSignupRequest memberSignupRequest) {
         Member member = Member.builder().build();
         member.signup(memberSignupRequest);
@@ -71,7 +71,7 @@ public class MemberService {
     }
 
     @Transactional
-    @Async(AsyncConstant.serviceAsync)
+    @Async(AsyncConstant.commandAsync)
     public void signupSeller(MemberSignupRequest memberSignupRequest) {
         Member member = Member.builder().build();
         member.signupSeller(memberSignupRequest);
@@ -95,21 +95,21 @@ public class MemberService {
     }
 
     @Transactional
-    @Async(AsyncConstant.serviceAsync)
+    @Async(AsyncConstant.commandAsync)
     public void updateEmail(String email, ChangeEmailRequest changeEmailRequest) {
         String newEmail = changeEmailRequest.getEmail();
         memberRepository.updateEmail(email, newEmail);
     }
 
     @Transactional
-    @Async(AsyncConstant.serviceAsync)
+    @Async(AsyncConstant.commandAsync)
     public void updatePassword(String inputPassword, String email) {
         String newPassword = PasswordUtils.encodePassword(inputPassword);
         memberRepository.updatePassword(newPassword, email);
     }
 
     @Transactional
-    @Async(AsyncConstant.serviceAsync)
+    @Async(AsyncConstant.commandAsync)
     public void deleteUser(String email) {
         memberRepository.deleteByEmail(email);
     }
