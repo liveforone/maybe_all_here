@@ -23,19 +23,21 @@ class MemberServiceTest {
     @Autowired
     EntityManager em;
 
-    void createMember(String email, String password) {
+    void createMember(String email, String password) throws InterruptedException {
         MemberSignupRequest memberSignupRequest = new MemberSignupRequest();
         memberSignupRequest.setEmail(email);
         memberSignupRequest.setPassword(password);
         memberSignupRequest.setRealName("test_member");
         memberService.signup(memberSignupRequest);
+        long millSec = 3000;
+        Thread.sleep(millSec);
         em.flush();
         em.clear();
     }
 
     @Test
     @Transactional
-    void signupSellerTest() {
+    void signupSellerTest() throws InterruptedException {
         //given
         String email = "seller11@gmail.com";
         String password = "1111";
@@ -47,6 +49,8 @@ class MemberServiceTest {
 
         //when
         memberService.signupSeller(memberSignupRequest);
+        long millSec = 3000;
+        Thread.sleep(millSec);
         em.flush();
         em.clear();
 
@@ -58,7 +62,7 @@ class MemberServiceTest {
 
     @Test
     @Transactional
-    void updateEmailTest() {
+    void updateEmailTest() throws InterruptedException {
         //given
         String email = "aa1111@gmail.com";
         String password = "1111";
@@ -81,7 +85,7 @@ class MemberServiceTest {
 
     @Test
     @Transactional
-    void updatePasswordTest() {
+    void updatePasswordTest() throws InterruptedException {
         //given
         String email = "aa1111@gmail.com";
         String password = "1111";
