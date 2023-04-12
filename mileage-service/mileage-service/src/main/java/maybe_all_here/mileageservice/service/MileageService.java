@@ -15,7 +15,7 @@ public class MileageService {
     private final MileageRepository mileageRepository;
 
     public MileageResponse getMileageByEmail(String email) {
-        Mileage mileage = mileageRepository.getMileageByEmail(email);
+        Mileage mileage = mileageRepository.findOneByEmail(email);
 
         if (CommonUtils.isNull(mileage)) {
             return new MileageResponse();
