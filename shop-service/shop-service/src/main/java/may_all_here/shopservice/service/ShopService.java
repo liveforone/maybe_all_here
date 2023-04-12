@@ -58,7 +58,10 @@ public class ShopService {
     @Transactional
     @Async(AsyncConstant.commandAsync)
     public void updateAddress(String address, Long shopId) {
-        shopRepository.updateAddress(address, shopId);
+        Shop shop = shopRepository.findShopById(shopId);
+        shop.updateAddress(address);
+
+        shopRepository.save(shop);
     }
 
     @Transactional

@@ -56,5 +56,9 @@ public class Shop {
         this.shopName = shopName;
     }
 
+    public void updateAddress(String address) {
+        this.address = address;
+    }
+
     //==End Domain Logic Space==//
 }
