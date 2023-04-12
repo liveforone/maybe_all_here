@@ -24,7 +24,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -37,44 +36,36 @@ public class MemberService {
     private final MileageFeignService mileageFeignService;
     private final CircuitBreakerFactory<?, ?> circuitBreakerFactory;
 
-    private static final String ADMIN = "admin@intelligentBank.com";
-
     public MemberResponse getMemberByEmail(String email) {
         return MemberMapper.entityToDto(memberRepository.findByEmail(email));
     }
 
     public MemberInfoResponse getMemberInfo(String email) {
         Member member = memberRepository.findByEmail(email);
-        MileageResponse mileage = circuitBreakerFactory
-                .create(CircuitLog.MEMBER_CIRCUIT_LOG.getValue())
-                .run(() -> mileageFeignService.getMyMileage(email),
-                        throwable -> new MileageResponse()
-                );
+        MileageResponse mileage = getMyMileage(email);
 
         return MemberMapper.createMemberInfo(member, mileage);
     }
 
-    /*
-     * 모든 유저 반환
-     * when : 권한이 어드민인 유저가 호출할때
-     */
+    private MileageResponse getMyMileage(String email) {
+        return circuitBreakerFactory
+                .create(CircuitLog.MEMBER_CIRCUIT_LOG.getValue())
+                .run(() -> mileageFeignService.getMyMileage(email),
+                        throwable -> new MileageResponse()
+                );
+    }
+
     public List<MemberResponse> getAllMemberForAdmin() {
         return MemberMapper.entityToDtoList(memberRepository.findAll());
     }
 
+
     @Transactional
     public void signup(MemberSignupRequest memberSignupRequest) {
-        memberSignupRequest.setPassword(
-                PasswordUtils.encodePassword(memberSignupRequest.getPassword())
-        );
+        Member member = Member.builder().build();
+        member.signup(memberSignupRequest);
 
-        if (Objects.equals(memberSignupRequest.getEmail(), ADMIN)) {
-            memberSignupRequest.setAuth(Role.ADMIN);
-        } else {
-            memberSignupRequest.setAuth(Role.MEMBER);
-        }
-
-        memberRepository.save(MemberMapper.dtoToEntity(memberSignupRequest));
+        memberRepository.save(member);
     }
 
     @Transactional
