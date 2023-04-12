@@ -4,13 +4,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import maybe_all_here.mileageservice.domain.Mileage;
 import maybe_all_here.mileageservice.dto.updateMileage.AccumulateRequest;
 import maybe_all_here.mileageservice.dto.updateMileage.UsingMileageRequest;
 import maybe_all_here.mileageservice.kafka.constant.KafkaLog;
 import maybe_all_here.mileageservice.kafka.constant.Topic;
 import maybe_all_here.mileageservice.kafka.util.AccumulatePolicy;
 import maybe_all_here.mileageservice.repository.MileageRepository;
-import maybe_all_here.mileageservice.service.util.MileageMapper;
 import maybe_all_here.mileageservice.utility.CommonUtils;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
@@ -34,7 +34,9 @@ public class MileageConsumer {
         if (CommonUtils.isNull(email)) {
             log.info(KafkaLog.KAFKA_NULL_LOG.getValue());
         } else {
-            mileageRepository.save(MileageMapper.createMileage(email));
+            Mileage mileage = Mileage.builder().build();
+            mileage.create(email);
+            mileageRepository.save(mileage);
             log.info(KafkaLog.CREATE_MILEAGE_SUCCESS.getValue());
         }
     }
@@ -45,10 +47,12 @@ public class MileageConsumer {
         log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);
 
         AccumulateRequest request = objectMapper.readValue(kafkaMessage, AccumulateRequest.class);
-
         long calculatedMileage = AccumulatePolicy.calculateAccumulate(request);
 
-        mileageRepository.increaseMileage(calculatedMileage, request.getEmail());
+        Mileage mileage = mileageRepository.findOneByEmail(request.getEmail());
+        mileage.increaseMileage(calculatedMileage);
+
+        mileageRepository.save(mileage);
         log.info(KafkaLog.INCREASE_MILEAGE_SUCCESS.getValue());
     }
 
@@ -58,8 +62,10 @@ public class MileageConsumer {
         log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);
 
         UsingMileageRequest request = objectMapper.readValue(kafkaMessage, UsingMileageRequest.class);
+        Mileage mileage = mileageRepository.findOneByEmail(request.getEmail());
+        mileage.decreaseMileage(request.getSpentMileage());
 
-        mileageRepository.decreaseMileage(request.getSpentMileage(), request.getEmail());
+        mileageRepository.save(mileage);
         log.info(KafkaLog.DECREASE_MILEAGE_SUCCESS.getValue());
     }
 }
