@@ -52,5 +52,9 @@ public class Shop {
         this.email = shopRequest.getEmail();
     }
 
+    public void updateShopName(String shopName) {
+        this.shopName = shopName;
+    }
+
     //==End Domain Logic Space==//
 }
