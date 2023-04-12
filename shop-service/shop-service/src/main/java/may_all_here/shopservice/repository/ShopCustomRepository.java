@@ -8,7 +8,5 @@ public interface ShopCustomRepository {
 
     Shop findShopById(Long id);
 
-    void updateAddress(String address, Long shopId);
-
     void updateTel(String tel, Long shopId);
 }
