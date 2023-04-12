@@ -21,7 +21,6 @@ import maybe_all_here.userservice.kafka.UserProducer;
 import maybe_all_here.userservice.service.MemberService;
 import maybe_all_here.userservice.validator.MemberValidator;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -109,16 +108,12 @@ public class MemberController {
             return RestResponse.validError(bindingResult);
         }
 
-        try {
-            TokenInfo tokenInfo = memberService.login(memberLoginRequest);
-            log.info(ControllerLog.LOGIN_SUCCESS.getValue());
+        TokenInfo tokenInfo = memberService.login(memberLoginRequest);
+        log.info(ControllerLog.LOGIN_SUCCESS.getValue());
 
-            response.addHeader(JwtConstant.ACCESS_TOKEN, tokenInfo.getAccessToken());
-            response.addHeader(JwtConstant.REFRESH_TOKEN, tokenInfo.getRefreshToken());
-            return RestResponse.loginSuccess();
-        } catch (BadCredentialsException exception) {
-            return RestResponse.loginFail();
-        }
+        response.addHeader(JwtConstant.ACCESS_TOKEN, tokenInfo.getAccessToken());
+        response.addHeader(JwtConstant.REFRESH_TOKEN, tokenInfo.getRefreshToken());
+        return RestResponse.loginSuccess();
     }
 
     @GetMapping(MemberUrl.MY_PAGE)
