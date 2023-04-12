@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import may_all_here.shopservice.dto.shop.ShopRequest;
 
 @Entity
 @Getter
@@ -35,4 +36,21 @@ public class Shop {
         this.tel = tel;
         this.email = email;
     }
+
+    //==Domain Logic Space==//
+
+    public void create(ShopRequest shopRequest, String email) {
+        shopRequest.setEmail(email);
+        buildShop(shopRequest);
+    }
+
+    private void buildShop(ShopRequest shopRequest) {
+        this.id = shopRequest.getId();
+        this.shopName = shopRequest.getShopName();
+        this.address = shopRequest.getAddress();
+        this.tel = shopRequest.getTel();
+        this.email = shopRequest.getEmail();
+    }
+
+    //==End Domain Logic Space==//
 }
