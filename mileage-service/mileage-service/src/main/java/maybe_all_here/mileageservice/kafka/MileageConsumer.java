@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import maybe_all_here.mileageservice.async.AsyncConstant;
 import maybe_all_here.mileageservice.domain.Mileage;
 import maybe_all_here.mileageservice.dto.updateMileage.AccumulateRequest;
 import maybe_all_here.mileageservice.dto.updateMileage.UsingMileageRequest;
@@ -13,6 +14,7 @@ import maybe_all_here.mileageservice.kafka.util.AccumulatePolicy;
 import maybe_all_here.mileageservice.repository.MileageRepository;
 import maybe_all_here.mileageservice.utility.CommonUtils;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +27,7 @@ public class MileageConsumer {
     ObjectMapper objectMapper = new ObjectMapper();
 
     @KafkaListener(topics = Topic.CREATE_MILEAGE)
+    @Async(AsyncConstant.commandAsync)
     @Transactional
     public void createMileage(String kafkaMessage) throws JsonProcessingException {
         log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);
@@ -42,6 +45,7 @@ public class MileageConsumer {
     }
 
     @KafkaListener(topics = Topic.INCREASE_MILEAGE)
+    @Async(AsyncConstant.commandAsync)
     @Transactional
     public void increaseMileage(String kafkaMessage) throws JsonProcessingException {
         log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);
@@ -57,6 +61,7 @@ public class MileageConsumer {
     }
 
     @KafkaListener(topics = Topic.DECREASE_MILEAGE)
+    @Async(AsyncConstant.commandAsync)
     @Transactional
     public void decreaseMileage(String kafkaMessage) throws JsonProcessingException {
         log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);
