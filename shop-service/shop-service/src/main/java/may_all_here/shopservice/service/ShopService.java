@@ -1,12 +1,14 @@
 package may_all_here.shopservice.service;
 
 import lombok.RequiredArgsConstructor;
+import may_all_here.shopservice.async.AsyncConstant;
 import may_all_here.shopservice.domain.Shop;
 import may_all_here.shopservice.dto.shop.ShopRequest;
 import may_all_here.shopservice.dto.shop.ShopResponse;
 import may_all_here.shopservice.repository.ShopRepository;
 import may_all_here.shopservice.service.util.ShopMapper;
 import may_all_here.shopservice.utility.CommonUtils;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +40,7 @@ public class ShopService {
     }
 
     @Transactional
+    @Async(AsyncConstant.commandAsync)
     public Long createShop(ShopRequest shopRequest, String email) {
         shopRequest.setEmail(email);
         return shopRepository
@@ -46,16 +49,19 @@ public class ShopService {
     }
 
     @Transactional
+    @Async(AsyncConstant.commandAsync)
     public void updateShopName(String shopName, Long shopId) {
         shopRepository.updateShopName(shopName, shopId);
     }
 
     @Transactional
+    @Async(AsyncConstant.commandAsync)
     public void updateAddress(String address, Long shopId) {
         shopRepository.updateAddress(address, shopId);
     }
 
     @Transactional
+    @Async(AsyncConstant.commandAsync)
     public void updateTel(String tel, Long shopId) {
         shopRepository.updateTel(tel, shopId);
     }
