@@ -70,13 +70,10 @@ public class MemberService {
 
     @Transactional
     public void signupSeller(MemberSignupRequest memberSignupRequest) {
-        memberSignupRequest.setPassword(
-                PasswordUtils.encodePassword(memberSignupRequest.getPassword())
-        );
+        Member member = Member.builder().build();
+        member.signupSeller(memberSignupRequest);
 
-        memberSignupRequest.setAuth(Role.SELLER);
-
-        memberRepository.save(MemberMapper.dtoToEntity(memberSignupRequest));
+        memberRepository.save(member);
     }
 
     @Transactional

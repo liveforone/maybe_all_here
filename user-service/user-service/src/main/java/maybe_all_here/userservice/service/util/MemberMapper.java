@@ -40,14 +40,4 @@ public class MemberMapper {
                 .mileagePoint((CommonUtils.isNull(mileageResponse) ? 0 : mileageResponse.getMileagePoint()))
                 .build();
     }
-
-    public static Member dtoToEntity(MemberSignupRequest memberSignupRequest) {
-        return Member.builder()
-                .id(memberSignupRequest.getId())
-                .email(memberSignupRequest.getEmail())
-                .password(memberSignupRequest.getPassword())
-                .realName(memberSignupRequest.getRealName())
-                .auth(memberSignupRequest.getAuth())
-                .build();
-    }
 }
