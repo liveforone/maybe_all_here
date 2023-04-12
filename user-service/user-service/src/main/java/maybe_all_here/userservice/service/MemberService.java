@@ -1,8 +1,8 @@
 package maybe_all_here.userservice.service;
 
 import lombok.RequiredArgsConstructor;
+import maybe_all_here.userservice.async.AsyncConstant;
 import maybe_all_here.userservice.domain.Member;
-import maybe_all_here.userservice.domain.Role;
 import maybe_all_here.userservice.dto.changeInfo.ChangeEmailRequest;
 import maybe_all_here.userservice.dto.mileage.MileageResponse;
 import maybe_all_here.userservice.dto.response.MemberInfoResponse;
@@ -17,6 +17,7 @@ import maybe_all_here.userservice.service.constant.CircuitLog;
 import maybe_all_here.userservice.service.util.MemberMapper;
 import maybe_all_here.userservice.service.util.PasswordUtils;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -61,6 +62,7 @@ public class MemberService {
 
 
     @Transactional
+    @Async(AsyncConstant.serviceAsync)
     public void signup(MemberSignupRequest memberSignupRequest) {
         Member member = Member.builder().build();
         member.signup(memberSignupRequest);
@@ -69,6 +71,7 @@ public class MemberService {
     }
 
     @Transactional
+    @Async(AsyncConstant.serviceAsync)
     public void signupSeller(MemberSignupRequest memberSignupRequest) {
         Member member = Member.builder().build();
         member.signupSeller(memberSignupRequest);
@@ -92,18 +95,21 @@ public class MemberService {
     }
 
     @Transactional
+    @Async(AsyncConstant.serviceAsync)
     public void updateEmail(String email, ChangeEmailRequest changeEmailRequest) {
         String newEmail = changeEmailRequest.getEmail();
         memberRepository.updateEmail(email, newEmail);
     }
 
     @Transactional
+    @Async(AsyncConstant.serviceAsync)
     public void updatePassword(String inputPassword, String email) {
         String newPassword = PasswordUtils.encodePassword(inputPassword);
         memberRepository.updatePassword(newPassword, email);
     }
 
     @Transactional
+    @Async(AsyncConstant.serviceAsync)
     public void deleteUser(String email) {
         memberRepository.deleteByEmail(email);
     }
