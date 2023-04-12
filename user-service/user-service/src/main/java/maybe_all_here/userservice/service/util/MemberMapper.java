@@ -12,16 +12,6 @@ import java.util.stream.Collectors;
 
 public class MemberMapper {
 
-    public static Member dtoToEntity(MemberSignupRequest memberSignupRequest) {
-        return Member.builder()
-                .id(memberSignupRequest.getId())
-                .email(memberSignupRequest.getEmail())
-                .password(memberSignupRequest.getPassword())
-                .realName(memberSignupRequest.getRealName())
-                .auth(memberSignupRequest.getAuth())
-                .build();
-    }
-
     public static MemberResponse entityToDto(Member member) {
         return MemberResponse.builder()
                 .id(member.getId())
@@ -48,6 +38,16 @@ public class MemberMapper {
                 .realName(member.getRealName())
                 .auth(member.getAuth())
                 .mileagePoint((CommonUtils.isNull(mileageResponse) ? 0 : mileageResponse.getMileagePoint()))
+                .build();
+    }
+
+    public static Member dtoToEntity(MemberSignupRequest memberSignupRequest) {
+        return Member.builder()
+                .id(memberSignupRequest.getId())
+                .email(memberSignupRequest.getEmail())
+                .password(memberSignupRequest.getPassword())
+                .realName(memberSignupRequest.getRealName())
+                .auth(memberSignupRequest.getAuth())
                 .build();
     }
 }
