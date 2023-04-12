@@ -40,18 +40,19 @@ public class ShopService {
     }
 
     @Transactional
-    @Async(AsyncConstant.commandAsync)
     public Long createShop(ShopRequest shopRequest, String email) {
-        shopRequest.setEmail(email);
-        return shopRepository
-                .save(ShopMapper.dtoToEntity(shopRequest))
-                .getId();
+        Shop shop = Shop.builder().build();
+        shop.create(shopRequest, email);
+        return shopRepository.save(shop).getId();
     }
 
     @Transactional
     @Async(AsyncConstant.commandAsync)
     public void updateShopName(String shopName, Long shopId) {
-        shopRepository.updateShopName(shopName, shopId);
+        Shop shop = shopRepository.findShopById(shopId);
+        shop.updateShopName(shopName);
+
+        shopRepository.save(shop);
     }
 
     @Transactional
