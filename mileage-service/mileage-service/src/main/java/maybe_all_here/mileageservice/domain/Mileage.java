@@ -26,4 +26,21 @@ public class Mileage {
         this.email = email;
         this.mileagePoint = mileagePoint;
     }
+
+
+    //==Domain Logic Space==//
+
+    public void create(String email) {
+        this.email = email;
+    }
+
+    public void increaseMileage(long calculatedMileage) {
+        this.mileagePoint += calculatedMileage;
+    }
+
+    public void decreaseMileage(long spentMileage) {
+        this.mileagePoint -= spentMileage;
+    }
+
+    //==End Domain Logic Space==//
 }
