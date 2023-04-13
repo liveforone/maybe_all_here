@@ -11,7 +11,8 @@ public enum KafkaLog {
     KAFKA_NULL_LOG("!! Kafka Message is Null !!"),
     CREATE_MILEAGE_SUCCESS("!! Create Mileage Success !!"),
     INCREASE_MILEAGE_SUCCESS("!! Increase Mileage Success !!"),
-    DECREASE_MILEAGE_SUCCESS("!! Decrease Mileage Success !!");
+    DECREASE_MILEAGE_SUCCESS("!! Decrease Mileage Success !!"),
+    ROLLBACK_MILEAGE_SUCCESS("!! Rollback Mileage Success !!");
 
     private final String value;
 }

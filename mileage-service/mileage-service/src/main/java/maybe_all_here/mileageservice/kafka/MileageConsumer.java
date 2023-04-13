@@ -86,6 +86,6 @@ public class MileageConsumer {
         Mileage mileage = mileageRepository.findOneByEmail(request.getEmail());
         mileage.increaseMileage(request.getSpentMileage());
 
-        log.info(KafkaLog.INCREASE_MILEAGE_SUCCESS.getValue());
+        log.info(KafkaLog.ROLLBACK_MILEAGE_SUCCESS.getValue());
     }
 }
