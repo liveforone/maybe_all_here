@@ -106,7 +106,8 @@ public class MemberService {
     @Async(AsyncConstant.commandAsync)
     public void updatePassword(String inputPassword, String email) {
         String newPassword = PasswordUtils.encodePassword(inputPassword);
-        memberRepository.updatePassword(newPassword, email);
+        Member member = memberRepository.findByEmail(email);
+        member.updatePassword(newPassword);
     }
 
     @Transactional

@@ -77,8 +77,12 @@ public class Member implements UserDetails {
         this.auth = request.getAuth();
     }
 
-    public void updateEmail(String email) {
-        this.email = email;
+    public void updateEmail(String newEmail) {
+        this.email = newEmail;
+    }
+
+    public void updatePassword(String newPassword) {
+        this.password = newPassword;
     }
 
     //==End Domain Logic Space==//
