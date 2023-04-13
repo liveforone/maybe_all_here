@@ -51,8 +51,6 @@ public class ShopService {
     public void updateShopName(String shopName, Long shopId) {
         Shop shop = shopRepository.findShopById(shopId);
         shop.updateShopName(shopName);
-
-        shopRepository.save(shop);
     }
 
     @Transactional
@@ -60,8 +58,6 @@ public class ShopService {
     public void updateAddress(String address, Long shopId) {
         Shop shop = shopRepository.findShopById(shopId);
         shop.updateAddress(address);
-
-        shopRepository.save(shop);
     }
 
     @Transactional
@@ -69,7 +65,5 @@ public class ShopService {
     public void updateTel(String tel, Long shopId) {
         Shop shop = shopRepository.findShopById(shopId);
         shop.updateTel(tel);
-
-        shopRepository.save(shop);
     }
 }
