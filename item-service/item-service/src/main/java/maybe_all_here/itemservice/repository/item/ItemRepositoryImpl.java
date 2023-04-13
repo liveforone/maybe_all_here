@@ -5,7 +5,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import maybe_all_here.itemservice.domain.Item;
 import maybe_all_here.itemservice.domain.QItem;
-import maybe_all_here.itemservice.dto.item.ItemRemainingRequest;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,7 +14,6 @@ import java.util.List;
 public class ItemRepositoryImpl implements ItemCustomRepository {
 
     private final JPAQueryFactory queryFactory;
-    private static final long RECOMMEND = 1;
     QItem item = QItem.item;
 
     private BooleanExpression ltItemId(Long lastId) {
@@ -73,23 +71,6 @@ public class ItemRepositoryImpl implements ItemCustomRepository {
 
     public void deleteItemById(Long itemId) {
         queryFactory.delete(item)
-                .where(item.id.eq(itemId))
-                .execute();
-    }
-
-    public void decreaseRemaining(ItemRemainingRequest itemRemainingRequest) {
-        queryFactory.update(item)
-                .set(
-                        item.remaining,
-                        item.remaining.add(-itemRemainingRequest.getOrderQuantity())
-                )
-                .where(item.id.eq(itemRemainingRequest.getItemId()))
-                .execute();
-    }
-
-    public void increaseGood(Long itemId) {
-        queryFactory.update(item)
-                .set(item.good, item.good.add(RECOMMEND))
                 .where(item.id.eq(itemId))
                 .execute();
     }
