@@ -52,7 +52,8 @@ public class ItemConsumer {
         if (CommonUtils.isNull(itemId)) {
             log.info(KafkaLog.KAFKA_NULL_LOG.getValue());
         } else {
-            itemRepository.increaseGood(itemId);
+            Item item = itemRepository.findOneById(itemId);
+            item.increaseGood();
             log.info(KafkaLog.INCREASE_GOOD_SUCCESS.getValue() + itemId);
         }
     }

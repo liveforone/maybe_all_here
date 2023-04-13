@@ -75,4 +75,8 @@ public class Item {
     public void decreaseRemaining(ItemRemainingRequest itemRemainingRequest) {
         this.remaining -= itemRemainingRequest.getOrderQuantity();
     }
+
+    public void increaseGood() {
+        this.good += ItemConstant.RECOMMEND;
+    }
 }
