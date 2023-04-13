@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import maybe_all_here.itemservice.dto.item.ItemRemainingRequest;
 import maybe_all_here.itemservice.dto.item.ItemRequest;
 
 @Entity
@@ -67,7 +68,11 @@ public class Item {
         this.price = price;
     }
 
-    public void updateRemaining(long remaining) {
+    public void increaseRemaining(long remaining) {
         this.remaining += remaining;
+    }
+
+    public void decreaseRemaining(ItemRemainingRequest itemRemainingRequest) {
+        this.remaining -= itemRemainingRequest.getOrderQuantity();
     }
 }

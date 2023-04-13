@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import maybe_all_here.itemservice.async.AsyncConstant;
+import maybe_all_here.itemservice.domain.Item;
 import maybe_all_here.itemservice.dto.item.ItemRemainingRequest;
 import maybe_all_here.itemservice.kafka.constant.KafkaLog;
 import maybe_all_here.itemservice.kafka.constant.Topic;
@@ -34,7 +35,8 @@ public class ItemConsumer {
         if (CommonUtils.isNull(request)) {
             log.info(KafkaLog.KAFKA_NULL_LOG.getValue());
         } else {
-            itemRepository.decreaseRemaining(request);
+            Item item = itemRepository.findOneById(request.getItemId());
+            item.decreaseRemaining(request);
             log.info(KafkaLog.DECREASE_REMAINING_SUCCESS.getValue() + request.getItemId());
         }
     }
