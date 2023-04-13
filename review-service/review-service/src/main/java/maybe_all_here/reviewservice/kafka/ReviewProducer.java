@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import maybe_all_here.reviewservice.async.AsyncConstant;
 import maybe_all_here.reviewservice.domain.Review;
 import maybe_all_here.reviewservice.dto.review.Recommend;
-import maybe_all_here.reviewservice.dto.review.ReviewRequest;
 import maybe_all_here.reviewservice.kafka.constant.KafkaLog;
 import maybe_all_here.reviewservice.kafka.constant.Topic;
 import org.springframework.kafka.core.KafkaTemplate;
