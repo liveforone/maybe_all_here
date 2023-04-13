@@ -81,7 +81,8 @@ public class ItemService {
     @Transactional
     @Async(AsyncConstant.commandAsync)
     public void editPriceById(long price, Long itemId) {
-        itemRepository.editPriceById(price, itemId);
+        Item item = itemRepository.findOneById(itemId);
+        item.updatePrice(price);
     }
 
     @Transactional

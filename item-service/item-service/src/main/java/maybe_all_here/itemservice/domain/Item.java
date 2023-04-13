@@ -62,4 +62,8 @@ public class Item {
     public void updateContent(String content) {
         this.content = content;
     }
+
+    public void updatePrice(long price) {
+        this.price = price;
+    }
 }
