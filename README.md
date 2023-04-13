@@ -10,7 +10,8 @@
 5. [마이크로 서비스별 문서](#5-마이크로-서비스별-상세)
 6. [고민점](#6-고민점)
 7. [서비스/데이터 간 통신](#7-서비스데이터-간-통신)
-8. [스타일 가이드](#8-스타일-가이드코드-컨벤션)
+8. [리팩토링](#8-리팩토링)
+9. [스타일 가이드](#9-스타일-가이드코드-컨벤션)
 
 ----
 # 1. 프로젝트 소개
@@ -77,6 +78,10 @@
 * [Kafka 주요 에러 및 주의 사항](https://github.com/liveforone/maybe_all_here/wiki/Kafka-%EC%A3%BC%EC%9A%94-%EC%97%90%EB%9F%AC-%EB%B0%8F-%EC%A3%BC%EC%9D%98-%EC%82%AC%ED%95%AD)
 
 ----
-# 8. 스타일 가이드(코드 컨벤션)
+# 8. 리팩토링
+* [리팩토링 v1.0](https://github.com/liveforone/maybe_all_here/wiki/Refactoring-v1.0)
+
+----
+# 9. 스타일 가이드(코드 컨벤션)
 * 아래는 필자가 직접 제작한 스타일 가이드이며, 본 프로젝트는 아래 스타일 가이드를 모두 지켜 제작되었다.
 * [스타일 가이드 전문](https://github.com/liveforone/study/tree/main/%5B%EB%82%98%EB%A7%8C%EC%9D%98%20%EC%8A%A4%ED%83%80%EC%9D%BC%20%EA%B0%80%EC%9D%B4%EB%93%9C%5D)
