@@ -19,13 +19,6 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
                 .fetchOne();
     }
 
-    public void updateEmail(String oldEmail, String newEmail) {
-        queryFactory.update(member)
-                .set(member.email, newEmail)
-                .where(member.email.eq(oldEmail))
-                .execute();
-    }
-
     public void updatePassword(String password, String email) {
         queryFactory.update(member)
                 .set(member.password, password)
