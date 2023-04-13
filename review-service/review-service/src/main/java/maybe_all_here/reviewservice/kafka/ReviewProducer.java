@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import maybe_all_here.reviewservice.async.AsyncConstant;
+import maybe_all_here.reviewservice.domain.Review;
 import maybe_all_here.reviewservice.dto.review.Recommend;
 import maybe_all_here.reviewservice.dto.review.ReviewRequest;
 import maybe_all_here.reviewservice.kafka.constant.KafkaLog;
@@ -23,9 +24,9 @@ public class ReviewProducer {
     Gson gson = new Gson();
 
     @Async(AsyncConstant.commandAsync)
-    public void sendRecommendState(ReviewRequest reviewRequest) {
-        String recommend = reviewRequest.getRecommend();
-        Long itemId = reviewRequest.getItemId();
+    public void sendRecommendState(Review review) {
+        String recommend = review.getRecommend();
+        Long itemId = review.getItemId();
 
         if (Objects.equals(recommend, Recommend.RECOMMEND.getValue())) {
             recommendItem(itemId);
