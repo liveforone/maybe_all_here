@@ -57,4 +57,8 @@ public class Review {
         this.content = reviewRequest.getContent();
         this.recommend = reviewRequest.getRecommend();
     }
+
+    public void updateContent(String content) {
+        this.content = content;
+    }
 }

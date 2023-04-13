@@ -48,7 +48,8 @@ public class ReviewService {
     @Transactional
     @Async(AsyncConstant.commandAsync)
     public void editReviewById(ReviewEditRequest reviewEditRequest, Long reviewId) {
-        reviewRepository.editReviewById(reviewEditRequest.getContent(), reviewId);
+        Review review = reviewRepository.findOneById(reviewId);
+        review.updateContent(reviewEditRequest.getContent());
     }
 
     @Transactional
