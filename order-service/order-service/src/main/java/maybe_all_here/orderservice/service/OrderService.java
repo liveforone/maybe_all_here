@@ -64,7 +64,9 @@ public class OrderService {
     @Async(AsyncConstant.commandAsync)
     public void cancelOrder(Long orderId) {
         Orders orders = orderRepository.findOneById(orderId);
-        orders.cancel();
+        orderProducer.rollbackRemaining(orders);
+        orderProducer.rollbackMileage(orders);
         orderProducer.removeReviewBelongOrder(orderId);
+        orders.cancel();
     }
 }
