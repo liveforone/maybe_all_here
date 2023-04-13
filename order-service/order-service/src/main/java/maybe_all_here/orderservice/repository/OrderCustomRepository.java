@@ -11,6 +11,4 @@ public interface OrderCustomRepository {
     List<Orders> findOrdersByEmail(String email, Long lastId, int pageSize);
 
     Orders findOneById(Long orderId);
-
-    void cancelOneById(Long orderId);
 }

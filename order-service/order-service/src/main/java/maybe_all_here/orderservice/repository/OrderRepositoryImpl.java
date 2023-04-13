@@ -3,7 +3,6 @@ package maybe_all_here.orderservice.repository;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import maybe_all_here.orderservice.domain.OrderState;
 import maybe_all_here.orderservice.domain.Orders;
 import maybe_all_here.orderservice.domain.QOrders;
 import org.springframework.stereotype.Repository;
@@ -46,12 +45,5 @@ public class OrderRepositoryImpl implements OrderCustomRepository {
         return queryFactory.selectFrom(orders)
                 .where(orders.id.eq(orderId))
                 .fetchOne();
-    }
-
-    public void cancelOneById(Long orderId) {
-        queryFactory.update(orders)
-                .set(orders.orderState, OrderState.CANCEL)
-                .where(orders.id.eq(orderId))
-                .execute();
     }
 }
