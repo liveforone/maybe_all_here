@@ -53,7 +53,7 @@ public class MileageConsumer {
         log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);
 
         AccumulateRequest request = objectMapper.readValue(kafkaMessage, AccumulateRequest.class);
-        long calculatedMileage = AccumulatePolicy.calculateAccumulate(request);
+        long calculatedMileage = AccumulatePolicy.calculateAccumulate(request.getOrderPrice());
 
         Mileage mileage = mileageRepository.findOneByEmail(request.getEmail());
         mileage.increaseMileage(calculatedMileage);
@@ -82,8 +82,10 @@ public class MileageConsumer {
         log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);
 
         RollbackMileageRequest request = objectMapper.readValue(kafkaMessage, RollbackMileageRequest.class);
+        long calculatedMileage = AccumulatePolicy.calculateAccumulate(request.getTotalPrice());
 
         Mileage mileage = mileageRepository.findOneByEmail(request.getEmail());
+        mileage.decreaseMileage(calculatedMileage);
         mileage.increaseMileage(request.getSpentMileage());
 
         log.info(KafkaLog.ROLLBACK_MILEAGE_SUCCESS.getValue());
