@@ -27,4 +27,9 @@ public class UploadFile {
         this.saveFileName = saveFileName;
         this.item = item;
     }
+
+    public void create(String saveFileName, Item item) {
+        this.saveFileName = saveFileName;
+        this.item = item;
+    }
 }

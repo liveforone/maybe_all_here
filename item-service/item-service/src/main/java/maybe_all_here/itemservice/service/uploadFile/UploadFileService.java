@@ -5,12 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import maybe_all_here.itemservice.async.AsyncConstant;
 import maybe_all_here.itemservice.domain.Item;
 import maybe_all_here.itemservice.domain.UploadFile;
-import maybe_all_here.itemservice.dto.uploadFile.UploadFileRequest;
 import maybe_all_here.itemservice.repository.item.ItemRepository;
 import maybe_all_here.itemservice.repository.uploadFile.UploadFileRepository;
 import maybe_all_here.itemservice.service.uploadFile.constant.FileLog;
 import maybe_all_here.itemservice.service.uploadFile.constant.FilePathConstant;
-import maybe_all_here.itemservice.service.uploadFile.util.UploadFileMapper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,11 +36,10 @@ public class UploadFileService {
             String saveFileName = makeSaveFileName(file);
             file.transferTo(new File(saveFileName));
 
-            UploadFileRequest dto = UploadFileRequest.builder()
-                    .saveFileName(saveFileName)
-                    .item(item)
-                    .build();
-            uploadFileRepository.save(UploadFileMapper.dtoToEntity(dto));
+            UploadFile uf = UploadFile.builder().build();
+            uf.create(saveFileName, item);
+
+            uploadFileRepository.save(uf);
         }
     }
 
