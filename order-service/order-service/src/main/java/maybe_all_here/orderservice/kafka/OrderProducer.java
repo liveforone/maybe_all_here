@@ -23,6 +23,19 @@ public class OrderProducer {
     Gson gson = new Gson();
 
     @Async(AsyncConstant.commandAsync)
+    public void rollbackRemaining(Orders orders) {
+        ItemRemainingRequest request = ItemRemainingRequest.builder()
+                .itemId(orders.getItemId())
+                .orderQuantity(orders.getOrderQuantity())
+                .build();
+
+        String jsonOrder = gson.toJson(request);
+        String topic = Topic.ROLLBACK_REMAINING;
+        kafkaTemplate.send(topic, jsonOrder);
+        log.info(KafkaLog.KAFKA_SEND_LOG.getValue() + topic);
+    }
+
+    @Async(AsyncConstant.commandAsync)
     public void decreaseRemaining(Orders orders) {
         ItemRemainingRequest request = ItemRemainingRequest.builder()
                 .itemId(orders.getItemId())
