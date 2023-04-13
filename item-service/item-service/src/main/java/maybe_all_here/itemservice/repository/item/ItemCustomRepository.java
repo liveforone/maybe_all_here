@@ -11,7 +11,6 @@ public interface ItemCustomRepository {
     Item findOneById(Long itemId);
     List<Item> findItemsByShopId(Long shopId, Long lastId, int pageSize);
     List<Item> searchItemsByKeyword(String keyword, Long lastId, int pageSize);
-    void editRemainingById(long remaining, Long itemId);
     void deleteItemById(Long itemId);
     void decreaseRemaining(ItemRemainingRequest itemRemainingRequest);
     void increaseGood(Long itemId);

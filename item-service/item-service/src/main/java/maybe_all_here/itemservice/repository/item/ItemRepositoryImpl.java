@@ -71,13 +71,6 @@ public class ItemRepositoryImpl implements ItemCustomRepository {
                 .fetch();
     }
 
-    public void editRemainingById(long remaining, Long itemId) {
-        queryFactory.update(item)
-                .set(item.remaining, item.remaining.add(remaining))
-                .where(item.id.eq(itemId))
-                .execute();
-    }
-
     public void deleteItemById(Long itemId) {
         queryFactory.delete(item)
                 .where(item.id.eq(itemId))
