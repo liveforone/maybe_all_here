@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RollbackMileageRequest {
+    private long totalPrice;
     private long spentMileage;
     private String email;
 }

@@ -78,6 +78,7 @@ public class OrderProducer {
     @Async(AsyncConstant.commandAsync)
     public void rollbackMileage(Orders orders) {
         RollbackMileageRequest request = RollbackMileageRequest.builder()
+                .totalPrice(orders.getTotalPrice())
                 .spentMileage(orders.getSpentMileage())
                 .email(orders.getEmail())
                 .build();
