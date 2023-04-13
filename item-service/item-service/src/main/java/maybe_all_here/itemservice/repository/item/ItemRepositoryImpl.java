@@ -74,11 +74,4 @@ public class ItemRepositoryImpl implements ItemCustomRepository {
                 .where(item.id.eq(itemId))
                 .execute();
     }
-
-    public void increaseBad(Long itemId) {
-        queryFactory.update(item)
-                .set(item.bad, item.bad.add(RECOMMEND))
-                .where(item.id.eq(itemId))
-                .execute();
-    }
 }
