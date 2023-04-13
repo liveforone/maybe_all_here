@@ -24,6 +24,23 @@ public class ItemConsumer {
     private final ItemRepository itemRepository;
     ObjectMapper objectMapper = new ObjectMapper();
 
+    @KafkaListener(topics = Topic.ROLLBACK_REMAINING)
+    @Async(AsyncConstant.commandAsync)
+    @Transactional
+    public void rollbackRemaining(String kafkaMessage) throws JsonProcessingException {
+        log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);
+
+        ItemRemainingRequest request = objectMapper.readValue(kafkaMessage, ItemRemainingRequest.class);
+
+        if (CommonUtils.isNull(request)) {
+            log.info(KafkaLog.KAFKA_NULL_LOG.getValue());
+        } else {
+            Item item = itemRepository.findOneById(request.getItemId());
+            item.increaseRemaining(request.getOrderQuantity());
+            log.info(KafkaLog.DECREASE_REMAINING_SUCCESS.getValue() + request.getItemId());
+        }
+    }
+
     @KafkaListener(topics = Topic.DECREASE_REMAINING)
     @Async(AsyncConstant.commandAsync)
     @Transactional
