@@ -29,7 +29,6 @@ public class UploadFileService {
     private final ItemRepository itemRepository;
 
     @Transactional
-    @Async(AsyncConstant.commandAsync)
     public void saveFile(List<MultipartFile> uploadFile, Long itemId) throws IOException {
         Item item = itemRepository.findOneById(itemId);
         for (MultipartFile file : uploadFile) {
