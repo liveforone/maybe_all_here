@@ -46,17 +46,16 @@ public class OrderService {
     public Long order(
             OrderRequest orderRequest, ItemProvideResponse item, String email
     ) {
-        OrderRequest finalRequest = OrderMapper.dtoToCalculatedDto(orderRequest, item, email);
+        Orders orders = Orders.builder().build();
+        orders.order(orderRequest, item, email);
 
-        if (finalRequest.getSpentMileage() != ZERO) {
-            orderProducer.decreaseMileage(finalRequest);
+        if (orders.getSpentMileage() != ZERO) {
+            orderProducer.decreaseMileage(orders);
         }
-        orderProducer.increaseMileage(finalRequest);
-        orderProducer.decreaseRemaining(finalRequest);
+        orderProducer.increaseMileage(orders);
+        orderProducer.decreaseRemaining(orders);
 
-        return orderRepository
-                .save(OrderMapper.dtoToEntity(finalRequest))
-                .getId();
+        return orderRepository.save(orders).getId();
     }
 
     @Transactional
