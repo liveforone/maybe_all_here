@@ -3,9 +3,11 @@ package maybe_all_here.itemservice.kafka;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import maybe_all_here.itemservice.async.AsyncConstant;
 import maybe_all_here.itemservice.kafka.constant.KafkaLog;
 import maybe_all_here.itemservice.kafka.constant.Topic;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +18,7 @@ public class ItemProducer {
     private final KafkaTemplate<String, String> kafkaTemplate;
     Gson gson = new Gson();
 
+    @Async(AsyncConstant.commandAsync)
     public void removeBelongReview(Long itemId) {
         String jsonOrder = gson.toJson(itemId);
 

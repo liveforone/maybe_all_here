@@ -4,12 +4,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import maybe_all_here.itemservice.async.AsyncConstant;
 import maybe_all_here.itemservice.dto.item.ItemRemainingRequest;
 import maybe_all_here.itemservice.kafka.constant.KafkaLog;
 import maybe_all_here.itemservice.kafka.constant.Topic;
 import maybe_all_here.itemservice.repository.item.ItemRepository;
 import maybe_all_here.itemservice.utility.CommonUtils;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +24,7 @@ public class ItemConsumer {
     ObjectMapper objectMapper = new ObjectMapper();
 
     @KafkaListener(topics = Topic.DECREASE_REMAINING)
+    @Async(AsyncConstant.commandAsync)
     @Transactional
     public void decreaseRemaining(String kafkaMessage) throws JsonProcessingException {
         log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);
@@ -37,6 +40,7 @@ public class ItemConsumer {
     }
 
     @KafkaListener(topics = Topic.ITEM_IS_GOOD)
+    @Async(AsyncConstant.commandAsync)
     @Transactional
     public void increaseItemGood(String kafkaMessage) throws JsonProcessingException {
         log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);
@@ -52,6 +56,7 @@ public class ItemConsumer {
     }
 
     @KafkaListener(topics = Topic.ITEM_IS_BAD)
+    @Async(AsyncConstant.commandAsync)
     @Transactional
     public void increaseItemBad(String kafkaMessage) throws JsonProcessingException {
         log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);

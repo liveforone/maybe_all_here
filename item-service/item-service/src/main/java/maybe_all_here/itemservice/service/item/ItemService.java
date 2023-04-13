@@ -1,6 +1,7 @@
 package maybe_all_here.itemservice.service.item;
 
 import lombok.RequiredArgsConstructor;
+import maybe_all_here.itemservice.async.AsyncConstant;
 import maybe_all_here.itemservice.domain.Item;
 import maybe_all_here.itemservice.domain.UploadFile;
 import maybe_all_here.itemservice.dto.item.ItemDetailResponse;
@@ -10,6 +11,7 @@ import maybe_all_here.itemservice.dto.item.ItemResponse;
 import maybe_all_here.itemservice.repository.item.ItemRepository;
 import maybe_all_here.itemservice.repository.uploadFile.UploadFileRepository;
 import maybe_all_here.itemservice.service.item.util.ItemMapper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -64,26 +66,31 @@ public class ItemService {
     }
 
     @Transactional
+    @Async(AsyncConstant.commandAsync)
     public void editTitleById(String title, Long itemId) {
         itemRepository.editTitleById(title, itemId);
     }
 
     @Transactional
+    @Async(AsyncConstant.commandAsync)
     public void editContentById(String content, Long itemId) {
         itemRepository.editContentById(content, itemId);
     }
 
     @Transactional
+    @Async(AsyncConstant.commandAsync)
     public void editPriceById(long price, Long itemId) {
         itemRepository.editPriceById(price, itemId);
     }
 
     @Transactional
+    @Async(AsyncConstant.commandAsync)
     public void editRemainingById(long remaining, Long itemId) {
         itemRepository.editRemainingById(remaining, itemId);
     }
 
     @Transactional
+    @Async(AsyncConstant.commandAsync)
     public void deleteItemById(Long itemId) {
         itemRepository.deleteItemById(itemId);
     }

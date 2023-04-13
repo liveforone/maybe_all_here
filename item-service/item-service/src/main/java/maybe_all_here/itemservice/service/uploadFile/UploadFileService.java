@@ -2,6 +2,7 @@ package maybe_all_here.itemservice.service.uploadFile;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import maybe_all_here.itemservice.async.AsyncConstant;
 import maybe_all_here.itemservice.domain.Item;
 import maybe_all_here.itemservice.domain.UploadFile;
 import maybe_all_here.itemservice.dto.uploadFile.UploadFileRequest;
@@ -10,6 +11,7 @@ import maybe_all_here.itemservice.repository.uploadFile.UploadFileRepository;
 import maybe_all_here.itemservice.service.uploadFile.constant.FileLog;
 import maybe_all_here.itemservice.service.uploadFile.constant.FilePathConstant;
 import maybe_all_here.itemservice.service.uploadFile.util.UploadFileMapper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +31,7 @@ public class UploadFileService {
     private final ItemRepository itemRepository;
 
     @Transactional
+    @Async(AsyncConstant.commandAsync)
     public void saveFile(List<MultipartFile> uploadFile, Long itemId) throws IOException {
         Item item = itemRepository.findOneById(itemId);
         for (MultipartFile file : uploadFile) {
@@ -49,6 +52,7 @@ public class UploadFileService {
     }
 
     @Transactional
+    @Async(AsyncConstant.commandAsync)
     public void editFile(List<MultipartFile> uploadFile, Long itemId) throws IOException {
         Item item = itemRepository.findOneById(itemId);
         deleteFile(item);
@@ -56,6 +60,7 @@ public class UploadFileService {
     }
 
     @Transactional
+    @Async(AsyncConstant.commandAsync)
     private void deleteFile(Item item) {
         List<UploadFile> files = uploadFileRepository.findFilesByItem(item);
 
@@ -70,6 +75,7 @@ public class UploadFileService {
     }
 
     @Transactional
+    @Async(AsyncConstant.commandAsync)
     public void deleteFileByItemId(Long itemId) {
         List<UploadFile> files = uploadFileRepository.findFilesByItemId(itemId);
 
