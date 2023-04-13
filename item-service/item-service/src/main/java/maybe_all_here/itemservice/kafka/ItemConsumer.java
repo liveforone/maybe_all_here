@@ -37,7 +37,7 @@ public class ItemConsumer {
         } else {
             Item item = itemRepository.findOneById(request.getItemId());
             item.increaseRemaining(request.getOrderQuantity());
-            log.info(KafkaLog.DECREASE_REMAINING_SUCCESS.getValue() + request.getItemId());
+            log.info(KafkaLog.ROLLBACK_REMAINING_SUCCESS.getValue() + item.getId());
         }
     }
 
@@ -54,7 +54,7 @@ public class ItemConsumer {
         } else {
             Item item = itemRepository.findOneById(request.getItemId());
             item.decreaseRemaining(request);
-            log.info(KafkaLog.DECREASE_REMAINING_SUCCESS.getValue() + request.getItemId());
+            log.info(KafkaLog.DECREASE_REMAINING_SUCCESS.getValue() + item.getId());
         }
     }
 
