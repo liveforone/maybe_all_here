@@ -1,6 +1,7 @@
 package maybe_all_here.orderservice.service;
 
 import lombok.RequiredArgsConstructor;
+import maybe_all_here.orderservice.async.AsyncConstant;
 import maybe_all_here.orderservice.domain.Orders;
 import maybe_all_here.orderservice.dto.item.ItemProvideResponse;
 import maybe_all_here.orderservice.dto.order.OrderProvideResponse;
@@ -9,6 +10,7 @@ import maybe_all_here.orderservice.dto.order.OrderResponse;
 import maybe_all_here.orderservice.kafka.OrderProducer;
 import maybe_all_here.orderservice.repository.OrderRepository;
 import maybe_all_here.orderservice.service.util.OrderMapper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,8 +61,10 @@ public class OrderService {
     }
 
     @Transactional
+    @Async(AsyncConstant.commandAsync)
     public void cancelOrder(Long orderId) {
+        Orders orders = orderRepository.findOneById(orderId);
+        orders.cancel();
         orderProducer.removeReviewBelongOrder(orderId);
-        orderRepository.cancelOneById(orderId);
     }
 }

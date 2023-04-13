@@ -74,4 +74,8 @@ public class Orders {
         this.itemId = item.getId();
         this.orderState = OrderState.ORDER;
     }
+
+    public void cancel() {
+        this.orderState = OrderState.CANCEL;
+    }
 }
