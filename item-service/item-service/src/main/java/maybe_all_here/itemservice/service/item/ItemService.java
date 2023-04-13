@@ -58,11 +58,10 @@ public class ItemService {
 
     @Transactional
     public Long createItem(ItemRequest itemRequest, Long shopId) {
-        itemRequest.setShopId(shopId);
+        Item item = Item.builder().build();
+        item.create(itemRequest, shopId);
 
-        return itemRepository
-                .save(ItemMapper.dtoToEntity(itemRequest))
-                .getId();
+        return itemRepository.save(item).getId();
     }
 
     @Transactional

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import maybe_all_here.itemservice.dto.item.ItemRequest;
 
 @Entity
 @Getter
@@ -41,5 +42,16 @@ public class Item {
         this.remaining = remaining;
         this.good = good;
         this.bad = bad;
+    }
+
+    public void create(ItemRequest itemRequest, Long shopId) {
+        itemRequest.setShopId(shopId);
+
+        this.id = itemRequest.getId();
+        this.shopId = itemRequest.getShopId();
+        this.title = itemRequest.getTitle();
+        this.content = itemRequest.getContent();
+        this.price = itemRequest.getPrice();
+        this.remaining = itemRequest.getRemaining();
     }
 }
