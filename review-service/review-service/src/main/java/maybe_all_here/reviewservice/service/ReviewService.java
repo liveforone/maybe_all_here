@@ -1,6 +1,7 @@
 package maybe_all_here.reviewservice.service;
 
 import lombok.RequiredArgsConstructor;
+import maybe_all_here.reviewservice.async.AsyncConstant;
 import maybe_all_here.reviewservice.dto.order.OrderProvideResponse;
 import maybe_all_here.reviewservice.dto.review.ReviewEditRequest;
 import maybe_all_here.reviewservice.dto.review.ReviewRequest;
@@ -8,6 +9,7 @@ import maybe_all_here.reviewservice.dto.review.ReviewResponse;
 import maybe_all_here.reviewservice.kafka.ReviewProducer;
 import maybe_all_here.reviewservice.repository.ReviewRepository;
 import maybe_all_here.reviewservice.service.util.ReviewMapper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,11 +47,13 @@ public class ReviewService {
     }
 
     @Transactional
+    @Async(AsyncConstant.commandAsync)
     public void editReviewById(ReviewEditRequest reviewEditRequest, Long reviewId) {
         reviewRepository.editReviewById(reviewEditRequest.getContent(), reviewId);
     }
 
     @Transactional
+    @Async(AsyncConstant.commandAsync)
     public void deleteReviewById(Long reviewId) {
         reviewRepository.deleteOneById(reviewId);
     }
