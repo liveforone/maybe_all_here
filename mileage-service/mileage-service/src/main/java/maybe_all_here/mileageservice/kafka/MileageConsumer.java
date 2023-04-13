@@ -39,6 +39,7 @@ public class MileageConsumer {
         } else {
             Mileage mileage = Mileage.builder().build();
             mileage.create(email);
+
             mileageRepository.save(mileage);
             log.info(KafkaLog.CREATE_MILEAGE_SUCCESS.getValue());
         }
@@ -56,7 +57,6 @@ public class MileageConsumer {
         Mileage mileage = mileageRepository.findOneByEmail(request.getEmail());
         mileage.increaseMileage(calculatedMileage);
 
-        mileageRepository.save(mileage);
         log.info(KafkaLog.INCREASE_MILEAGE_SUCCESS.getValue());
     }
 
@@ -67,10 +67,10 @@ public class MileageConsumer {
         log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);
 
         UsingMileageRequest request = objectMapper.readValue(kafkaMessage, UsingMileageRequest.class);
+
         Mileage mileage = mileageRepository.findOneByEmail(request.getEmail());
         mileage.decreaseMileage(request.getSpentMileage());
 
-        mileageRepository.save(mileage);
         log.info(KafkaLog.DECREASE_MILEAGE_SUCCESS.getValue());
     }
 }
