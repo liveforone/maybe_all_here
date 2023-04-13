@@ -11,8 +11,6 @@ public interface ReviewCustomRepository {
     Review findOneByOrderId(Long orderId);
     List<Review> findReviewsByItemId(Long itemId, Long lastId, int pageSize);
 
-    void editReviewById(String content, Long reviewId);
-
     void deleteOneById(Long reviewId);
 
     void deleteOneByOrderId(Long orderId);
