@@ -66,4 +66,8 @@ public class Item {
     public void updatePrice(long price) {
         this.price = price;
     }
+
+    public void updateRemaining(long remaining) {
+        this.remaining += remaining;
+    }
 }

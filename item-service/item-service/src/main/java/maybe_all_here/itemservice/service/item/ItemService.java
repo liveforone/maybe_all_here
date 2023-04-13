@@ -88,7 +88,8 @@ public class ItemService {
     @Transactional
     @Async(AsyncConstant.commandAsync)
     public void editRemainingById(long remaining, Long itemId) {
-        itemRepository.editRemainingById(remaining, itemId);
+        Item item = itemRepository.findOneById(itemId);
+        item.updateRemaining(remaining);
     }
 
     @Transactional
