@@ -3,6 +3,7 @@ package maybe_all_here.orderservice.kafka;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import maybe_all_here.orderservice.async.AsyncConstant;
 import maybe_all_here.orderservice.domain.Orders;
 import maybe_all_here.orderservice.dto.item.ItemRemainingRequest;
 import maybe_all_here.orderservice.dto.mileage.AccumulateRequest;
@@ -10,6 +11,7 @@ import maybe_all_here.orderservice.dto.mileage.UsingMileageRequest;
 import maybe_all_here.orderservice.kafka.constant.KafkaLog;
 import maybe_all_here.orderservice.kafka.constant.Topic;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,6 +22,7 @@ public class OrderProducer {
     private final KafkaTemplate<String, String> kafkaTemplate;
     Gson gson = new Gson();
 
+    @Async(AsyncConstant.commandAsync)
     public void decreaseRemaining(Orders orders) {
         ItemRemainingRequest request = ItemRemainingRequest.builder()
                 .itemId(orders.getItemId())
@@ -32,6 +35,7 @@ public class OrderProducer {
         log.info(KafkaLog.KAFKA_SEND_LOG.getValue() + topic);
     }
 
+    @Async(AsyncConstant.commandAsync)
     public void increaseMileage(Orders orders) {
         AccumulateRequest request = AccumulateRequest.builder()
                 .orderPrice(orders.getTotalPrice())
@@ -44,6 +48,7 @@ public class OrderProducer {
         log.info(KafkaLog.KAFKA_SEND_LOG.getValue() + topic);
     }
 
+    @Async(AsyncConstant.commandAsync)
     public void decreaseMileage(Orders orders) {
         UsingMileageRequest request = UsingMileageRequest.builder()
                 .spentMileage(orders.getSpentMileage())
