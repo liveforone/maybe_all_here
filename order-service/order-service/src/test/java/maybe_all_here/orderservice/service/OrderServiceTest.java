@@ -1,6 +1,7 @@
 package maybe_all_here.orderservice.service;
 
 import jakarta.persistence.EntityManager;
+import maybe_all_here.orderservice.domain.OrderState;
 import maybe_all_here.orderservice.dto.item.ItemProvideResponse;
 import maybe_all_here.orderservice.dto.order.OrderRequest;
 import org.assertj.core.api.Assertions;
@@ -83,7 +84,7 @@ class OrderServiceTest {
 
         //then
         Assertions
-                .assertThat(orderService.getOrderById(orderId).getId())
-                .isNull();
+                .assertThat(orderService.getOrderById(orderId).getOrderState())
+                .isEqualTo(OrderState.CANCEL);
     }
 }
