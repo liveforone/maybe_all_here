@@ -59,6 +59,7 @@ docker-compose -f docker-compose-single-broker.yml down
 * 로컬 db와 kafka로 제작한 후에 모든 테스트를 마치고 yml 파일을 수정하는 것이 일반적이나,
 * 그대로 빌드하고 실행시 command에서 -e 옵션으로 yml을 수정해 배포할 수 있다.
 * 다만 너무 번거로우니 yml을 수정하고 배포하는 방식으로 한다.
+* 도커 이미지명은 반드시 소문자로 작성해야 빌드 가능하다.
 ```
 ./gradlew.bat clean build --exclude-task test
 docker build --tag yc4852/이미지:1.0 .

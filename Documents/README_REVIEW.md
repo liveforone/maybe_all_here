@@ -22,7 +22,7 @@
 ```
 [생성]
 {
-  "orderId" : 1,
+  "orderId": 1,
   "content": "test_content",
   "recommend": "true"
 }
@@ -34,10 +34,33 @@
 ```
 
 ## 서비스간 통신
-* Feign client : 주문 서비스에 주문 했는지 확인 요청
-* kafka producer : item-service에 추천/비추천
-* kafka consumer : 상품 삭제시 상품에 속한 리뷰 전체 삭제 요청
-* kafka consumer : 주문 취소시 리뷰 삭제
+### 주문 서비스에 주문 했는지 확인 요청
+* 리뷰 등록전 주문 하였는지 체크 하기위해 주문 정보 요청
+```
+url : /order-info/{orderId}
+response dto : OrderProvideResponse
+```
+### 리뷰 등록시 상품 추천/비추천 - producer
+* 리뷰를 등록하며 recommend값이 true이면 추천, false이면 비추천이다.
+* kafka producer로 요청한다.
+```
+request : itemId
+topic : item-is-good => 추천시
+topic : item-is-bad => 비 추천시
+```
+### 상품 삭제시 상품에 속한 리뷰 전체 삭제
+* 상품 삭제 시에 상품에 속한 리뷰를 전체 삭제한다.
+```
+request : itemId - consumer
+topic : remove-review-belong-item
+```
+### 주문 취소시 리뷰 삭제 - consumer
+* 주문 취소시 해당 주문에 속한 리뷰를 삭제한다.
+* 참고로 주문이 취소상태인 주문건에 대해 리뷰 작성이 서버에서 거부된다.
+```
+request : orderId
+topic : remove-review-belong-order
+```
 
 ## 추천/비추천 처리 방법
 * dto에서 recommand에 추천인지 비추천인지를 담어서 오면,

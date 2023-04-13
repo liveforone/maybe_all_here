@@ -77,9 +77,20 @@
 * 비밀번호와 마찬가지로 회원가입 후 변경이 가능합니다.
 
 ## 서비스간 통신
+### 회원 정보 전달
 * 타 서비스에 MemberResponse의 형태로 member info를 전달한다.
 ```
 [GET] /user-info/{email}
 ```
+### 회원 가입시 마일리지 생성
 * 회원가입시 kafka producer로 마일리지서비스에 create request를 보낸다.
-* 이때 email만 json 형식으로 보내고, 마일리지도 email을 파싱하면된다.
+```
+request : email
+topic : create-mileage
+```
+### 마일리지 조회
+* 마이페이지에서 나의 마일리지를 조회한다.
+```
+url : /my-mileage/{email}
+response dto : MileageResponse
+```
