@@ -93,7 +93,6 @@ public class ItemService {
     }
 
     @Transactional
-    @Async(AsyncConstant.commandAsync)
     public void deleteItemById(Long itemId) {
         itemRepository.deleteItemById(itemId);
     }

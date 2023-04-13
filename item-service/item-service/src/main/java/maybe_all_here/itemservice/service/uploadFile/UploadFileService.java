@@ -56,7 +56,6 @@ public class UploadFileService {
     }
 
     @Transactional
-    @Async(AsyncConstant.commandAsync)
     private void deleteFile(Item item) {
         List<UploadFile> files = uploadFileRepository.findFilesByItem(item);
 
@@ -71,7 +70,6 @@ public class UploadFileService {
     }
 
     @Transactional
-    @Async(AsyncConstant.commandAsync)
     public void deleteFileByItemId(Long itemId) {
         List<UploadFile> files = uploadFileRepository.findFilesByItemId(itemId);
 
