@@ -98,7 +98,8 @@ public class MemberService {
     @Async(AsyncConstant.commandAsync)
     public void updateEmail(String email, ChangeEmailRequest changeEmailRequest) {
         String newEmail = changeEmailRequest.getEmail();
-        memberRepository.updateEmail(email, newEmail);
+        Member member = memberRepository.findByEmail(email);
+        member.updateEmail(newEmail);
     }
 
     @Transactional

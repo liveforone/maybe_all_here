@@ -77,6 +77,10 @@ public class Member implements UserDetails {
         this.auth = request.getAuth();
     }
 
+    public void updateEmail(String email) {
+        this.email = email;
+    }
+
     //==End Domain Logic Space==//
 
 
