@@ -79,4 +79,8 @@ public class Item {
     public void increaseGood() {
         this.good += ItemConstant.RECOMMEND;
     }
+
+    public void increaseBad() {
+        this.bad += ItemConstant.RECOMMEND;
+    }
 }
