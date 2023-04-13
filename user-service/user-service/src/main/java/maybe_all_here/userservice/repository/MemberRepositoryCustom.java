@@ -7,7 +7,5 @@ public interface MemberRepositoryCustom {
 
     Member findByEmail(String email);
 
-    void updatePassword(String password, String email);
-
     void deleteByEmail(String email);
 }
