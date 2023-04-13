@@ -4,7 +4,6 @@ import maybe_all_here.itemservice.domain.Item;
 import maybe_all_here.itemservice.domain.UploadFile;
 import maybe_all_here.itemservice.dto.item.ItemDetailResponse;
 import maybe_all_here.itemservice.dto.item.ItemProvideResponse;
-import maybe_all_here.itemservice.dto.item.ItemRequest;
 import maybe_all_here.itemservice.dto.item.ItemResponse;
 import maybe_all_here.itemservice.utility.CommonUtils;
 
@@ -13,17 +12,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ItemMapper {
-
-    public static Item dtoToEntity(ItemRequest itemRequest) {
-        return Item.builder()
-                .id(itemRequest.getId())
-                .shopId(itemRequest.getShopId())
-                .title(itemRequest.getTitle())
-                .content(itemRequest.getContent())
-                .price(itemRequest.getPrice())
-                .remaining(itemRequest.getRemaining())
-                .build();
-    }
 
     public static ItemResponse entityToDto(Item item) {
         if (CommonUtils.isNull(item)) {
