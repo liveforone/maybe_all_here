@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import maybe_all_here.mileageservice.async.AsyncConstant;
 import maybe_all_here.mileageservice.domain.Mileage;
 import maybe_all_here.mileageservice.dto.updateMileage.AccumulateRequest;
+import maybe_all_here.mileageservice.dto.updateMileage.RollbackMileageRequest;
 import maybe_all_here.mileageservice.dto.updateMileage.UsingMileageRequest;
 import maybe_all_here.mileageservice.kafka.constant.KafkaLog;
 import maybe_all_here.mileageservice.kafka.constant.Topic;
@@ -72,5 +73,19 @@ public class MileageConsumer {
         mileage.decreaseMileage(request.getSpentMileage());
 
         log.info(KafkaLog.DECREASE_MILEAGE_SUCCESS.getValue());
+    }
+
+    @KafkaListener(topics = Topic.ROLLBACK_MILEAGE)
+    @Async(AsyncConstant.commandAsync)
+    @Transactional
+    public void rollbackMileage(String kafkaMessage) throws JsonProcessingException {
+        log.info(KafkaLog.KAFKA_RECEIVE_LOG.getValue() + kafkaMessage);
+
+        RollbackMileageRequest request = objectMapper.readValue(kafkaMessage, RollbackMileageRequest.class);
+
+        Mileage mileage = mileageRepository.findOneByEmail(request.getEmail());
+        mileage.increaseMileage(request.getSpentMileage());
+
+        log.info(KafkaLog.INCREASE_MILEAGE_SUCCESS.getValue());
     }
 }
