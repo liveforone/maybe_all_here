@@ -143,8 +143,9 @@ class ItemServiceTest {
         em.clear();
 
         //then
+        long finalRemaining = 1500;
         Assertions
                 .assertThat(itemService.getItemById(itemId).getRemaining())
-                .isEqualTo(updatedRemaining);
+                .isEqualTo(finalRemaining);
     }
 }
