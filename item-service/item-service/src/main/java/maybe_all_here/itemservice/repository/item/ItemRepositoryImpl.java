@@ -71,13 +71,6 @@ public class ItemRepositoryImpl implements ItemCustomRepository {
                 .fetch();
     }
 
-    public void editTitleById(String title, Long itemId) {
-        queryFactory.update(item)
-                .set(item.title, title)
-                .where(item.id.eq(itemId))
-                .execute();
-    }
-
     public void editContentById(String content, Long itemId) {
         queryFactory.update(item)
                 .set(item.content, content)
