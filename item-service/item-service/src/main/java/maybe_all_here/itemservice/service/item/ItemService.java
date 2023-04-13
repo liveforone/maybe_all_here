@@ -67,7 +67,9 @@ public class ItemService {
     @Transactional
     @Async(AsyncConstant.commandAsync)
     public void editTitleById(String title, Long itemId) {
-        itemRepository.editTitleById(title, itemId);
+        Item item = itemRepository.findOneById(itemId);
+        item.updateTitle(title);
+        itemRepository.save(item);
     }
 
     @Transactional

@@ -54,4 +54,8 @@ public class Item {
         this.price = itemRequest.getPrice();
         this.remaining = itemRequest.getRemaining();
     }
+
+    public void updateTitle(String title) {
+        this.title = title;
+    }
 }
