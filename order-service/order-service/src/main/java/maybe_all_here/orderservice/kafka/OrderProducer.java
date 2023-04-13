@@ -3,10 +3,10 @@ package maybe_all_here.orderservice.kafka;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import maybe_all_here.orderservice.domain.Orders;
 import maybe_all_here.orderservice.dto.item.ItemRemainingRequest;
 import maybe_all_here.orderservice.dto.mileage.AccumulateRequest;
 import maybe_all_here.orderservice.dto.mileage.UsingMileageRequest;
-import maybe_all_here.orderservice.dto.order.OrderRequest;
 import maybe_all_here.orderservice.kafka.constant.KafkaLog;
 import maybe_all_here.orderservice.kafka.constant.Topic;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -20,10 +20,10 @@ public class OrderProducer {
     private final KafkaTemplate<String, String> kafkaTemplate;
     Gson gson = new Gson();
 
-    public void decreaseRemaining(OrderRequest orderRequest) {
+    public void decreaseRemaining(Orders orders) {
         ItemRemainingRequest request = ItemRemainingRequest.builder()
-                .itemId(orderRequest.getItemId())
-                .orderQuantity(orderRequest.getOrderQuantity())
+                .itemId(orders.getItemId())
+                .orderQuantity(orders.getOrderQuantity())
                 .build();
 
         String jsonOrder = gson.toJson(request);
@@ -32,10 +32,10 @@ public class OrderProducer {
         log.info(KafkaLog.KAFKA_SEND_LOG.getValue() + topic);
     }
 
-    public void increaseMileage(OrderRequest orderRequest) {
+    public void increaseMileage(Orders orders) {
         AccumulateRequest request = AccumulateRequest.builder()
-                .orderPrice(orderRequest.getTotalPrice())
-                .email(orderRequest.getEmail())
+                .orderPrice(orders.getTotalPrice())
+                .email(orders.getEmail())
                 .build();
 
         String jsonOrder = gson.toJson(request);
@@ -44,10 +44,10 @@ public class OrderProducer {
         log.info(KafkaLog.KAFKA_SEND_LOG.getValue() + topic);
     }
 
-    public void decreaseMileage(OrderRequest orderRequest) {
+    public void decreaseMileage(Orders orders) {
         UsingMileageRequest request = UsingMileageRequest.builder()
-                .spentMileage(orderRequest.getSpentMileage())
-                .email(orderRequest.getEmail())
+                .spentMileage(orders.getSpentMileage())
+                .email(orders.getEmail())
                 .build();
 
         String jsonOrder = gson.toJson(request);
