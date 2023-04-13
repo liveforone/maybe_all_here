@@ -7,6 +7,7 @@ import maybe_all_here.orderservice.async.AsyncConstant;
 import maybe_all_here.orderservice.domain.Orders;
 import maybe_all_here.orderservice.dto.item.ItemRemainingRequest;
 import maybe_all_here.orderservice.dto.mileage.AccumulateRequest;
+import maybe_all_here.orderservice.dto.mileage.RollbackMileageRequest;
 import maybe_all_here.orderservice.dto.mileage.UsingMileageRequest;
 import maybe_all_here.orderservice.kafka.constant.KafkaLog;
 import maybe_all_here.orderservice.kafka.constant.Topic;
@@ -21,19 +22,6 @@ public class OrderProducer {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
     Gson gson = new Gson();
-
-    @Async(AsyncConstant.commandAsync)
-    public void rollbackRemaining(Orders orders) {
-        ItemRemainingRequest request = ItemRemainingRequest.builder()
-                .itemId(orders.getItemId())
-                .orderQuantity(orders.getOrderQuantity())
-                .build();
-
-        String jsonOrder = gson.toJson(request);
-        String topic = Topic.ROLLBACK_REMAINING;
-        kafkaTemplate.send(topic, jsonOrder);
-        log.info(KafkaLog.KAFKA_SEND_LOG.getValue() + topic);
-    }
 
     @Async(AsyncConstant.commandAsync)
     public void decreaseRemaining(Orders orders) {
@@ -73,7 +61,34 @@ public class OrderProducer {
         kafkaTemplate.send(topic, jsonOrder);
         log.info(KafkaLog.KAFKA_SEND_LOG.getValue() + topic);
     }
-    
+
+    @Async(AsyncConstant.commandAsync)
+    public void rollbackRemaining(Orders orders) {
+        ItemRemainingRequest request = ItemRemainingRequest.builder()
+                .itemId(orders.getItemId())
+                .orderQuantity(orders.getOrderQuantity())
+                .build();
+
+        String jsonOrder = gson.toJson(request);
+        String topic = Topic.ROLLBACK_REMAINING;
+        kafkaTemplate.send(topic, jsonOrder);
+        log.info(KafkaLog.KAFKA_SEND_LOG.getValue() + topic);
+    }
+
+    @Async(AsyncConstant.commandAsync)
+    public void rollbackMileage(Orders orders) {
+        RollbackMileageRequest request = RollbackMileageRequest.builder()
+                .spentMileage(orders.getSpentMileage())
+                .email(orders.getEmail())
+                .build();
+
+        String jsonOrder = gson.toJson(request);
+        String topic = Topic.ROLLBACK_MILEAGE;
+        kafkaTemplate.send(topic, jsonOrder);
+        log.info(KafkaLog.KAFKA_SEND_LOG.getValue() + topic);
+    }
+
+    @Async(AsyncConstant.commandAsync)
     public void removeReviewBelongOrder(Long orderId) {
         String jsonOrder = gson.toJson(orderId);
         String topic = Topic.REMOVE_REVIEW_BELONG_ORDER;
