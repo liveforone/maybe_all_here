@@ -35,6 +35,7 @@ public class OrderMapper {
                 .totalPrice(orders.getTotalPrice())
                 .discountedPrice(orders.getDiscountedPrice())
                 .orderState(orders.getOrderState())
+                .createdDate(orders.getCreatedDate())
                 .build();
     }
 

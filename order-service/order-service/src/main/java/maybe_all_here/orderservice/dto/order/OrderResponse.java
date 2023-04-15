@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import maybe_all_here.orderservice.domain.OrderState;
 
+import java.time.LocalDate;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -18,4 +20,5 @@ public class OrderResponse {
     private long totalPrice;
     private long discountedPrice;
     private OrderState orderState;
+    private LocalDate createdDate;
 }
