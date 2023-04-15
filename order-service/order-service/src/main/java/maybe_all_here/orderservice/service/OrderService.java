@@ -33,9 +33,7 @@ public class OrderService {
     }
 
     public List<OrderResponse> getOrdersByEmail(String email, Long lastId, int pageSize) {
-        return OrderMapper.entityToDtoList(
-                orderRepository.findOrdersByEmail(email, lastId, pageSize)
-        );
+        return orderRepository.findOrdersByEmail(email, lastId, pageSize);
     }
 
     public OrderResponse getOrderById(Long orderId) {

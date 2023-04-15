@@ -1,10 +1,12 @@
 package maybe_all_here.orderservice.repository;
 
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import maybe_all_here.orderservice.domain.Orders;
 import maybe_all_here.orderservice.domain.QOrders;
+import maybe_all_here.orderservice.dto.order.OrderResponse;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -30,8 +32,17 @@ public class OrderRepositoryImpl implements OrderCustomRepository {
                 .fetchOne();
     }
 
-    public List<Orders> findOrdersByEmail(String email, Long lastId, int pageSize) {
-        return queryFactory.selectFrom(orders)
+    public List<OrderResponse> findOrdersByEmail(String email, Long lastId, int pageSize) {
+        return queryFactory.select(Projections.constructor(OrderResponse.class,
+                orders.id,
+                orders.itemTitle,
+                orders.orderQuantity,
+                orders.totalPrice,
+                orders.discountedPrice,
+                orders.orderState,
+                orders.createdDate
+                ))
+                .from(orders)
                 .where(
                         orders.email.eq(email),
                         ltOrderId(lastId)
