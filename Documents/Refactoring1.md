@@ -28,9 +28,42 @@
 * 엔티티를 항상 조회해야 하는 성능 부담이 있을 수 있는데,
 * 사실 PK 기반의 데이터 단건 조회이기 때문에 전체 성능에 거의 영향을 미치지 않는다.
 ### 주의 사항
-* 더하고 빼는 연산에 주의해야한다. 
+* 더하고 빼는 연산에 주의해야한다.
 * 계산연산의 경우 계산을 잘 작성하고, 상수를 적극 활용해 가독성을 확보한다.
 ```
 this.object += 값
 this.object -= 값
+```
+### 스타일 가이드 참조
+* 스타일 가이드에서도 도메인 모델 패턴의 장점에 대해 설명하며, 프로젝트 적용법에 대해 설명해놓았다.
+* [도메인 모델 패턴 - 스타일 가이드](https://github.com/liveforone/study/blob/main/%5B%EB%82%98%EB%A7%8C%EC%9D%98%20%EC%8A%A4%ED%83%80%EC%9D%BC%20%EA%B0%80%EC%9D%B4%EB%93%9C%5D/q.%20%EB%8F%84%EB%A9%94%EC%9D%B8%20%EB%AA%A8%EB%8D%B8%20%ED%8C%A8%ED%84%B4(%EB%8D%94%ED%8B%B0%EC%B2%B4%ED%82%B9).md)
+
+## 3. 리스트나 페이징으로 다량데이터 조회시 dto 프로젝션 사용
+* 컴퓨터는 암달의 법칙에서도 알 수 있듯이 결국 가장 공통되는, 가장 많이 일을 하는 부분의 리소스를 줄이는 것이 곧 성능으로 이어진다.
+* 가장 많은 부하를 가져다 주는 것은 다름아닌, 다량의 데이터를 조회하는 부분이다.
+* 업데이트와 같은 쓰기보단 읽기 쿼리가 더욱 많은데, 그 중에서도 다량의 데이터를 조회하는 쿼리는 상당히 빈번히 요청된다.
+* 이 경우 엔티티로 가져와서 mapper를 이용해 dto로 변환시켜 리턴하기보다는,
+* 아예 가져올때부터 dto로 가져오는 dto 프로젝션을 이용하면 성능을 올릴 수 있다.
+* 띠리서 다량의 데이터조회 쿼리, 즉 list나 페이징 시에 dto 프로젝션을 사용하도록 하였다.
+* 쿼리 dsl에서 지원하는 Projections.constructor() 사용하면된다.
+* msa 특성상 조인을 할일이 거의 없으나, 간혹 테이블이 두개 이상인 경우가 있다.
+* 이때 주의 할 점은, dto 프로젝션에서 페치조인을 사용하면 안된다.
+```
+ return queryFactory
+    .select(Projections.constructor(ReviewResponse.class,
+        review.id,
+        review.email,
+        review.orderId,
+        review.content,
+        review.recommend,
+        review.createdDate)
+        )
+    .from(review)
+    .where(
+            review.itemId.eq(itemId),
+            ltReviewId(lastId)
+    )
+    .orderBy(review.id.desc())
+    .limit(pageSize)
+    .fetch();
 ```
