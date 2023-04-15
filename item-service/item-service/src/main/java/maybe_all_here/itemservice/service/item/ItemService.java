@@ -3,7 +3,6 @@ package maybe_all_here.itemservice.service.item;
 import lombok.RequiredArgsConstructor;
 import maybe_all_here.itemservice.async.AsyncConstant;
 import maybe_all_here.itemservice.domain.Item;
-import maybe_all_here.itemservice.domain.UploadFile;
 import maybe_all_here.itemservice.dto.item.ItemDetailResponse;
 import maybe_all_here.itemservice.dto.item.ItemProvideResponse;
 import maybe_all_here.itemservice.dto.item.ItemRequest;
@@ -35,9 +34,9 @@ public class ItemService {
 
     public ItemDetailResponse getItemDetailById(Long itemId) {
         Item item = itemRepository.findOneById(itemId);
-        List<UploadFile> files = uploadFileRepository.findFilesByItem(item);
+        List<String> saveFileNames = uploadFileRepository.findFilesByItem(item);
 
-        return ItemMapper.entityToDtoDetail(item, files);
+        return ItemMapper.entityToDtoDetail(item, saveFileNames);
     }
 
     public ItemProvideResponse getItemProvideById(Long itemId) {

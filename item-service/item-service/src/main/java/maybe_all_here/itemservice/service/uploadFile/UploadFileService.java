@@ -57,29 +57,24 @@ public class UploadFileService {
 
     @Transactional
     private void deleteFile(Item item) {
-        List<UploadFile> files = uploadFileRepository.findFilesByItem(item);
-
-        for (UploadFile uploadFile : files) {
-            String saveFileName = uploadFile.getSaveFileName();
-            File file = new File(FilePathConstant.FILE_PATH + saveFileName);
-            if (file.delete()) {
-                log.info(FileLog.FILE_DELETE.getValue() + saveFileName);
-            }
-        }
+        List<String> saveFileNames = uploadFileRepository.findFilesByItem(item);
+        removeLocalFile(saveFileNames);
         uploadFileRepository.deleteBulkFileByItem(item);
     }
 
     @Transactional
     public void deleteFileByItemId(Long itemId) {
-        List<UploadFile> files = uploadFileRepository.findFilesByItemId(itemId);
+        List<String> saveFileNames = uploadFileRepository.findFilesByItemId(itemId);
+        removeLocalFile(saveFileNames);
+        uploadFileRepository.deleteBulkFileByItemId(itemId);
+    }
 
-        for (UploadFile uploadFile : files) {
-            String saveFileName = uploadFile.getSaveFileName();
+    private void removeLocalFile(List<String> saveFileNames) {
+        for (String saveFileName: saveFileNames) {
             File file = new File(FilePathConstant.FILE_PATH + saveFileName);
             if (file.delete()) {
                 log.info(FileLog.FILE_DELETE.getValue() + saveFileName);
             }
         }
-        uploadFileRepository.deleteBulkFileByItemId(itemId);
     }
 }
