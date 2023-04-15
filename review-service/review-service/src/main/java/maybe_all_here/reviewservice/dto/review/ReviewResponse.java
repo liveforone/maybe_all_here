@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -16,4 +18,5 @@ public class ReviewResponse {
     private Long orderId;
     private String content;
     private String recommend;
+    private LocalDate createdDate;
 }
