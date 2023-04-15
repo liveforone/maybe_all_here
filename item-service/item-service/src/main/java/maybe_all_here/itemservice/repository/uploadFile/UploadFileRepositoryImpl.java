@@ -1,11 +1,11 @@
 package maybe_all_here.itemservice.repository.uploadFile;
 
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import maybe_all_here.itemservice.domain.Item;
 import maybe_all_here.itemservice.domain.QItem;
 import maybe_all_here.itemservice.domain.QUploadFile;
-import maybe_all_here.itemservice.domain.UploadFile;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,16 +18,27 @@ public class UploadFileRepositoryImpl implements UploadFileCustomRepository {
     QUploadFile uploadFile = QUploadFile.uploadFile;
     QItem qItem = QItem.item;
 
-    public List<UploadFile> findFilesByItem(Item item) {
-        return queryFactory.selectFrom(uploadFile)
-                .join(uploadFile.item, qItem).fetchJoin()
+    public List<String> findFilesByItem(Item item) {
+        return queryFactory
+                .select(Projections.constructor(
+                        String.class,
+                        uploadFile.saveFileName)
+                )
+                .from(uploadFile)
+                .join(uploadFile.item, qItem)
                 .where(qItem.eq(item))
                 .orderBy(uploadFile.id.asc())
                 .fetch();
     }
 
-    public List<UploadFile> findFilesByItemId(Long itemId) {
-        return queryFactory.selectFrom(uploadFile)
+    public List<String> findFilesByItemId(Long itemId) {
+        return queryFactory
+                .select(Projections.constructor(
+                        String.class,
+                        uploadFile.saveFileName)
+                )
+                .from(uploadFile)
+                .join(uploadFile.item, qItem)
                 .where(uploadFile.item.id.eq(itemId))
                 .orderBy(uploadFile.id.asc())
                 .fetch();
