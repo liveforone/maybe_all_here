@@ -5,10 +5,6 @@ import maybe_all_here.orderservice.dto.order.OrderProvideResponse;
 import maybe_all_here.orderservice.dto.order.OrderResponse;
 import maybe_all_here.orderservice.utility.CommonUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class OrderMapper {
 
     public static OrderProvideResponse entityToProvideDto(Orders orders) {
@@ -37,16 +33,5 @@ public class OrderMapper {
                 .orderState(orders.getOrderState())
                 .createdDate(orders.getCreatedDate())
                 .build();
-    }
-
-    public static List<OrderResponse> entityToDtoList(List<Orders> orders) {
-        if (CommonUtils.isNull(orders)) {
-            return new ArrayList<>();
-        }
-
-        return orders
-                .stream()
-                .map(OrderMapper::entityToDto)
-                .collect(Collectors.toList());
     }
 }
