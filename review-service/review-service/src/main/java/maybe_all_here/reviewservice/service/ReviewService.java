@@ -30,9 +30,7 @@ public class ReviewService {
     }
 
     public List<ReviewResponse> getReviewsByItemId(Long itemId, Long lastId, int pageSize) {
-        return ReviewMapper.entityToDtoList(
-                reviewRepository.findReviewsByItemId(itemId, lastId, pageSize)
-        );
+        return reviewRepository.findReviewsByItemId(itemId, lastId, pageSize);
     }
 
     @Transactional

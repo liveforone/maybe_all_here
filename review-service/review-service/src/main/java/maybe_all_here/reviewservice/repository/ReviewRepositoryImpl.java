@@ -1,10 +1,12 @@
 package maybe_all_here.reviewservice.repository;
 
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import maybe_all_here.reviewservice.domain.QReview;
 import maybe_all_here.reviewservice.domain.Review;
+import maybe_all_here.reviewservice.dto.review.ReviewResponse;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -28,8 +30,17 @@ public class ReviewRepositoryImpl implements ReviewCustomRepository {
                 .fetchOne();
     }
 
-    public List<Review> findReviewsByItemId(Long itemId, Long lastId, int pageSize) {
-        return queryFactory.selectFrom(review)
+    public List<ReviewResponse> findReviewsByItemId(Long itemId, Long lastId, int pageSize) {
+        return queryFactory
+                .select(Projections.constructor(ReviewResponse.class,
+                        review.id,
+                        review.email,
+                        review.orderId,
+                        review.content,
+                        review.recommend,
+                        review.createdDate)
+                )
+                .from(review)
                 .where(
                         review.itemId.eq(itemId),
                         ltReviewId(lastId)
