@@ -58,7 +58,7 @@ public class ItemRepositoryImpl implements ItemCustomRepository {
     public List<Item> searchItemsByKeyword(String keyword, Long lastId, int pageSize) {
         return queryFactory.selectFrom(item)
                 .where(
-                        item.title.contains(keyword),
+                        item.title.startsWith(keyword),
                         ltItemId(lastId)
                 )
                 .orderBy(
