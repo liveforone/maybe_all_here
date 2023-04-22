@@ -25,7 +25,7 @@ public class Shop {
     @Column(nullable = false)
     private String tel;
 
-    @Column(unique = true, nullable = true, updatable = false)
+    @Column(unique = true, nullable = false, updatable = false)
     private String email;
 
     @Builder
