@@ -3,7 +3,7 @@ package maybe_all_here.userservice.controller;
 import lombok.RequiredArgsConstructor;
 import maybe_all_here.userservice.aop.stopwatch.LogExecutionTime;
 import maybe_all_here.userservice.controller.constant.MemberUrl;
-import maybe_all_here.userservice.controller.constant.ParamConstant;
+import maybe_all_here.userservice.controller.constant.MemberParam;
 import maybe_all_here.userservice.dto.response.MemberResponse;
 import maybe_all_here.userservice.service.MemberService;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ public class MemberProvideController {
 
     @PostMapping(MemberUrl.USER_INFO)
     @LogExecutionTime
-    public ResponseEntity<MemberResponse> userInfo(@PathVariable(ParamConstant.EMAIL) String email) {
+    public ResponseEntity<MemberResponse> userInfo(@PathVariable(MemberParam.EMAIL) String email) {
         MemberResponse member = memberService.getMemberByEmail(email);
 
         return ResponseEntity.ok(member);
