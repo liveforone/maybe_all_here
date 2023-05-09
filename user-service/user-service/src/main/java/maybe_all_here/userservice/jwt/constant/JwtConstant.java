@@ -1,6 +1,8 @@
 package maybe_all_here.userservice.jwt.constant;
 
-public class JwtConstant {
+public final class JwtConstant {
+
+    private JwtConstant() {}
 
     public static final String ACCESS_TOKEN = "access-token";
     public static final String REFRESH_TOKEN = "refresh-token";

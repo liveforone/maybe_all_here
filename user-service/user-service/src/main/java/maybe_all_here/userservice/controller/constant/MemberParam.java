@@ -1,6 +1,7 @@
 package maybe_all_here.userservice.controller.constant;
 
-public class ParamConstant {
+public final class MemberParam {
 
+    private MemberParam() {}
     public static final String EMAIL = "email";
 }
