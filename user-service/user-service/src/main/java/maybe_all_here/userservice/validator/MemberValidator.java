@@ -13,14 +13,14 @@ public class MemberValidator {
     private final MemberRepository memberRepository;
     static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public boolean isNotMatchingPassword(String inputPassword, String username) {
-        String foundPassword = memberRepository.findPasswordForValidation(username);
+    public boolean isNotMatchingPassword(String inputPassword, String email) {
+        String foundPassword = memberRepository.findPasswordForValidation(email);
 
         return !passwordEncoder.matches(inputPassword, foundPassword);
     }
 
-    public boolean isDuplicateEmail(String username) {
-        Long foundId = memberRepository.findIdForValidation(username);
+    public boolean isDuplicateEmail(String email) {
+        Long foundId = memberRepository.findIdForValidation(email);
 
         return !CommonUtils.isNull(foundId);
     }

@@ -13,19 +13,19 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
     private final JPAQueryFactory queryFactory;
     QMember member = QMember.member;
 
-    public Long findIdForValidation(String username) {
+    public Long findIdForValidation(String email) {
         return queryFactory
                 .select(member.id)
                 .from(member)
-                .where(member.username.eq(username))
+                .where(member.username.eq(email))
                 .fetchOne();
     }
 
-    public String findPasswordForValidation(String username) {
+    public String findPasswordForValidation(String email) {
         return queryFactory
                 .select(member.password)
                 .from(member)
-                .where(member.username.eq(username))
+                .where(member.username.eq(email))
                 .fetchOne();
     }
 
