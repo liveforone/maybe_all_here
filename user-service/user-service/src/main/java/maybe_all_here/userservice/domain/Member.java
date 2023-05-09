@@ -2,23 +2,20 @@ package maybe_all_here.userservice.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import maybe_all_here.userservice.domain.constant.MemberConstant;
 import maybe_all_here.userservice.dto.signupAndLogin.MemberSignupRequest;
 import maybe_all_here.userservice.service.util.PasswordUtils;
+import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Getter
-@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member implements UserDetails {
 
@@ -35,22 +32,24 @@ public class Member implements UserDetails {
     @Column(nullable = false)
     private String realName;
 
+    @Column(nullable = false, unique = true)
+    private String username;
+
     @Enumerated(value = EnumType.STRING)
     private Role auth;
 
-    @Builder
-    public Member(Long id, String email, String password, String realName, Role auth) {
-        this.id = id;
+    private Member(String email, String password, String realName, String username, Role auth) {
         this.email = email;
         this.password = password;
         this.realName = realName;
+        this.username = username;
         this.auth = auth;
     }
 
 
     //==Domain Logic Space==//
 
-    public void signup(MemberSignupRequest request) {
+    public static Member signup(MemberSignupRequest request) {
         final String ADMIN = "admin@maybeAllHere.com";
         if (Objects.equals(request.getEmail(), ADMIN)) {
             request.setAuth(Role.ADMIN);
@@ -59,22 +58,24 @@ public class Member implements UserDetails {
         }
         request.setPassword(PasswordUtils.encodePassword(request.getPassword()));
 
-        buildingMember(request);
+        return new Member(
+                request.getEmail(), request.getPassword(),
+                request.getRealName(), createUsername(), request.getAuth()
+        );
     }
 
-    public void signupSeller(MemberSignupRequest request) {
+    private static String createUsername() {
+        return UUID.randomUUID() + RandomStringUtils.randomAlphabetic(MemberConstant.RANDOM_STRING_LENGTH);
+    }
+
+    public static Member signupSeller(MemberSignupRequest request) {
         request.setPassword(PasswordUtils.encodePassword(request.getPassword()));
         request.setAuth(Role.SELLER);
 
-        buildingMember(request);
-    }
-
-    private void buildingMember(MemberSignupRequest request) {
-        this.id = request.getId();
-        this.email = request.getEmail();
-        this.password = request.getPassword();
-        this.realName = request.getRealName();
-        this.auth = request.getAuth();
+        return new Member(
+                request.getEmail(), request.getPassword(),
+                request.getRealName(), createUsername(), request.getAuth()
+        );
     }
 
     public void updateEmail(String newEmail) {
